@@ -1,2 +1,8 @@
 node_modules
 assets/static
+package-lock.json
+
+
+assets/css/build/*
+
+assets/js/build/*
