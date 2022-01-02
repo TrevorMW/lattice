@@ -1,0 +1,43 @@
+[data-tab-parent]{
+    border:1px solid #ddd;
+    border-top:0;
+    
+    ul {
+        display: flex;
+        margin:0;
+        padding:0;
+        list-style:none;
+
+        & li{
+            display: flex;
+            flex-grow:1;
+        }
+
+        & a{
+            text-align:center;
+            display: block;
+            width:100%;
+            padding:15px;
+            border:1px solid #ddd;
+
+            &:first-child{
+                border-left:0;
+            }
+
+            &:last-child{
+                border-right:0;
+            }
+
+            &:hover{
+                background-color:#ddd;
+            }
+        }
+    }
+}
+
+[data-tab]{
+
+    &.active{
+        min-height:300px;
+    }
+}

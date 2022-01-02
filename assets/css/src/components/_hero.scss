@@ -1,0 +1,199 @@
+// ==========================================================================
+// Hero
+// ==========================================================================
+
+.hero {
+  overflow: hidden;
+  position: relative;
+  display: block;
+
+  & picture {
+      position: static;
+      width: 100%;
+      height: auto;
+      display: block;
+
+      & img {
+          display: block;
+          width: inherit;
+          height: inherit;
+      }
+  }
+
+  & video {
+      display: block;
+      width: auto;
+      position: relative;
+      transform: translateX(-50%);
+      left: 50%;
+      height: 450px;
+  }
+
+  & .hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      max-width: 1280px;
+      padding: 30px 32px;
+      z-index: 2;
+      margin: 0 auto;
+  }
+
+  &.hero-split-text {
+      & .hero-split-subheading{
+          position: absolute;
+          bottom: 30px;
+          left: 0;
+          right: 0;
+          padding: 0 20px;
+          text-align: center;
+      }
+  }
+
+  & .hero-offset-heading{
+      text-align: center;
+
+      & > div{
+          text-align:center;
+          margin-bottom:14px;
+      }
+  }
+
+  & .hero-cta-group {
+      display: block;
+      left:0;
+      bottom:0;
+      margin: 0;
+      
+  }
+
+  @media screen and (min-width: 768px) {
+      & .hero-inner {
+          padding: 60px 40px 45px 40px;
+      }
+
+      & .hero-cta-group{
+          width:100%;
+          transform: none;
+          vertical-align: middle;
+      }
+  }
+
+  @media screen and (min-width: 1024px) {
+      
+      & .hero-offset_heading {
+          text-align: center;
+  
+          & > div{
+              position: absolute;
+              left:0;
+              top:50%;
+              transform:translateY(-50%);
+              text-align:left;
+              max-width:25vw;
+          }
+      }
+  }
+}
+
+// Utilities to handle alignment within container
+.hero-inner {
+  text-align: center;
+
+  .hero-split-text & {
+      align-items: flex-start;
+  }
+
+  .hero-top-sm & {
+      align-items: flex-start;
+  }
+
+  .hero-bottom-sm & {
+      align-items: flex-end;
+  }
+
+  @media screen and (min-width: 768px) {
+      .hero-top-sm &,
+      .hero-bottom-sm &{
+          align-items: center;
+      }
+
+      .hero-left & {
+          justify-content: flex-start;
+          text-align: left;
+      }
+
+      .hero-right &{
+          justify-content: flex-end;
+          text-align: right;
+      }
+
+      .hero-top &{
+          align-items: flex-start;
+      }
+
+      .hero-bottom &,
+      .hero--bottom &,
+      .hero__bottom & {
+          align-items: flex-end;
+      }
+  }
+}
+
+// Utilities to handle alignment within body element
+.hero-body {
+
+  &.hero-body-filled {
+      padding: 28px 28px 14px 28px;
+      background-color: #fff;
+
+      h1, h2, h3, h4, h5, h6, .h7, .h8, p{
+          color: #000;
+      }
+  }
+
+  & > p.hero-seo-copy{
+      max-width:500px;
+  }
+
+  @media screen and (min-width: 768px) {
+      .hero-left &,
+      .hero-right & {
+          max-width: 50%;
+      }
+
+      .hero-inverse & {
+          &.hero-body-filled {
+              background-color: #000;
+
+              h1, h2, h3, h4, h5, h6, .h7, .h8, p{
+                  color: #fff;
+              } 
+          }
+
+          h1, h2, h3, h4, h5, h6, .h7, .h8, p{
+              color: #000;
+          } 
+      } 
+  }
+
+  @media screen and (max-width: 768px) {
+
+      .pt_product-search-result & > p.hero-seo-copy{
+         font-size:0.878rem;
+         line-height:18px;
+      }
+
+      .hero-inverse-mobile & {
+
+          h1, h2, h3, h4, h5, h6, .h7, .h8, p{
+              color: #000;
+          }
+      } 
+  }
+}

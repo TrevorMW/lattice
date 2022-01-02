@@ -1,0 +1,23 @@
+@import 'variables';
+
+#wpadminbar {
+    display: none !important;
+}
+
+body{
+  position:relative;
+  font-size:16px;
+  font-family:$base;
+  font-weight:400;
+  line-height:1;
+}
+
+img{
+  display: block;
+  width:100%;
+  height:auto;
+}
+
+.screenReader{
+  display: none;
+}

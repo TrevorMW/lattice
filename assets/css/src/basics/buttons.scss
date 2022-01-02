@@ -1,0 +1,74 @@
+@import 'variables';
+
+.btn{
+  font-family:$base; 
+  display:inline-block;
+  width:auto;
+  padding:15px 30px;
+  border-radius:2px;
+  background-color:$btn-base-color;
+  color:$btn-text;
+  text-transform: uppercase;
+  letter-spacing:1px;
+  font-weight:300;
+  border:0;
+  cursor:pointer;
+  transition: all 1s ease;
+
+  &:hover{
+    background-color:$btn-hover;
+    color:#fff;
+  }
+
+  &.btn-primary{
+    background-color:$darkRed;
+    color:$sand;
+
+    &:hover{
+      background-color:lighten($darkRed, 10%);
+    }
+  }
+
+  &.btn-secondary{
+    background-color:$sand;
+    color:darken($sand, 30%);
+
+    &:hover{
+      background-color:lighten($darkRed, 10%);
+    }
+  }
+
+  .hero &{
+    width:100%;
+    max-width:75vw;
+    margin-bottom:15px;
+  }
+
+  .ctaBar &{
+    display: block;
+    width:100%;
+    
+    &:first-child{
+      margin-bottom:14px;
+    }
+  }
+
+  @media only screen and (min-width:768px){
+
+    .ctaBar &{
+      display: inline-block;
+      width:auto;
+      margin-bottom:0;
+
+      &:first-child{
+        margin-bottom:0;
+      }
+    }
+    
+    .hero &{
+      width:auto;
+      max-width:100%;
+      margin-bottom:0;
+    }
+  }
+}

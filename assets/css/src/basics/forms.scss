@@ -1,0 +1,127 @@
+@import 'variables';
+
+form{
+    text-align:left;
+}
+
+fieldset{
+    border:0;
+    padding:0;
+    margin:0;
+
+    & legend{
+        display: none;
+    }
+}
+
+label{
+    display: block;
+    padding:0 0 8px 0;
+    width:100%;
+    color:$darkGray;
+    font-size:14px;
+    line-height:22px;
+    font-weight:300px;
+
+    & mark{
+        color:$btn-hover;
+    }
+}
+
+[data-form-msg]{
+    position: relative;
+    display: none;
+    width:100%;
+    text-align:left;
+    background-color:#ddd;
+    border-radius:3px;
+    color:#fff;
+    font-weight:300;
+    letter-spacing:1px;
+    font-size:14px;
+    line-height:14px;
+    -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    margin-bottom:20px;
+
+    &:after{
+        position: absolute;
+        cursor:pointer;
+        content:"x";
+        color:#fff;
+        right:0px;
+        top:0px;
+        width:30px;
+        height:22px;
+        padding-top:7px;
+        text-align:center;
+        font-weight:500;
+        font-family:Arial, Helvetica, sans-serif;   
+    }
+
+    &.active{
+        padding:8px 12px;
+        display: block;
+    }
+
+    &.error{
+        background-color:$darkRed;
+    }
+
+    &.success{
+        background-color:$success;
+    }
+
+    &.info{
+        background-color:rgb(252, 200, 68);
+    }
+}
+
+[data-forgot-password]{
+    display: block;
+    color:$darkGray;
+    font-size:12px;
+    line-height:14px;
+    font-weight:300px;
+    margin-top:22px;
+    
+    &:hover{
+       color:$btn-hover; 
+
+    }
+}
+
+input,
+select,
+textarea{
+    display: block;
+    width:100%;
+    margin-bottom:22px;
+    padding:10px 14px;
+    border-radius:2px;
+    border:1px solid #eee;
+    font-family:$base;
+
+    &:focus{
+        border-color:$darkRed;
+    }
+}
+
+
+.vfb-legend{
+    display: none;
+}
+
+.vfb-section{
+    margin:0;
+    padding:0;
+}
+
+.vfb-item{
+    margin-bottom:21px;
+}
+
+.vfb-item-submit{
+    text-align:right;
+}

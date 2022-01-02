@@ -1,0 +1,192 @@
+@import 'variables';
+
+.wrap,
+.wrapper,
+.container{
+  display: block;
+  width:100%;
+  clear:both;
+}
+
+.wrapper{
+  position: relative;
+  padding:0 0 50px 0;
+
+  &.sand{
+    background-color:$sand;
+    color:$darkGray;
+    padding:50px;
+  }
+
+  &.spruce{
+    background-color:$spruce;
+    color:lighten($sand, 10%);
+    padding:50px;
+  }
+
+  &.darkRed{
+    padding:50px;
+    background-color:$darkRed;
+    color:lighten($sand, 10%);
+  }
+
+  &.darkGray{
+    padding:50px;
+    background-color:$darkGray;
+    color:lighten($sand, 10%);
+  }
+
+  &.headerBar{
+    padding:10px 0 14px 0;
+    border-bottom:1px solid #ddd;
+  }
+
+  &.ctaBar{
+    padding:28px 21px 35px 21px;
+  }
+
+  &.mainContent{
+    padding:50px 0;
+  }
+
+  &.footer{
+    border-top: 1px solid darken($sand, 18%);
+    color: darken($sand, 28%);
+  }
+
+  &.subFooter{
+    font-size:0.723rem;
+    padding:21px;
+    color: $gray;
+    border-top: 1px solid $gray;
+  }
+
+  @media only screen and (min-width:768px){
+
+    &.sand,
+    &.spruce,
+    &.darkGray,
+    &.darkRed{
+      padding: 50px 0;
+    }
+
+    &.ctaBar,
+    &.footer{
+      padding:21px 0;
+    }
+
+    &.subFooter{
+      padding:8px 0;
+    }
+  }
+}
+
+.container{
+  margin: 0 auto;
+
+  &.small{
+    max-width:1000px;
+  }
+
+  &.flexed{
+    display: block;
+  }
+
+  .mainContent &{
+    position: relative;
+    margin-top:-120px;
+    z-index:2;
+    background-color:#fff;
+    min-height:200px;
+    display: flex;
+    padding:50px;
+    -webkit-box-shadow: 0px -20px 26px -19px rgba(0,0,0,0.21); 
+    box-shadow: 0px -20px 26px -19px rgba(0,0,0,0.21);
+  }
+  
+  @media only screen and (min-width:768px){
+
+    &.flexed{
+      display: flex;
+      align-items: center;
+  
+      & > div{
+        flex:1;
+        width:100%;
+      }
+    }
+
+    .headerBar & > div:first-child{
+      flex: 0 0 190px;
+    }
+  }
+
+  @media only screen and (min-width:1024px){
+    
+  }
+
+  @media only screen and (min-width:1280px){
+    max-width:1100px;
+  }
+}
+
+
+main{
+  min-height:300px;
+}
+
+.primary{
+  flex:1;
+}
+
+.secondary{
+  flex:0 0 300px;
+}
+
+.ctaBar{
+
+  &.topCtaBar > div{
+    text-align: center;
+  }
+
+  &.middleCtaBar{
+
+    & div {
+      margin-bottom:21px;
+      text-align:center;
+    }
+  }
+
+  @media only screen and (min-width:768px){
+
+    &.topCtaBar > div{
+      text-align: center;
+    }
+  
+    &.middleCtaBar{
+  
+      & div {
+        margin-bottom:0;
+        text-align: left;
+  
+        &:last-child{
+          text-align:right;
+        }
+      }
+    }    
+  }
+
+}
+
+.servicesList{
+
+  & svg{
+    fill:$darkRed;
+    height:120px;
+    width:120px;
+  }
+
+  & .card{
+    cursor: pointer;
+  }
+}

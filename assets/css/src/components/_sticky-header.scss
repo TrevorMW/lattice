@@ -1,0 +1,25 @@
+[data-sticky-header]{
+
+    &.isSticky{
+        position: fixed;
+        top:0;
+        width:100%;
+        z-index:9;
+        -webkit-box-shadow: 0px 10px 5px -7px rgba(0,0,0,0.10);
+        -moz-box-shadow: 0px 10px 5px -7px rgba(0,0,0,0.10);
+        box-shadow: 0px 10px 5px -7px rgba(0,0,0,0.10);
+        border-bottom:1px solid #eee;
+        transition: top .3s $base-ease;
+    }
+    
+    @media screen and (max-width:989px){
+
+        .activeStickyNav &.isSticky{
+            top:-150px;
+        }
+        
+        .activeMobileStickyNav &.isSticky{
+            top:0;
+        }
+    }
+}

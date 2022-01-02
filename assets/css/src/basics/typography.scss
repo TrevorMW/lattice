@@ -1,0 +1,195 @@
+@import 'variables';
+
+/*
+2.479rem/39.67px
+2.323rem/37.18px
+2.178rem/34.84px
+2.041rem/32.65px
+1.913rem/30.60px
+1.793rem/28.68px
+1.68rem /26.88px
+1.575rem/25.19px
+1.476rem/23.61px
+1.383rem/22.13px
+1.296rem/20.74px
+1.215rem/19.44px
+1.138rem/18.22px
+1.067rem/17.07px
+1rem    /16.00px
+0.937rem/15.00px
+0.878rem/14.05px
+0.823rem/13.17px
+0.772rem/12.34px
+0.723rem/11.57px
+0.678rem/10.84px
+*/
+
+li,
+a,
+a:visited
+p{
+  color:inherit;
+  line-height:inherit;
+  font-weight:inherit;
+  font-family:inherit;
+}
+
+p{
+  margin:0;
+  line-height:24px;
+
+  .hero &{
+    font-size:1.215rem;
+    line-height:30px;
+  }
+
+  .subFooter &{
+    margin-bottom:0;
+  }
+
+  .mainContent &,
+  .introBlock &{
+    margin-bottom:21px;
+  }
+
+  @media only screen and (min-width:768px){
+    
+    .hero &{
+      font-size:1.476rem;
+      line-height:30px;
+    }
+  }
+}
+
+a,
+a:visited{
+  transition:color .5s ease;
+}
+
+h1,h2,h3,h4,h5,h6{
+  font-family: $heading;
+  margin:0;
+  font-weight:500;
+  letter-spacing:2px;
+  line-height:1;
+  text-transform:uppercase;
+  margin-bottom:14px;
+
+  .hero &{
+    font-size:2.8rem;
+    line-height:55px;
+  }
+
+  @media only screen and (min-width:768px){
+    
+    .hero &{
+      font-size:4.8rem;
+      line-height:85px;
+      
+    }
+  }
+}
+
+
+h1{
+
+  .basicHero &{
+    font-size:2.8rem;
+    line-height:48px;
+  }
+}
+
+h2{
+  font-size:2.5rem;
+  line-height:46px;
+
+  .introBlock &{
+    position: relative;
+    margin-bottom:28px;
+    color:$darkRed;
+
+    &:before,
+    &:after{
+      content:"";
+      position: absolute;
+      width:50%;
+      height:3px;
+      left:50%;
+      transform:translateX(-50%);
+      border-top:1px solid #ddd;
+      top:calc(100% + 13px);
+    }
+
+    &:after{
+      content:"";
+      width:40%;
+      top:calc(100% + 17px);
+    }
+  }
+
+  .ctaBar &{
+    margin-bottom:0;
+    font-size:2rem;
+  }
+
+  
+
+  @media only screen and (min-width:768px){
+    
+    .introBlock &{
+      margin-bottom:14px;
+  
+      &:before,
+      &:after{
+        display: none;
+      }
+    }
+
+  }
+}
+
+h3{
+
+}
+
+h4{
+
+}
+
+h5{
+
+}
+
+h6{
+
+}
+
+.mainContent{
+
+  & h2{
+    text-transform:capitalize;
+    color:$darkRed;
+  }
+
+  & .servicesList  h2{
+    color:#fff;
+    font-family:$base;
+    font-size:1.4rem;
+    letter-spacing: 0;
+
+  }
+
+  & h3, 
+  & h4, 
+  & h5{
+    font-family:$base;
+    text-transform:capitalize;
+    color:$darkGray;
+  }
+
+  & h3{
+    color:$spruce;
+  }
+
+
+}

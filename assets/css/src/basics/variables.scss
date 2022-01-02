@@ -1,0 +1,26 @@
+
+/* COLORS */
+$black: #333;
+$darkGray:#454545;
+$gray: #ccc;
+
+$crimson:#d83030;
+$spruce: #3b7044;
+$darkRed:#a20e0e;
+$sand: #eae3db;
+$success:limegreen;
+
+/* FONTS */
+$heading: 'Italiana', sans-serif;
+$base: 'Maven Pro', sans-serif;
+
+/* BUTTONS */
+$btn-base-color:$darkGray;
+$btn-text:#fff;
+$btn-hover:#000;
+
+@mixin boxShadow(){
+    -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);   
+}
