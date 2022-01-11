@@ -1,5 +1,14 @@
 @import 'variables';
 
+body{
+
+  &.locked{
+    position: fixed;
+    width:100%;
+    
+  }
+}
+
 .wrap,
 .wrapper,
 .container{
@@ -10,73 +19,84 @@
 
 .wrapper{
   position: relative;
-  padding:0 0 50px 0;
+  padding:50px 30px;
 
-  &.sand{
-    background-color:$sand;
-    color:$darkGray;
-    padding:50px;
+  &.cream{
+    background-color:$cream;
+    color:$darkBlue;
+
+    &.addLace{
+
+      &:before,
+      &:after{
+        content:"";
+        position: absolute;
+        z-index:2;
+        width:100%;
+        left:0;
+        right:0;
+        height:28px;
+        background: url('~/assets/static/img/x-lace.png') repeat-x center center;
+        background-size:28px 28px;
+      }
+
+      &:before{
+        bottom:100%;
+      }
+      
+      &:after{
+        top:100%;
+      }
+    }
   }
 
-  &.spruce{
-    background-color:$spruce;
-    color:lighten($sand, 10%);
-    padding:50px;
+  &.darkBlue{
+    background-color:$darkBlue;
+    color:$white;
   }
 
-  &.darkRed{
-    padding:50px;
-    background-color:$darkRed;
-    color:lighten($sand, 10%);
+  &.turqToAqua{
+    background-image:linear-gradient($darkBlue, $aqua);
+    color:$cream;
+    padding:120px 30px;
   }
 
-  &.darkGray{
-    padding:50px;
-    background-color:$darkGray;
-    color:lighten($sand, 10%);
+  &.aquaToTurq{
+    background-image:linear-gradient($aqua, $darkBlue);
+    color:$cream;
+    padding:120px 30px;
+  }  
+
+  &.centered{
+    text-align:center;
   }
 
   &.headerBar{
-    padding:10px 0 14px 0;
-    border-bottom:1px solid #ddd;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    z-index:9;
+    padding:60px 30px 0 30px;
   }
 
-  &.ctaBar{
-    padding:28px 21px 35px 21px;
+  &.InnerPageHero {
+    padding: 180px 30px 85px;
   }
 
-  &.mainContent{
-    padding:50px 0;
-  }
-
-  &.footer{
-    border-top: 1px solid darken($sand, 18%);
-    color: darken($sand, 28%);
-  }
-
-  &.subFooter{
-    font-size:0.723rem;
-    padding:21px;
-    color: $gray;
-    border-top: 1px solid $gray;
+  &.innerPage{
+    padding:30px;
   }
 
   @media only screen and (min-width:768px){
+    padding:100px 0;
 
-    &.sand,
-    &.spruce,
-    &.darkGray,
-    &.darkRed{
-      padding: 50px 0;
+    &.InnerPageHero {
+      padding: 240px 30px 85px;
     }
 
-    &.ctaBar,
-    &.footer{
-      padding:21px 0;
-    }
-
-    &.subFooter{
-      padding:8px 0;
+    &.innerPage{
+      padding:45px 0;
     }
   }
 }
@@ -84,24 +104,8 @@
 .container{
   margin: 0 auto;
 
-  &.small{
-    max-width:1000px;
-  }
-
   &.flexed{
     display: block;
-  }
-
-  .mainContent &{
-    position: relative;
-    margin-top:-120px;
-    z-index:2;
-    background-color:#fff;
-    min-height:200px;
-    display: flex;
-    padding:50px;
-    -webkit-box-shadow: 0px -20px 26px -19px rgba(0,0,0,0.21); 
-    box-shadow: 0px -20px 26px -19px rgba(0,0,0,0.21);
   }
   
   @media only screen and (min-width:768px){
@@ -109,30 +113,176 @@
     &.flexed{
       display: flex;
       align-items: center;
-  
-      & > div{
-        flex:1;
-        width:100%;
-      }
+      width:100%;
     }
-
-    .headerBar & > div:first-child{
-      flex: 0 0 190px;
-    }
-  }
-
-  @media only screen and (min-width:1024px){
-    
   }
 
   @media only screen and (min-width:1280px){
     max-width:1100px;
+
+    &.small{
+      max-width:980px;
+    }
   }
 }
 
+.headerBar{
+
+  & .container{
+    display: flex;
+    align-items: center;
+
+    & > div{
+      flex:1 0 auto;
+      color:$white;
+
+      &:first-child{
+        display: none;
+      }
+
+      &:last-child{
+        text-align: right;
+      }
+    }
+
+    & > .logo{
+      text-align:center;
+      width:60%;
+    }
+  }
+
+  @media only screen and (min-width:768px){
+    
+    & .container {
+      justify-content:space-evenly;
+      align-items:flex-start;
+
+      > div{
+        flex:1;
+        text-align:right;
+
+        &:first-child{
+          display: block;
+        }
+      }
+  
+      & > .logo{
+        flex: 0 0 170px;
+        text-align:center;
+      }
+    }
+  }
+}
+
+.footerBar{
+
+  & .container{
+    justify-content:space-evenly;
+
+    &.flexed{
+      display: flex;
+      flex-wrap:wrap;
+      margin-bottom:28px;
+    }
+
+    & div{
+      text-align:center;
+      order:2;
+      flex:1 0 auto;
+      width:100%;
+
+      &.logo{
+        order:1;
+        margin-bottom:28px;
+        
+        & img{
+          width:50%;
+          margin: 0 auto;
+        }
+      }
+
+      &.leftFooterNav,
+      &.rightFooterNav{
+        text-align:center;
+      }
+    }
+  }
+
+  @media only screen and (min-width:768px){
+    
+    & .container{
+
+      & .flexed{
+        flex-wrap:nowrap;
+        align-items:flex-start;
+      }
+
+      & div{
+        
+        &.leftFooterNav,
+        &.rightFooterNav{
+          flex:1;
+          color:$white;
+        }
+
+        &.leftFooterNav{
+          text-align:left;
+          order:1;
+        }
+
+        &.rightFooterNav{
+          text-align:right;
+          order:3;
+        }
+
+        &.logo{
+          order:2;
+          flex: 0 0 220px;
+          margin-bottom:0;
+          text-align:center;
+        }
+      } 
+    }  
+  }
+}
+
+.logo{
+
+  & .desktopLogo{
+    display: none;
+  }
+
+  & .mobileLogo{
+    display:block;
+  }
+
+  @media only screen and (min-width:768px){
+
+    & .desktopLogo{
+      display: block;
+    }
+  
+    & .mobileLogo{
+      display:none;
+    }
+
+  }
+}
+
+.newsletterSignup{
+  max-width:600px;
+  margin: 0 auto;
+}
 
 main{
-  min-height:300px;
+
+  &.wrapper{
+    
+    &.frontPage,
+    &.innerPage{
+      padding:0;
+    }
+  }
 }
 
 .primary{
@@ -143,50 +293,7 @@ main{
   flex:0 0 300px;
 }
 
-.ctaBar{
-
-  &.topCtaBar > div{
-    text-align: center;
-  }
-
-  &.middleCtaBar{
-
-    & div {
-      margin-bottom:21px;
-      text-align:center;
-    }
-  }
-
-  @media only screen and (min-width:768px){
-
-    &.topCtaBar > div{
-      text-align: center;
-    }
+.ctaGrid{
   
-    &.middleCtaBar{
-  
-      & div {
-        margin-bottom:0;
-        text-align: left;
-  
-        &:last-child{
-          text-align:right;
-        }
-      }
-    }    
-  }
-
 }
 
-.servicesList{
-
-  & svg{
-    fill:$darkRed;
-    height:120px;
-    width:120px;
-  }
-
-  & .card{
-    cursor: pointer;
-  }
-}

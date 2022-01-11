@@ -2,18 +2,19 @@
 
 .btn{
   font-family:$base; 
-  display:inline-block;
-  width:auto;
+  display: block;
   padding:15px 30px;
-  border-radius:2px;
+  border-radius:12px;
   background-color:$btn-base-color;
   color:$btn-text;
-  text-transform: uppercase;
   letter-spacing:1px;
-  font-weight:300;
+  font-weight:400;
+  font-size:1.4rem;
   border:0;
   cursor:pointer;
   transition: all 1s ease;
+  text-align:center;
+  margin-bottom:21px;
 
   &:hover{
     background-color:$btn-hover;
@@ -21,54 +22,61 @@
   }
 
   &.btn-primary{
-    background-color:$darkRed;
-    color:$sand;
+    background-color:$darkBlue;
+    color:$white;
+    border:3px solid $darkBlue;
 
     &:hover{
-      background-color:lighten($darkRed, 10%);
+      background-color:darken($darkBlue, 10%);
+      border-color: darken($darkBlue, 10%);
     }
   }
 
   &.btn-secondary{
-    background-color:$sand;
-    color:darken($sand, 30%);
+    background-color:transparent;
+    border:3px solid $white;
+    color:$white;
 
     &:hover{
-      background-color:lighten($darkRed, 10%);
+      border-color:darken($cream, 10%);
+      background-color:transparent;
+      color:darken($cream, 10%);
     }
   }
 
-  .hero &{
-    width:100%;
-    max-width:75vw;
-    margin-bottom:15px;
+  .inlineForm &{
+    border-radius:0;
+    padding:11px 14px 10px;
+    font-size:1rem;
+    margin-bottom:0;
   }
 
-  .ctaBar &{
-    display: block;
-    width:100%;
-    
-    &:first-child{
-      margin-bottom:14px;
-    }
+  .loginForm &{
+    border-radius:3px;
+    font-size:1rem;
+    min-width:0;
+    padding:12px 28px;
   }
 
   @media only screen and (min-width:768px){
+    display:inline-block;
+    width:auto;
+    min-width:250px;
+    margin-bottom:0;
 
-    .ctaBar &{
-      display: inline-block;
-      width:auto;
-      margin-bottom:0;
+    .frontPage &{
+      margin-top:45px;
+      padding:22px 30px 24px;
+      font-size:1.55rem;
+      min-width:420px;
+    }
 
-      &:first-child{
-        margin-bottom:0;
-      }
-    }
-    
-    .hero &{
-      width:auto;
-      max-width:100%;
-      margin-bottom:0;
-    }
+    .inlineForm &{
+      min-width:125px;
+      margin-top:0;
+      padding:10px 14px;
+      font-size:1rem;
+      min-width:0;
+    }    
   }
 }

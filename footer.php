@@ -13,14 +13,14 @@
 <?php } ?>
 
 <footer>
-	<div class="wrapper sand footer">
+	<div class="wrapper aquaToTurq centered footerBar">
 		<div class="container flexed">
-			<div>
-				<nav class="footerNav">
+			<div class="leftFooterNav">
+				<nav>
 					<ul>
 						<?php wp_nav_menu(array(
-							'menu'           => 'footer',
-							'theme_location' => 'footer',
+							'menu'           => 'footer-left',
+							'theme_location' => 'footer-left',
 							'container'      => false,
 							'items_wrap'     => '%3$s',
 							'depth'          => 0
@@ -28,52 +28,15 @@
 					</ul>
 				</nav>
 			</div>
-			<div class="">
-				
+			<div class="logo">
+				<a href="<?php echo home_url();?>"><img src="<?php echo get_template_directory_uri() ?>/assets/static/img/logo.png" alt=""/></a>
 			</div>
-			<div class="">
-				
-			</div>
-			<div class="">
-				<div>
-					<a href="YOUR FACEBOOK LINK" title="Facebook" target="_blank" rel="noopener">
-					<span class="social"><i class="fa fa-facebook"></i></span></a>
-
-					<a href="YOUR TWITTER LINK" title="Twitter" target="_blank" rel="noopener">
-					<span class="social"><i class="fa fa-twitter"></i></span></a>
-
-					<a href="YOUR PINTEREST LINK" title="Pinterest" target="_blank" rel="noopener">
-					<span class="social"><i class="fa fa-pinterest"></i></span></a>
-
-					<a href="YOUR INSTAGRAM LINK" title="Instagram" target="_blank" rel="noopener">
-					<span class="social"><i class="fa fa-instagram"></i></span></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="wrapper subFooter">
-		<div class="container flexed">
-			<div class="alignLeft">
-				<nav class="footerUtility">
+			<div class="rightFooterNav">
+				<nav>
 					<ul>
-						<li><a href="YOUR FACEBOOK LINK" title="Facebook" target="_blank" rel="noopener">
-							<span class="social"><i class="fa fa-facebook"></i></span></a></li>
-
-						<li><a href="YOUR TWITTER LINK" title="Twitter" target="_blank" rel="noopener">
-							<span class="social"><i class="fa fa-twitter"></i></span></a></li>
-
-						<li><a href="YOUR PINTEREST LINK" title="Pinterest" target="_blank" rel="noopener">
-							<span class="social"><i class="fa fa-pinterest"></i></span></a></li>
-
-						<li><a href="YOUR INSTAGRAM LINK" title="Instagram" target="_blank" rel="noopener">
-							<span class="social"><i class="fa fa-instagram"></i></span></a></li>
-					</ul>
-					<ul>
-						
-						
 						<?php wp_nav_menu(array(
-							'menu'           => 'footer-utility',
-							'theme_location' => 'footer-utility',
+							'menu'           => 'footer-right',
+							'theme_location' => 'footer-right',
 							'container'      => false,
 							'items_wrap'     => '%3$s',
 							'depth'          => 0
@@ -81,28 +44,49 @@
 					</ul>
 				</nav>
 			</div>
-			<div>
-				<p>
-					Copyright &copy; 2021 Chalkline
-				</p>	
-			</div>
 		</div>
+		<p>&copy; Copyright Aenea 2021</p>
 	</div>
 </footer>
+
+<div data-mobile-nav class="">
+	<div data-mobile-nav-close>
+		<div>
+			<a href="<?php echo home_url(); ?>"><i class="fa fa-home"></i></a>
+		</div>
+		<div>
+			<a href="" data-mobile-nav-close-trigger>&times;</a>
+		</div>
+	</div>
+	<nav class="mainNavAuthenticated">
+		<ul>
+			<?php wp_nav_menu(array(
+				'menu'           => 'primary-authenticated',
+				'theme_location' => 'primary-authenticated',
+				'container'      => false,
+				'items_wrap'     => '%3$s',
+				'depth'          => 0
+			)) ?>
+
+			<li class="signOutLink">
+				<a href="" data-sign-out class="btn btn-primary">Sign Out</a>
+			</li>
+		</ul>
+	</nav>
+</div>
 
 <div data-overlay>
 	<div><i class="fa fa-spin fa-spinner fa-pulse fa-fw"></i></div>
 </div>
 
-<div data-popup="mainPopup">
-	<a data-destroy><i class="fa fa-fw fa-times-circle"></i></a>
-	<div class="table-cell">
-		<div class="popup-body">
-			<header class="popup-header">
-				<h3>Hello World</h3>
+<div data-popup>
+	<div>
+		<div class="popupBody">
+			<header class="popupHeader">
+				<div class="popupTitle" data-title></div>
+				<div><a data-destroy>&times;</a></div>
 			</header>
-			<div class="popup-content">
-				<p>content goes here</p>
+			<div class="popupContent" data-content>
 			</div>
 		</div>
 	</div>

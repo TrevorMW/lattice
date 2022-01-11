@@ -1,0 +1,125 @@
+.timeline {
+    position: relative;
+    max-width:700px;
+    margin:50px auto;
+
+    &:after{
+        content:'';
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:calc(50% - 3px);
+        width:3px;
+        background-color:$darkBlue;
+    }
+
+    & .timelineStep{
+        display: flex;
+        align-items:center;
+        position: relative;
+        height:130px;
+        
+        & > div{
+            flex:1;
+            padding:20px;
+            font-size:1.4rem;
+            line-height:32px;
+        }
+
+        &.evenStep .timelineStepContent{
+            order:2;
+        }
+
+        &:after{
+            content:'';
+            border-radius:500px;
+            border:3px solid $darkBlue;
+            background-color:$cream;
+            position: absolute;
+            height:21px;
+            width:21px;
+            left:calc(50% - 15px);
+            z-index: 2;
+        }
+    }
+
+    @media only screen and (min-width:768px){
+        
+        & .timelineStep{
+            
+            & > div{
+                padding:40px;
+                font-size:1.8rem;
+                line-height:42px;
+                text-align:right;
+                padding-right:50px;
+            }
+
+            &.evenStep .timelineStepContent{
+                text-align:left;
+                padding-left:50px;
+            }
+
+            &:after{
+                height:28px;
+                width:28px;
+                left:calc(50% - 18px);
+            }
+        } 
+    }
+
+    @media only screen and (min-width:1024px){
+        max-width:1100px;
+        margin: 50px auto;
+        display: flex;
+        height:350px;
+        justify-content: space-evenly;
+
+
+        &:after{
+            top:calc(50% - 3px);
+            left:50%;
+            height:3px;
+            width:100%;
+            width:82%;
+            transform: translateX(-50%);
+        }
+
+        & .timelineStep{
+            flex-direction:column;
+            flex:1;
+            height:auto;
+
+            & > div{
+                padding:20px;
+                text-align:center;
+                
+                & .timelineStepContent{
+                    display: flex;
+                    align-items: flex-start;
+                    
+                }
+            }
+
+            &.oddStep .timelineStepContent{
+                display: flex;
+                align-items: flex-end;
+                padding: 0 0 40px 0;
+            }
+
+            &.evenStep .timelineStepContent{
+                padding:20px;
+                text-align:center;
+                padding: 40px 0 0 0;
+            }
+            
+            &:after{                
+                height:28px;
+                width:28px;
+                top:calc(50% - 18px);
+                left:auto;
+                z-index: 2;
+            }
+        }
+    }
+}

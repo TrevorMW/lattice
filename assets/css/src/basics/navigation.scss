@@ -15,7 +15,7 @@ nav{
   & li{
     display: inline-block;
     width:auto;
-    text-align: left;
+    text-align: inherit;
     padding:0;
   }
 
@@ -39,7 +39,7 @@ nav{
       letter-spacing:1px;
 
       &:hover{
-        color:$darkRed;
+        color:$darkBlue;
       }
     }
   }
@@ -66,7 +66,8 @@ nav{
       }
   }
 
-  .leftColumn &{
+  .leftFooterNav &,
+  .rightFooterNav &{
 
     & ul{
       padding:0;
@@ -75,18 +76,58 @@ nav{
 
     & li{
       display: block;
+      //text-align:center;
     }
     
     & a{
-      color:#aaa;
-      padding:10px 20px;
-      font-size:18px;
-      text-align:right;
-      border-bottom:1px solid darken($darkGray, 5%);
-
+      font-size:1.4rem;
+      line-height:32px;
+      font-weight:400;
+      width:auto;
+      
       &:hover{
-        color:#fff;
-        background-color:$black;
+        color:$darkBlue;
+      }
+    }
+  }
+
+  .rightFooterNav &{
+
+    & li{
+      //text-align: center;
+    }
+
+    @media only screen and (min-width:768px){
+      
+      & li{
+        //text-align: right;
+      }
+    } 
+  }
+
+  [data-mobile-nav] &{
+
+    & ul{
+      margin:0;
+      padding:0;
+    }
+
+    & li{
+      display: block;
+    }
+
+    & a{
+      display: block;
+      width:100%;
+      font-size:1.3rem;
+      line-height:30px;
+      color:$darkGray;
+      border-radius:0;
+      padding:21px;
+      
+      &:hover{
+        background-color:$darkBlue;
+        color:$white;
       }
     }
   }

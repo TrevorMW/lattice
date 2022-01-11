@@ -19,62 +19,11 @@ label{
     padding:0 0 8px 0;
     width:100%;
     color:$darkGray;
-    font-size:14px;
+    font-size:1rem;
     line-height:22px;
-    font-weight:300px;
 
     & mark{
         color:$btn-hover;
-    }
-}
-
-[data-form-msg]{
-    position: relative;
-    display: none;
-    width:100%;
-    text-align:left;
-    background-color:#ddd;
-    border-radius:3px;
-    color:#fff;
-    font-weight:300;
-    letter-spacing:1px;
-    font-size:14px;
-    line-height:14px;
-    -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
-    -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
-    box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
-    margin-bottom:20px;
-
-    &:after{
-        position: absolute;
-        cursor:pointer;
-        content:"x";
-        color:#fff;
-        right:0px;
-        top:0px;
-        width:30px;
-        height:22px;
-        padding-top:7px;
-        text-align:center;
-        font-weight:500;
-        font-family:Arial, Helvetica, sans-serif;   
-    }
-
-    &.active{
-        padding:8px 12px;
-        display: block;
-    }
-
-    &.error{
-        background-color:$darkRed;
-    }
-
-    &.success{
-        background-color:$success;
-    }
-
-    &.info{
-        background-color:rgb(252, 200, 68);
     }
 }
 
@@ -84,11 +33,9 @@ label{
     font-size:12px;
     line-height:14px;
     font-weight:300px;
-    margin-top:22px;
     
     &:hover{
        color:$btn-hover; 
-
     }
 }
 
@@ -98,16 +45,79 @@ textarea{
     display: block;
     width:100%;
     margin-bottom:22px;
-    padding:10px 14px;
+    padding:16px 15px 15px;
     border-radius:2px;
-    border:1px solid #eee;
+    border:0;
+    border-bottom:2px solid transparent;
     font-family:$base;
+    font-size:1rem;
 
     &:focus{
-        border-color:$darkRed;
+        border-color:$darkBlue;
     }
 }
 
+.inlineForm{
+    margin-bottom:21px;
+
+    & .formControl{
+        display: flex;
+        align-items:center;
+        width:100%;
+    }
+
+    & .inlineInput{
+        flex:1 0 auto;
+    }
+
+    & .inlineSubmit{
+        flex: 0 0 auto;
+    }
+
+    input,
+    select{
+        margin-bottom:0;
+        padding:13px 14px 12px;
+        border-radius:0;
+        font-family:$base;
+        font-size:1rem;
+    }
+
+    @media only screen and (min-width:768px){
+
+
+    }
+}
+
+.loginForm{
+    max-width:400px;
+    margin: 0 auto;
+}
+
+.formInput{
+
+    &.formInputPasswordWithView{
+        display: flex;
+        text-align:center;
+
+        & [data-view-password]{
+            display: flex;
+            align-items:center;
+            height:54px;
+            position: relative;
+            margin-left:-34px;
+            color:$aqua;
+
+            &:hover{
+                color:$darkBlue;
+            }
+        }
+    }
+}
+
+.submitBtnWrap{
+    text-align: right;
+}
 
 .vfb-legend{
     display: none;

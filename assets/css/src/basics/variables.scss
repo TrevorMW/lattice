@@ -2,20 +2,30 @@
 /* COLORS */
 $black: #333;
 $darkGray:#454545;
-$gray: #ccc;
+$gray: #afafa7;
+$white:#fff;
 
-$crimson:#d83030;
-$spruce: #3b7044;
-$darkRed:#a20e0e;
+$darkBlue:#00637a;
+$turquoise:#01647b;
+$aqua: #69b7bb;
+$cream:#f1efe0;
 $sand: #eae3db;
-$success:limegreen;
+
+$success:#0cb00f;
+$error:#c6553e;
+$warning:goldenrod;
 
 /* FONTS */
-$heading: 'Italiana', sans-serif;
-$base: 'Maven Pro', sans-serif;
+$base:"Helvetica", sans-serif;
+// $heading: "Noto Sans", "Helvetica", sans-serif;
+// $altHeading: "Maven Pro", "Helvetica", sans-serif;
+
+//$base: "Helvetica Neue", sans-serif;
+$heading: "Helvetica Neue Light", sans-serif;
+$altHeading: "Helvetica Neue Light", sans-serif;
 
 /* BUTTONS */
-$btn-base-color:$darkGray;
+$btn-base-color:$darkBlue;
 $btn-text:#fff;
 $btn-hover:#000;
 
@@ -23,4 +33,10 @@ $btn-hover:#000;
     -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
     -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
     box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);   
+}
+
+@mixin linear-gradient($direction, $color-stops...) {
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops);
 }

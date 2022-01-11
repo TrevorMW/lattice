@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Template - Contact Us
+ * Template Name: Template - About Us
  * Description: Generic Sub Page Template
  *
  * @package WordPress
@@ -12,9 +12,7 @@ get_header(); the_post(); ?>
 <div class="primary">
   <section class="page" role="article">
     <header class="page-header">
-      <h1 class="page-title" role="heading">
-        <?php the_title(); ?>
-      </h1>
+      <h1 class="page-title" role="heading"><?php the_title(); ?></h1>
     </header>
     <div class="page-content">
       <?php the_content(); ?>
@@ -22,4 +20,4 @@ get_header(); the_post(); ?>
   </section>
 </div>
 
-<?php get_sidebar(); get_footer(); ?>
+<?php get_footer(); ?>

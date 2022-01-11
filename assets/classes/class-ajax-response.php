@@ -6,6 +6,9 @@ class Ajax_Response
   public $message;
   public $data;
   public $action;
+  public $pageRefresh;
+  public $html;
+  public $redirectURL;
 
   /**
    * __construct function.
@@ -20,9 +23,12 @@ class Ajax_Response
    */
   public function __construct( $action )
   {
-    $this->status  = false;
-    $this->message = null;
-    $this->data    = null;
+    $this->status      = false;
+    $this->message     = null;
+    $this->data        = null;
+    $this->pageRefresh = false;
+    $this->html        = null;
+    $this->redirectURL = null;
 
     if( $action != null )
       $this->action = $action;
@@ -38,9 +44,24 @@ class Ajax_Response
    */
   public function encodeResponse()
   {
-    return json_encode( array( 'status'    => $this->status,
-                               'message'   => $this->message,
-                               'data'      => $this->data,
-                               'action'    => $this->action ) );
+    return json_encode( array( 'status'      => $this->status,
+                               'message'     => $this->message,
+                               'data'        => $this->data,
+                               'action'      => $this->action,
+                               'pageRefresh' => $this->pageRefresh,
+                               'redirectURL' => $this->redirectURL) );
+  }
+
+  /**
+   * encode_response function.
+   *
+   * Encodes PHP array as valid JSON to be sent back to callback javascript scope.
+   *
+   * @access public
+   * @return void
+   */
+  public function returnHtml()
+  {
+    return $this->html;
   }
 }

@@ -55,10 +55,16 @@ class Template_Helper
    * @param null $params
    * @return string
    */
-  public static function loadView( $name, $params = null )
+  public static function loadView( $name, $altUrl = null, $params = null )
   {
     $html = '';
-    $file = get_template_directory() . '/assets/views/' . self::fileName( $name );
+    $url = '/assets/views/';
+
+    if( $altUrl !== null){
+      $url = $altUrl;
+    }
+
+    $file = get_template_directory() . $url . self::fileName( $name );
 
     $params != null ? extract( $params, EXTR_SKIP ) : '' ;
 

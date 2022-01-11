@@ -1,0 +1,37 @@
+[data-mobile-nav]{
+    position: fixed;
+    top:0;
+    bottom:0;
+    left:-100%;
+    background-color:$white;
+    transition: all .6s ease;
+    max-height:100vh;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    width:100vw;
+    z-index:10;
+    
+    &.active{
+        left:0;
+    }
+
+    @media only screen and (min-width:768px){
+        max-width:340px;
+    }
+}
+
+[data-mobile-nav-close]{
+    display: flex;
+    background-color:$aqua;
+    color:$white;
+    padding:10px 21px;
+
+    & > div{
+        flex:1;
+        font-size:1.5rem;
+
+        &:last-child{
+            text-align:right;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.wrapper {
+    position: relative;
+    padding: 50px 30px;
+
+    &.frontpageHero {
+        padding: 170px 30px 70px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        padding: 100px 0;
+
+        &.frontpageHero {
+            padding: 255px 0 140px;
+            min-height: 70vh;
+        }
+
+        &.footerBar {
+            padding: 100px 30px;
+        }
+    }
+}
+
+
+@import '../components/_timeline';
+
+@import '../components/_modules';

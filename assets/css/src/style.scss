@@ -6,8 +6,6 @@
 
 @import './basics/navigation';
 
-@import './basics/tables';
-
 @import './basics/forms';
 
 @import './basics/typography';
@@ -21,5 +19,11 @@
 @import 'components/_hero';
 
 @import 'components/_tabs';
+
+@import 'components/_form-msg';
+
+@import 'components/_mobile-nav';
+
+@import 'pages/_homepage';
 
 @import './basics/utilities';

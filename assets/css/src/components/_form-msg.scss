@@ -1,0 +1,49 @@
+[data-form-msg]{
+    position: relative;
+    display: none;
+    width:100%;
+    text-align:left;
+    background-color:#ddd;
+    border-radius:3px;
+    color:#fff;
+    font-weight:300;
+    letter-spacing:1px;
+    font-size:.75rem;
+    line-height:16px;
+    -webkit-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    -moz-box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    box-shadow: 0px 13px 25px -13px rgba(0,0,0,0.21);
+    margin-bottom:20px;
+
+    &:after{
+        position: absolute;
+        cursor:pointer;
+        content:"x";
+        color:#fff;
+        right:0px;
+        top:0px;
+        width:30px;
+        height:22px;
+        padding-top:7px;
+        text-align:center;
+        font-weight:500;
+        font-family:Arial, Helvetica, sans-serif;   
+    }
+
+    &.active{
+        padding:8px 12px;
+        display: block;
+    }
+
+    &.error{
+        background-color:$error;
+    }
+
+    &.success{
+        background-color:$success;
+    }
+
+    &.info{
+        background-color:$warning;
+    }
+}

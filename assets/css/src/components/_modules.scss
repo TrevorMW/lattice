@@ -1,0 +1,42 @@
+.modulesList {
+    display: block;
+    max-width: 600px;
+    margin: 0 auto;
+
+    & .latticeModule {
+        position: relative;
+        width: 100%;
+        display: block;
+        margin-bottom: 28px;
+        overflow: hidden;
+
+        &:before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+        }
+    }
+
+    & .latticeModuleInner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    @media only screen and (min-width: 768px) {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 21px;
+
+        & .latticeModule {
+            flex: 0 0 48%;
+            margin-bottom: 0;
+        }
+
+        &.oddNumbered {
+        }
+    }
+}

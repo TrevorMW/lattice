@@ -17,50 +17,41 @@
 
 	<div class="wrapper headerBar">
 		<header class="container flexed">
+			<div></div>
 			<div class="logo">
-				<a href="/"><img src="<?php echo get_template_directory_uri() ?>/assets/static/img/croppedChalklineLogo.png" alt=""/></a>
-				<h1 class="screenReader">COMPANY TITLE</h1>
+				<div class="desktopLogo">
+					<a href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri() ?>/assets/static/img/logo.png" alt=""/></a>
+				</div>
+				<div class="mobileLogo">
+					<a href="<?php echo home_url(); ?>"><img src="<?php echo get_template_directory_uri() ?>/assets/static/img/mobile_logo.png" alt=""/></a>
+				</div>
 			</div>
-			<div class="alignRight">
-				<nav class="mainNav">
-					<ul>
-						<?php wp_nav_menu(array(
-							'menu'           => 'primary',
-							'theme_location' => 'primary',
-							'container'      => false,
-							'items_wrap'     => '%3$s',
-							'depth'          => 0
-						)) ?>
-						<li><a href data-search-trigger><i class="fa fa-search"></i></a></li>
-					</ul>
-				</nav>
+			<div>
+				<?php if( is_user_logged_in() ){ ?>
+					<a href="" data-mobile-nav-trigger>
+						<i class="fa fa-bars"></i>
+					</a>
+				<?php } else { ?>
+					<a href="" data-popup-trigger="signin_form">Sign In</a>
+				<?php } ?>
 			</div>
 		</header>
 	</div>
 
-<?php if(is_front_page()){ ?> 
-<main>
-<?php } else { 
-	
-// $blog_id = get_option('page_for_posts');
+	<?php if(is_front_page()){ ?> 
+		<main class="wrapper cream mainContent frontPage">
+	<?php } else { ?> 
 
-// if(is_home()){
-// 	$post = get_post( $blog_id );
-// }
-
-?> 
-
-<div class="hero basicHero">
-	<div class="hero-inner">
-		<div class="hero-body">
-			<h1 class="hero-heading" style="color:#fff;"><?php echo $post->post_title ?></h1>
+		<div class="wrapper turqToAqua centered InnerPageHero">
+			<div class="container">
+				<header class="page-header">
+					<h1 class="page-title" role="heading">
+						<?php the_title(); ?>
+					</h1>
+				</header>
+			</div>	
 		</div>
-	</div>
-	<picture>
-		<img src="<?php echo get_template_directory_uri() ?>/assets/static/img/workbelt-original.jpg" alt="Shop Nixon Great Minds Gifts">
-	</picture>
-</div>
-<main class="wrapper mainContent">
-    <div class="container small">  
 
-<?php } wp_reset_postdata(); ?>
+		<main class="wrapper cream addLace mainContent InnerPage">
+			<div class="container">
+	<?php } ?>

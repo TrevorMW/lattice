@@ -8,7 +8,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
-    homepage : ['./assets/js/src/frontpage.js', './assets/css/src/frontpage.scss']
+    //homepage : ['./assets/js/src/frontpage.js', './assets/css/src/frontpage.scss']
   },
   output: {
     filename: './assets/js/build/bundle.[name].min.js',
@@ -16,26 +16,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: require.resolve('jquery'),
-        use: [
-          {
-            loader: 'expose-loader',
-            options: {
-              exposes: [
-                {
-                  globalName: '$',
-                  override: true,
-                },
-                {
-                  globalName: 'jQuery',
-                  override: true,
-                },
-              ],
-            },
-          },
-        ],
-      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -48,11 +28,44 @@ module.exports = {
       },
       {
         test: /\.(sass|scss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [ 
+          MiniCssExtractPlugin.loader, 
+          'css-loader', 
+          'sass-loader'
+        ]
+      },
+      {
+        test: [
+          /\.bmp$/,
+          /\.gif$/,
+          /\.jpe?g$/,
+          /\.png$/,
+          /\.tiff$/,
+          /\.ico$/,
+          /\.avif$/,
+          /\.webp$/,
+          /\.eot$/,
+          /\.otf$/,
+          /\.ttf$/,
+          /\.woff$/,
+          /\.woff2$/,
+          /\.svg$/
+        ],
+        exclude: [/\.(js|mjs|jsx|ts|tsx)$/],
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/img/[name][ext]'
+        }
       }
     ]
   },
   plugins: [
+
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
+    }),
+
     new MiniCssExtractPlugin({
       filename: './assets/css/build/[name].min.css'
     }),  

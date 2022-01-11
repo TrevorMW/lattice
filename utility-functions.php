@@ -170,7 +170,7 @@ function add_style_sheets()
     wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen');
     wp_enqueue_style(
       'googleFonts',
-      '//fonts.googleapis.com/css?family=Italiana|Maven Pro:400,700&ver=1.0.0',
+      '//fonts.googleapis.com/css?family=Open Sans:400,600,700|Noto Sans:400,600|Maven Pro:400,700&ver=1.0.0',
       'screen'
     );
 
@@ -251,11 +251,10 @@ remove_filter('comment_text', 'capital_P_dangit');
  */
 register_nav_menus(array(
   'primary' => __('Primary Menu', 'themename'),
-  'utility' => __('Utility Menu', 'themename'),
-  'footer' => __('Footer Menu', 'themename'),
-  'footer-utility' => __('Footer Utility Menu', 'themename'),  
+  'primary-authenticated' => __('Primary Menu (Authenticated)', 'themename'),
+  'footer-left' => __('Footer Left Menu', 'themename'),
+  'footer-right' => __('Footer Right Menu ', 'themename'),
 ));
-
 
 /**
  * DEFAULT COMMENTS & RSS LINKS IN HEAD
