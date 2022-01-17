@@ -8,13 +8,13 @@
         <div data-form-msg></div>
 
         <div class="formControl">
-            <label for="user" class="elementor-field-label">Username:</label>
+            <label for="user">Username:</label>
             <div class="formInput">
                 <input type="text" name="username" id="user">
             </div>
         </div>
         <div class="formControl">
-            <label for="login-password" class="elementor-field-label">Password:</label>
+            <label for="login-password">Password:</label>
             <div class="formInput formInputPasswordWithView">
                 <input type="password" name="password" id="login-password">
                 <a href="" data-view-password="login-password">

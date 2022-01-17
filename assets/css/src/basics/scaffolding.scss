@@ -240,6 +240,10 @@ body{
           flex: 0 0 220px;
           margin-bottom:0;
           text-align:center;
+
+          & img{
+            width:75%
+          }
         }
       } 
     }  
@@ -269,11 +273,6 @@ body{
   }
 }
 
-.newsletterSignup{
-  max-width:600px;
-  margin: 0 auto;
-}
-
 main{
 
   &.wrapper{
@@ -287,13 +286,17 @@ main{
 
 .primary{
   flex:1;
+
+  &.small{
+    max-width:900px;
+    margin: 0 auto;
+  }
 }
 
 .secondary{
   flex:0 0 300px;
 }
 
-.ctaGrid{
-  
-}
+
+
 

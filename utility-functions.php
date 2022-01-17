@@ -43,8 +43,8 @@ function build_pagination($loop, $paged)
     'format'     => 'page/%#%',
     'total'      => $loop->max_num_pages,
     'current'    => max(1, $paged),
-    'prev_text'  => __('<i data-previous class="fa fa-caret-left"></i>'),
-    'next_text'  => __('<i data-next     class="fa fa-caret-right"></i>'),
+    'prev_text'  => __('<i data-previous class="fa fa-fw fa-caret-left"></i>'),
+    'next_text'  => __('<i data-next     class="fa fa-fw fa-caret-right"></i>'),
     'type'       => 'array'
   );
 
@@ -59,7 +59,7 @@ function formatted_pagination($data)
   $html = '';
 
   if (count($data) > 0) {
-    $html .= '<ul class="pagination">';
+    $html .= '<ul>';
 
     foreach ($data as $link) {
       $class = '';
@@ -307,6 +307,7 @@ add_filter( 'comments_open', 'filter_media_comment_status', 10 , 2 );
 
 // Disables the block editor from managing widgets in the Gutenberg plugin.
 add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+
 // Disables the block editor from managing widgets.
 add_filter( 'use_widgets_block_editor', '__return_false' );
 
@@ -369,14 +370,14 @@ function custom_tinymce_styles($settings)
 
   return $settings;
 }
-//add_filter( 'tiny_mce_before_init', 'custom_tinymce_styles' );
+add_filter( 'tiny_mce_before_init', 'custom_tinymce_styles' );
 
 function add_tinymce_styles_dropdown($buttons)
 {
   array_unshift($buttons, 'styleselect');
   return $buttons;
 }
-//add_filter('mce_buttons_2', 'add_tinymce_styles_dropdown');
+add_filter('mce_buttons_2', 'add_tinymce_styles_dropdown');
 
 function allow_data_attributes_in_tinymce()
 {
@@ -390,4 +391,4 @@ function allow_data_attributes_in_tinymce()
       $allowedposttags[$tag] = array_merge($allowedposttags[$tag], $new_attributes);
   }
 }
-//add_action( 'init', 'allow_data_attributes_in_tinymce' );
+add_action( 'init', 'allow_data_attributes_in_tinymce' );

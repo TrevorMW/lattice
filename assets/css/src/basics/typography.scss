@@ -57,12 +57,16 @@ p{
     font-size:1.4rem;
     line-height:34px;
     margin-bottom:28px;
-
   }
 
   .footerBar &{
     font-size:.878rem;
     margin-top:50px;
+  }
+
+  .primary &{
+    margin-bottom:28px;
+    line-height:22px;
   }
 
   @media only screen and (min-width:768px){
@@ -83,6 +87,14 @@ a:visited{
   &:hover{
     color:$cream;
   }
+
+  .primary &:not(.btn){
+    color:$aqua;
+
+    &:hover{
+      color:$turquoise;
+    }
+  }
 }
 
 
@@ -95,6 +107,12 @@ h1,h2,h3,h4,h5,h6{
   text-transform:uppercase;
   margin-bottom:14px;
   color:inherit;
+
+  .primary &{
+    margin-bottom:14px;
+    text-transform:capitalize;
+    letter-spacing:1px;
+  }
 
   @media only screen and (min-width:768px){
 
@@ -115,7 +133,7 @@ h1{
   margin-bottom:21px;
 
   .primary &{
-    
+    color:lighten($darkBlue, 5%);
   }
 
   @media only screen and (min-width:768px){
@@ -133,7 +151,12 @@ h2{
   line-height:40px;
 
   .primary &{
-    
+    color:$aqua;
+  }
+
+  .accountCurriculumMessage &{
+    margin-bottom:0;
+    color:$turquoise;
   }
 
   @media only screen and (min-width:768px){
@@ -150,7 +173,13 @@ h3{
   line-height:40px;
 
   .primary &{
-    
+    color:$turquoise;
+  }
+
+  .weInspire &{
+    font-size:2.5rem;
+    line-height:44px;
+    text-transform:uppercase;
   }
 
   @media only screen and (min-width:768px){
@@ -167,12 +196,17 @@ h4{
   line-height:40px;
 
   .primary &{
-    
+    color:$darkBlue;
   }
 
   .resourceTitle &{
     font-size:1.4rem;
+  }
 
+  .weInspire &{
+    font-size:1.7rem;
+    line-height:34px;
+    text-transform:capitalize;
   }
 
   @media only screen and (min-width:768px){
@@ -215,6 +249,14 @@ h6{
       font-size:3.2rem;
       line-height:48px;
     }
+  }
+}
+
+ul, ol{
+
+  & li{
+    margin-bottom:7px;
+    line-height:20px;
   }
 }
 

@@ -1,0 +1,84 @@
+
+.accountSecondary{  
+    order:0;
+    width:100%;
+    margin-bottom:28px;
+   
+    & ul{
+      padding:0;
+      margin:0;
+    }
+  
+    & li{
+      display: block;
+      margin: 0;
+  
+      &.mepr-active-nav-tab{
+        background-color:darken($cream, 5%);
+      }
+    }
+  
+    & a{
+      padding:10px 21px;
+      color:darken($cream, 7%);
+  
+      .mepr-active-nav-tab &{
+        color:$black;
+      }
+    }
+  
+    @media only screen and (min-width:768px){
+      width:200px;
+      text-align:right;
+      border-right:1px solid darken($cream, 5%);
+  
+      & li{
+        text-align:right;
+  
+      }
+    }
+  }
+  
+  .accountPrimary{
+    flex:1;
+    width:100%;
+    order:2;
+    
+    @media only screen and (min-width:768px){
+   
+      padding: 14px 0 14px 30px;
+    }
+  }
+  
+  #mepr-account-logout{
+    margin: 14px 21px 0 0;
+  }
+  
+  .accountCurriculumMessage{
+    margin-top:-15px;
+    background-color:darken($cream, 5%);
+    padding:28px;
+  
+    & div{
+      margin-bottom:21px;
+      text-align:center;
+    }
+    
+    @media only screen and (min-width:768px){
+      display: flex;
+      position: relative;
+      align-items:center;
+      margin-top:-30px;
+      
+      & div{
+        flex:1;
+        text-align:left;
+        margin-bottom:0;
+  
+        &:last-child{
+          flex:0 0 300px;
+          text-align:right;
+        }
+      }
+    }
+  }

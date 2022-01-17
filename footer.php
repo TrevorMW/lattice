@@ -5,12 +5,7 @@
  */
 ?>
 
-<?php if(is_front_page()){ ?> 
 </main>
-<?php } else { ?> 
-    </div>
-</main>
-<?php } ?>
 
 <footer>
 	<div class="wrapper aquaToTurq centered footerBar">

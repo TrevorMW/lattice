@@ -1,24 +1,23 @@
 <?php
 /**
- * Template Name: Template - Contact Us
+ * Template Name: Template - Podcasts
  * Description: Generic Sub Page Template
  *
  * @package WordPress
  * @subpackage themename
  */
 
-get_header(); the_post(); ?>
+get_header(); the_post();?>
 
-<div class="container small">
-  <div class="primary">
+<div class="container">
+  <div class="primary small">
     <section class="page" role="article">
       <div class="page-content">
         <?php the_content(); ?>
+        <br />
+        <?php echo Podcast::getPodcasts(); ?>
       </div>
     </section>
-  </div>
-  <div class="secondary">
-    
   </div>
 </div>
 

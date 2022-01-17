@@ -1,19 +1,10 @@
 <?php
 /**
- * Breaking News
- *
- * @package     breakingNews
+ * @package     TemplateHelper
  * @author      Trevor Wagner
  * @copyright   Trevor Wagner
  * @license     GPL-2.0+
  *
- * @wordpress-plugin
- * Plugin Name: breaking-news
- * Description: This plugin allows the user of the blog to set a post as breaking news
- * Version:     1.0.0
- * Author:      Trevor Wagner
- * License:     GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 // Exit if accessed directly

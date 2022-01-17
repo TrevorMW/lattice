@@ -57,6 +57,21 @@ textarea{
     }
 }
 
+.cc-error{
+    display: none;
+    color:$error;
+    font-size:.788rem;
+    line-height:16px;
+}
+
+.mepr-form-has-errors{
+    display: none;
+}
+
+.mp-form-row{
+    position: relative;
+}
+
 .inlineForm{
     margin-bottom:21px;
 

@@ -44,6 +44,12 @@
     }
   }
 
+  &.btn-small{
+    padding:8px 15px;
+    font-size:1rem;
+    min-width:0;
+  }
+
   .inlineForm &{
     border-radius:0;
     padding:11px 14px 10px;
@@ -56,6 +62,24 @@
     font-size:1rem;
     min-width:0;
     padding:12px 28px;
+  }
+
+  &.btn-podcast{
+    padding:0;
+    display: flex;
+    border:none;
+    overflow:hidden;
+
+    & span{
+      padding:20px 15px 18px 15px;
+
+      &:first-child{
+        border-right:1px solid $aqua;
+        background-color:$aqua;
+        text-align: center;
+        padding-right:11px;
+      }
+    }
   }
 
   @media only screen and (min-width:768px){
@@ -79,4 +103,8 @@
       min-width:0;
     }    
   }
+}
+
+.submitButton{
+  text-align: right;
 }

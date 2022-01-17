@@ -40,18 +40,24 @@
 
 	<?php if(is_front_page()){ ?> 
 		<main class="wrapper cream mainContent frontPage">
-	<?php } else { ?> 
+	<?php } else { 
+
+		$title 	 = $post->post_title;
+		$blog_id = get_option('page_for_posts');
+		
+		if(is_home() && have_posts()){
+			$title = get_post((int) $blog_id)->post_title;
+		} ?> 
 
 		<div class="wrapper turqToAqua centered InnerPageHero">
 			<div class="container">
 				<header class="page-header">
 					<h1 class="page-title" role="heading">
-						<?php the_title(); ?>
+						<?php echo $title ?>
 					</h1>
 				</header>
 			</div>	
 		</div>
 
 		<main class="wrapper cream addLace mainContent InnerPage">
-			<div class="container">
 	<?php } ?>
