@@ -19,7 +19,7 @@ if(is_array($newsletter)){
             </div>';
 
     if( is_array($newsletter['social_media'])){
-        $html .= '<div class="socialMedia"><ul>';
+        $html .= '<nav class="socialMedia"><ul>';
 
         foreach( $newsletter['social_media'] as $outlet ){
             $html .= '<li>
@@ -32,7 +32,7 @@ if(is_array($newsletter)){
 
         }
 
-        $html .= '</ul></div>';
+        $html .= '</ul></nav>';
     }
 }
 

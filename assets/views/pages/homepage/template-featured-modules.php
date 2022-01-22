@@ -12,9 +12,9 @@ if(is_array($modules)){
             $html .= '<div class="latticeModule">
                         <div class="latticeModuleInner">
                             <div class="moduleImg">
-                                <img src="" alt=""/>
+                                ' . get_the_post_thumbnail( $module->ID, 'medium'). '
                             </div>
-                            <div class="moduleTitle">' . $module->post_title . '</div>  
+                            <div class="moduleTitle"><h4>' . $module->post_title . '</h4></div>  
                         </div>
                     </div>';
             

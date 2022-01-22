@@ -39,7 +39,10 @@ label{
     }
 }
 
-input,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
 select,
 textarea{
     display: block;
@@ -70,6 +73,42 @@ textarea{
 
 .mp-form-row{
     position: relative;
+}
+
+.formControl{
+    display: block;
+    width:100%;
+
+    &.formControlCheckbox,
+    &.formControlRadio{
+        
+        & label{
+            display: flex;
+        }
+
+        & label div{
+            flex:1;
+
+            &:first-child{
+                flex:0 0 35px;
+                text-align:left;
+            }
+        }
+    }
+
+    @media only screen and (min-width:768px){
+
+        display: inline-block;
+        width:100%;
+
+        &.half{
+            width:47%;
+        }
+
+        &.last{
+            float:right;      
+        }
+    }
 }
 
 .inlineForm{

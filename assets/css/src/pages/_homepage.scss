@@ -25,6 +25,21 @@
     margin: 0 auto;
 }
 
+.ctaGrid{
+    align-items:center;
+    margin-top:21px;
+}
+
+.resourceImage{
+    max-width:88%;
+    margin: 0 auto;
+}
+
+.resourceTitle{
+    max-width:80%;
+    margin: 0 auto;
+}
+
 @import "../components/_timeline";
 
 @import "../components/_modules";

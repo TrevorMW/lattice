@@ -123,6 +123,10 @@ body{
     &.small{
       max-width:980px;
     }
+
+    &.x-small{
+      max-width:768px;
+    }
   }
 }
 
@@ -295,6 +299,27 @@ main{
 
 .secondary{
   flex:0 0 300px;
+}
+
+.grid{
+
+  & .gridItem{
+    margin-bottom:21px;
+  }
+  
+  @media only screen and (min-width:768px){
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    &.twoByTwo{
+      gap:120px;
+    }
+
+    & .gridItem{
+      flex:1;
+    }
+  }
 }
 
 

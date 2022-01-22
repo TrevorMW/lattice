@@ -80,6 +80,7 @@ nav{
     }
     
     & a{
+      display: inline-block;
       font-size:1.4rem;
       line-height:32px;
       font-weight:400;
@@ -94,15 +95,45 @@ nav{
   .rightFooterNav &{
 
     & li{
-      //text-align: center;
+
     }
 
     @media only screen and (min-width:768px){
       
       & li{
-        //text-align: right;
+
       }
     } 
+  }
+
+  &.socialMedia {
+
+    & ul{
+      padding:0;
+      text-align: center;
+      display: flex;
+      align-items:center;
+      gap:20px;
+      justify-content: center;
+    }
+
+    & li{
+      width:75px;
+      height:75px;
+      display: flex;
+      align-items:center;
+      text-align:center;
+    }
+
+    & a{
+      display: block;
+      width:100%;
+      font-size:2.5rem;
+
+      &:hover{
+        color:$aqua;
+      }
+    }
   }
 
   [data-mobile-nav] &{

@@ -2,7 +2,7 @@
 
 if(is_object($member)){
  
-    $html .= '<div class="teamMember teamMember-' . $member->post_name . '">';
+    $html .= '<div class="gridItem teamMember teamMember-' . $member->post_name . '">';
 
     $html .= '<div class="teamMemberImage">' . get_the_post_thumbnail( $member->ID, 'medium') . '</div>';
 

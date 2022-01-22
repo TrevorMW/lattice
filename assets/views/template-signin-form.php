@@ -28,7 +28,7 @@
         </div>
         
         <div class="submitBtnWrap">
-            <button type="submit" class="btn btn-primary">Sign In</button>
+            <button type="submit" class="btn btn-primary" data-submit>Sign In</button>
         </div>
     </form>
 </div>

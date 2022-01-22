@@ -203,10 +203,17 @@ h4{
     font-size:1.4rem;
   }
 
-  .weInspire &{
+  .weInspire &,
+  .moduleTitle &{
+    letter-spacing:0;
     font-size:1.7rem;
-    line-height:34px;
+    line-height:28px;
     text-transform:capitalize;
+  }
+
+  .moduleTitle &,
+  .resourceTitle &{
+    font-size:1.4rem;
   }
 
   @media only screen and (min-width:768px){
@@ -214,6 +221,11 @@ h4{
     .frontPage &{
       font-size:3.2rem;
       line-height:48px;
+    }
+
+    .moduleTitle &,
+    .resourceTitle &{
+      font-size:1.7rem;
     }
   }
 }

@@ -43,7 +43,6 @@ $home = new Homepage($post->ID); ?>
 <div class="wrapper turqToAqua centered resources">
     <div class="container">
         <?php echo $home->getHomepageResources(); ?>
-        
     </div>
 </div>    
 

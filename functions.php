@@ -291,7 +291,7 @@ function getSignInForm() {
 }
 add_action( 'wp_ajax_nopriv_signin_form', 'getSignInForm' );
 add_action( 'wp_ajax_signin_form',        'getSignInForm' );
-
+ 
 /**
  * Log Out User
  */
@@ -361,6 +361,26 @@ function logUserIn() {
 }
 add_action( 'wp_ajax_nopriv_user_login', 'logUserIn' );
 add_action( 'wp_ajax_user_login',        'logUserIn' );
+
+
+
+function aeneaQuiz() {
+  $post = $_REQUEST;
+ 
+  $resp = new Ajax_Response($post['action']);
+
+
+  $resp->message = 'Please choose a quiz question';
+
+
+  echo $resp->encodeResponse();
+
+  die(0);
+}
+add_action( 'wp_ajax_nopriv_aenea_quiz', 'aeneaQuiz' );
+add_action( 'wp_ajax_aenea_quiz',        'aeneaQuiz' );
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////// END THEME FUNCTIONS /////////////////////////////////////////

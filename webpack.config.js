@@ -6,6 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  devtool: 'source-map',
   entry: {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
     //homepage : ['./assets/js/src/frontpage.js', './assets/css/src/frontpage.scss']

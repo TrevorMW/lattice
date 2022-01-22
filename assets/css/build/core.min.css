@@ -15,6 +15,9 @@ body {
   font-weight: 200;
   line-height: 1; }
 
+.xdebug-var-dump {
+  text-align: left; }
+
 img {
   display: block;
   width: 100%;
@@ -105,7 +108,9 @@ body.locked {
     .container {
       max-width: 1100px; }
       .container.small {
-        max-width: 980px; } }
+        max-width: 980px; }
+      .container.x-small {
+        max-width: 768px; } }
 
 .headerBar .container {
   display: flex;
@@ -199,6 +204,19 @@ main.wrapper.frontPage, main.wrapper.innerPage {
 .secondary {
   flex: 0 0 300px; }
 
+.grid .gridItem {
+  margin-bottom: 21px; }
+
+@media only screen and (min-width: 768px) {
+  .grid {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; }
+    .grid.twoByTwo {
+      gap: 120px; }
+    .grid .gridItem {
+      flex: 1; } }
+
 /* COLORS */
 /* FONTS */
 /* BUTTONS */
@@ -248,6 +266,7 @@ nav {
     display: block; }
   .leftFooterNav nav a,
   .rightFooterNav nav a {
+    display: inline-block;
     font-size: 1.4rem;
     line-height: 32px;
     font-weight: 400;
@@ -255,6 +274,25 @@ nav {
     .leftFooterNav nav a:hover,
     .rightFooterNav nav a:hover {
       color: #00637a; }
+  nav.socialMedia ul {
+    padding: 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center; }
+  nav.socialMedia li {
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    text-align: center; }
+  nav.socialMedia a {
+    display: block;
+    width: 100%;
+    font-size: 2.5rem; }
+    nav.socialMedia a:hover {
+      color: #69b7bb; }
   [data-mobile-nav] nav ul {
     margin: 0;
     padding: 0; }
@@ -304,7 +342,10 @@ label {
   [data-forgot-password]:hover {
     color: #000; }
 
-input,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
 select,
 textarea {
   display: block;
@@ -316,7 +357,10 @@ textarea {
   border-bottom: 2px solid transparent;
   font-family: "Helvetica", sans-serif;
   font-size: 1rem; }
-  input:focus,
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  input[type="password"]:focus,
   select:focus,
   textarea:focus {
     border-color: #00637a; }
@@ -332,6 +376,25 @@ textarea {
 
 .mp-form-row {
   position: relative; }
+
+.formControl {
+  display: block;
+  width: 100%; }
+  .formControl.formControlCheckbox label, .formControl.formControlRadio label {
+    display: flex; }
+  .formControl.formControlCheckbox label div, .formControl.formControlRadio label div {
+    flex: 1; }
+    .formControl.formControlCheckbox label div:first-child, .formControl.formControlRadio label div:first-child {
+      flex: 0 0 35px;
+      text-align: left; }
+  @media only screen and (min-width: 768px) {
+    .formControl {
+      display: inline-block;
+      width: 100%; }
+      .formControl.half {
+        width: 47%; }
+      .formControl.last {
+        float: right; } }
 
 .inlineForm {
   margin-bottom: 21px; }
@@ -527,14 +590,22 @@ h4 {
     color: #00637a; }
   .resourceTitle h4 {
     font-size: 1.4rem; }
-  .weInspire h4 {
+  .weInspire h4,
+  .moduleTitle h4 {
+    letter-spacing: 0;
     font-size: 1.7rem;
-    line-height: 34px;
+    line-height: 28px;
     text-transform: capitalize; }
+  .moduleTitle h4,
+  .resourceTitle h4 {
+    font-size: 1.4rem; }
   @media only screen and (min-width: 768px) {
     .frontPage h4 {
       font-size: 3.2rem;
-      line-height: 48px; } }
+      line-height: 48px; }
+    .moduleTitle h4,
+    .resourceTitle h4 {
+      font-size: 1.7rem; } }
 
 h5 {
   font-size: 2rem;
@@ -603,7 +674,8 @@ ul li, ol li {
   .btn.btn-small {
     padding: 8px 15px;
     font-size: 1rem;
-    min-width: 0; }
+    min-width: 0;
+    border: 0; }
   .inlineForm .btn {
     border-radius: 0;
     padding: 11px 14px 10px;
@@ -626,6 +698,12 @@ ul li, ol li {
         background-color: #69b7bb;
         text-align: center;
         padding-right: 11px; }
+  .InnerPage .btn.btn-secondary {
+    background-color: #333;
+    border: 0; }
+    .InnerPage .btn.btn-secondary:hover {
+      color: #fff;
+      background-color: #4d4d4d; }
   @media only screen and (min-width: 768px) {
     .btn {
       display: inline-block;
@@ -972,6 +1050,18 @@ ul li, ol li {
   max-width: 600px;
   margin: 0 auto; }
 
+.ctaGrid {
+  align-items: center;
+  margin-top: 21px; }
+
+.resourceImage {
+  max-width: 88%;
+  margin: 0 auto; }
+
+.resourceTitle {
+  max-width: 80%;
+  margin: 0 auto; }
+
 .timeline {
   position: relative;
   max-width: 700px;
@@ -1061,14 +1151,13 @@ ul li, ol li {
 
 .modulesList {
   display: block;
-  max-width: 600px;
+  max-width: 750px;
   margin: 0 auto; }
   .modulesList .latticeModule {
     position: relative;
     width: 100%;
     display: block;
-    margin-bottom: 28px;
-    overflow: hidden; }
+    margin-bottom: 28px; }
     .modulesList .latticeModule:before {
       content: "";
       display: block;
@@ -1079,14 +1168,20 @@ ul li, ol li {
     left: 0;
     width: 100%;
     text-align: center; }
+    .modulesList .latticeModuleInner img {
+      width: 220px;
+      height: auto;
+      margin: 0 auto; }
+    .modulesList .latticeModuleInner .moduleImg {
+      margin-bottom: 21px; }
   @media only screen and (min-width: 768px) {
     .modulesList {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 21px; }
+      gap: 0px 70px; }
       .modulesList .latticeModule {
-        flex: 0 0 48%;
+        flex: 0 0 45%;
         margin-bottom: 0; } }
 
 .podcastList ul {
@@ -1235,3 +1330,5 @@ hr {
     margin: 0 8px;
     font-size: 1.3rem; }
 
+
+/*# sourceMappingURL=core.min.css.map*/

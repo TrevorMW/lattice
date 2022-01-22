@@ -7,14 +7,19 @@
  * @subpackage themename
  */
 
-get_header(); the_post(); ?>
+get_header(); the_post(); 
 
-<div class="primary">
-  <section class="page" role="article">
-    <div class="page-content">
-      <?php the_content(); ?>
-    </div>
-  </section>
+$quiz = new Quiz($post->ID); ?>
+
+<div class="container x-small">
+  <div class="primary">
+    <section class="page" role="article">
+      <div class="page-content">
+        <?php the_content(); ?>
+        <br />
+        <?php echo $quiz->getRegisterForm(); ?>
+      </div>
+    </section>
+  </div>
 </div>
-
-<?php get_sidebar(); get_footer(); ?>
+<?php get_footer(); ?>

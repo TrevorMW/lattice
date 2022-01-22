@@ -48,6 +48,7 @@
     padding:8px 15px;
     font-size:1rem;
     min-width:0;
+    border:0;
   }
 
   .inlineForm &{
@@ -78,6 +79,19 @@
         background-color:$aqua;
         text-align: center;
         padding-right:11px;
+      }
+    }
+  }
+
+  .InnerPage &{
+
+    &.btn-secondary{
+      background-color:$black;
+      border:0;
+
+      &:hover{
+        color:$white;
+        background-color:lighten($black, 10%);
       }
     }
   }
