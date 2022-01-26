@@ -60,6 +60,15 @@ textarea{
     }
 }
 
+input[type="radio"],
+input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: $darkBlue;
+  margin:0;
+  display: block;
+}
+
 .cc-error{
     display: none;
     color:$error;
@@ -81,6 +90,7 @@ textarea{
 
     &.formControlCheckbox,
     &.formControlRadio{
+        margin-bottom:7px;
         
         & label{
             display: flex;

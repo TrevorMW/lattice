@@ -197,19 +197,27 @@ function load_custom_wp_admin_style()
  */
 function add_javascript()
 {
+  global $post;
   $app_base = get_template_directory_uri() . '/assets/js/build';
+  $depURL   = '/bundle.core.min.js';
 
   if (!is_admin()) {
     wp_enqueue_script(
       'jquery',
-      '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js',
+      '//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
       null,
       true,
       null
     );
+
+    if($post->ID === (int) get_option('page_for_quiz')){
+      $depURL = '/bundle.quiz.min.js';
+
+    }
+
     wp_enqueue_script(
       'coreJS',
-      get_template_directory_uri() . '/assets/js/build/bundle.core.min.js',
+      get_template_directory_uri() . '/assets/js/build' . $depURL,
       array('jquery'),
       true,
       null
@@ -218,7 +226,7 @@ function add_javascript()
     wp_localize_script('coreJS', 'core', array(
       'ajaxUrl' => get_template_directory_uri() . '/ajax.php',
       'baseUrl' => $app_base,
-      'deps'    => array($app_base . '/bundle.core.min.js')
+      'deps'    => array($app_base . $depURL)
     ));
 
     

@@ -10,9 +10,9 @@ if(is_array($question)){ ?>
     <form data-ajax-form data-action="aenea_quiz">
         <div data-form-msg></div>
 
-        <input type="hidden" name="next_question_id" value="question_<?php echo ($question['q_idx']++) ?>" />
-        <input type="hidden" name="prev_question_id" value="question_<?php echo ($question['q_idx']++) ?>" />
-        <input type="hidden" name="" value="" />
+        <input type="hidden" name="next_question_id"  value="question_<?php echo $question['q_next'] ?>" />
+        <input type="hidden" name="prev_question_id"  value="question_<?php echo $question['q_prev'] ?>" />
+        <input type="hidden" name="currentQuestionID" value="<?php echo (int)$question['q_idx'] ?>" />
 
 
         <?php if( $question['q_type'] === 'checkboxes' ){  $i = 0; ?> 
@@ -22,8 +22,8 @@ if(is_array($question)){ ?>
                 $fieldSlug = sanitize_title($q['q_type_checkbox_title']);  ?> 
                 
                 <div class="formControl formControlCheckbox">
-                    <label for="<?php echo $fieldSlug ?>">
-                        <div><input type="checkbox" name="question_<?php echo $question['q_idx'] ?>[]" value="<?php echo $q['q_type_checkbox_value']->post_name ?>" id="<?php echo $fieldSlug ?>" tabindex="<?php echo $i?>"></div>
+                    <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
+                        <div><input type="checkbox" name="question_<?php echo $question['q_idx'] ?>[]" value="<?php echo $q['q_type_checkbox_value']->post_name ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" tabindex="<?php echo $i?>"></div>
                         <div><?php echo $q['q_type_checkbox_title'] ?></div>
                     </label>
                 </div>
@@ -40,8 +40,8 @@ if(is_array($question)){ ?>
                 $fieldSlug = sanitize_title($q['q_type_radio_title']);  ?> 
                 
                 <div class="formControl formControlRadio">
-                    <label for="<?php echo $fieldSlug ?>">
-                        <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $q['q_type_radio_value']->post_name ?>" id="<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
+                    <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
+                        <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $q['q_type_radio_value']->post_name ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
                         <div><?php echo $q['q_type_radio_title'] ?></div>
                     </label>
                 </div>

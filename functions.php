@@ -19,6 +19,8 @@ spl_autoload_register(function ($className) {
 //////////////////////////////////// START UTILITY FUNCTIONS ///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+new Quiz();
+
 /**
  * Load any needed body classes
  */
@@ -58,6 +60,16 @@ function extendReadingSettings(){
     )
   );
 
+  register_setting( 
+    'reading', // option group "reading", default WP group
+    'page_for_quiz', // option name
+    array(
+      'type' => 'string', 
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => NULL
+    )
+  );
+
   // add our new setting
   add_settings_field(
       'page_for_settings', // ID
@@ -66,6 +78,16 @@ function extendReadingSettings(){
       'reading', // page
       'default', // section
       array( 'label_for' => 'page_for_settings' )
+  );
+
+  // add our new setting
+  add_settings_field(
+    'page_for_quiz', // ID
+    __('Quiz Page', 'textdomain'), // Title
+    'page_for_quiz_callback_function', // Callback
+    'reading', // page
+    'default', // section
+    array( 'label_for' => 'page_for_quiz' )
   );
 }
 add_action('admin_init', 'extendReadingSettings');
@@ -100,6 +122,36 @@ function page_for_settings_callback_function(){
   echo '</select>';
 }
 
+function page_for_quiz_callback_function(){
+  // get saved project page ID
+  $project_page_id = get_option('page_for_quiz');
+
+  // get all pages
+  $args = array(
+      'posts_per_page'   => -1,
+      'orderby'          => 'name',
+      'order'            => 'ASC',
+      'post_type'        => 'page',
+  );
+  
+  $items = get_posts( $args );
+
+  echo '<select id="quizPageSelect" name="page_for_quiz">';
+  // empty option as default
+  echo '<option value="0">'.__('— Select —', 'wordpress').'</option>';
+
+  // foreach page we create an option element, with the post-ID as value
+  foreach($items as $item) {
+
+      // add selected to the option if value is the same as $project_page_id
+      $selected = ($project_page_id == $item->ID) ? 'selected="selected"' : '';
+
+      echo '<option value="'.$item->ID.'" '.$selected.'>'.$item->post_title.'</option>';
+  }
+
+  echo '</select>';
+}
+
 function prfx_add_custom_post_states($states) {
     global $post;
 
@@ -114,9 +166,22 @@ function prfx_add_custom_post_states($states) {
         $states[] = __('Global Settings Page', 'textdomain');
     }
 
+    // get saved project page ID
+    $id = get_option('page_for_quiz');
+
+    // add our custom state after the post title only,
+    // if post-type is "page",
+    // "$post->ID" matches the "$project_page_id",
+    // and "$project_page_id" is not "0"
+    if( 'page' == get_post_type($post->ID) && $post->ID == $id && $id != '0') {
+        $states[] = __('Quiz Page', 'textdomain');
+    }
+
     return $states;
 }
 add_filter('display_post_states', 'prfx_add_custom_post_states');
+
+
 
 
 /**
@@ -361,25 +426,6 @@ function logUserIn() {
 }
 add_action( 'wp_ajax_nopriv_user_login', 'logUserIn' );
 add_action( 'wp_ajax_user_login',        'logUserIn' );
-
-
-
-function aeneaQuiz() {
-  $post = $_REQUEST;
- 
-  $resp = new Ajax_Response($post['action']);
-
-
-  $resp->message = 'Please choose a quiz question';
-
-
-  echo $resp->encodeResponse();
-
-  die(0);
-}
-add_action( 'wp_ajax_nopriv_aenea_quiz', 'aeneaQuiz' );
-add_action( 'wp_ajax_aenea_quiz',        'aeneaQuiz' );
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

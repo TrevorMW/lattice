@@ -21,6 +21,7 @@ class Question extends WP_ACF_CPT
     public function __construct($id = null){
         if(is_int($id)){
             $this->postID = $id;
+            $this->post = get_post($id);
             parent::__construct($id);
         } 
 
@@ -31,9 +32,8 @@ class Question extends WP_ACF_CPT
         }
     }
 
-    public function getQuestionForm($qid){
+    public function getQuestionForm($qid, $data = null){
         $html = '';
-        
         $selections = '';
 
         if($this->question_type['value'] == 'checkboxes'){
@@ -51,8 +51,8 @@ class Question extends WP_ACF_CPT
         $data = array( 'question' => 
             array( 
                 'q_idx'        => $qid,
-                'q_next'       => '',
-                'q_prev'       => 'register',
+                'q_next'       => $data['next'],
+                'q_prev'       => $data['prev'],
                 'q_type'       => $this->question_type['value'], 
                 'q_title'      => $this->post->post_title,
                 'q_help_text'  => $this->post->post_content,

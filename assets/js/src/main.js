@@ -3,14 +3,13 @@ import FieldWatcher from './core/field-watcher';
 import MobileNav from './core/mobile-nav';
 import AjaxFormWatcher from './core/ajax-form-watcher';
 
+(() => {
+	'use strict';
 
-(() => { 
-    "use strict";
-
-    $(document).ready(() => {
-        new AjaxFormWatcher();
-        new PopupWatcher();
-        new FieldWatcher();
-        new MobileNav();
-    })
+	$(document).ready(() => {
+		new MobileNav();
+		new AjaxFormWatcher();
+		new PopupWatcher();
+		new FieldWatcher();
+	});
 })();

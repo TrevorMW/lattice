@@ -17,34 +17,151 @@ class Quiz extends WP_ACF_CPT
 {   
     public $postID; 
     public $post;
+    public $questionIndex;
 
-    public function __construct($id = null){
+    public function __construct(){
+        $id = (int) get_option('page_for_quiz');
+
         if(is_int($id)){
             $this->postID = $id;
             parent::__construct($id);
         }
+
+        $this->createIndex();
+        $this->registerAjax();
     }
 
-    public function getRegisterForm(){
+    public function registerAjax(){
+        add_action( 'wp_ajax_nopriv_aenea_quiz', array($this, 'aeneaQuiz'));
+        add_action( 'wp_ajax_aenea_quiz',        array($this, 'aeneaQuiz'));
+
+        add_action( 'wp_ajax_nopriv_load_question_form', array($this, 'loadQuestionForm'));
+        add_action( 'wp_ajax_load_question_form',        array($this, 'loadQuestionForm'));
+    }
+
+    public function getQuiz(){
         $html = '';
-        $template = 'quiz-register';
-        $data = array();
-        
+
         if( is_user_logged_in() ){
-            $firstQ = $this->quiz_questions[0];
-
-            $i =0;
-            foreach($this->quiz_questions as $questions ){
-                $q = new Question($questions);
-
-                $html .= $q->getQuestionForm($i);
-
-                $i++;
-            }
+            $html .= $this->getQuizQuestion();
         } else {
-            $html .= Template_Helper::loadView('quiz-register' , '/assets/views/pages/quiz/');
+            $html .= $this->getRegisterForm();
         }
 
         return $html;
+    }
+
+    public function getQuizQuestion(){
+        $firstQID = $this->quiz_questions[0]->ID;
+
+        $q = new Question($this->quiz_questions[0]);
+        $navData = $this->getQuizNavigationData($firstQID);
+
+        return $q->getQuestionForm($firstQID, $navData);
+    }
+
+    public function getRegisterForm(){
+        return Template_Helper::loadView('quiz-register' , '/assets/views/pages/quiz/');
+    }
+
+    public function createIndex(){
+        if(count($this->quiz_questions) > 0){
+            foreach($this->quiz_questions as $k => $qq){
+                $qList[$k] = $qq->ID;
+            }
+
+            $this->questionIndex = $qList;
+        }
+    }
+
+    public function getCurrentIndex($id, $arr){
+        $idx = null;
+        
+        if($id !== null && is_array($arr)){
+            $idx = array_search($id, $arr);
+        }
+
+        return $idx;
+    }
+
+    public function saveQuizQuestionData($id, $data){
+        
+    }
+
+    public function getQuizNavigationData($currentQID, $canProceed = false){
+        $data = array( 'next' => '', 'prev' => '', 'canProceed' => $canProceed);
+        $qList = $this->questionIndex;
+
+        if(count($qList) > 0){
+            $currIdx = $this->getCurrentIndex($currentQID, $qList);
+            $data['idx'] = $currIdx;
+
+            if($currIdx !== false){
+                if($currIdx <= 0){
+                    //assume that we are at the first question
+                    
+                    if(is_user_logged_in()){
+                        $data['prev'] = 'register';
+                    } else {
+                        $data['prev'] = "0";
+                    }
+
+                    $data['next'] = $qList[($currIdx + 1)];
+                }
+
+                // a question between the first and last question
+                if($currIdx >= 1 && $currIdx < count($qList)){
+                    $data['next'] = $qList[($currIdx + 1)];
+                    $data['prev'] = $qList[($currIdx - 1)];
+                }
+
+                // Explicitly the last item
+                if($currIdx === (count($qList) - 1)){
+                    $data['next'] = 'payment';
+                    $data['prev'] = $qList[($currIdx - 1)];
+                }                
+            }
+        }
+
+        return $data;
+    }
+
+    public function aeneaQuiz() {
+        $post = $_REQUEST;
+        $resp = new Ajax_Response($post['action']);
+        $qid = $post['currentQuestionID'];
+        
+        if(isset($post['question_' . $qid])){
+            
+            //$this->saveQuizQuestionData($qid, $post['question_' . $qid]);
+
+            $resp->message = 'Data saved, loading next question';
+            $resp->status = true;            
+        } else {
+            $resp->message = 'Please choose a quiz question';
+        }
+
+        $resp->data = $this->getQuizNavigationData($qid, $resp->status);
+
+        echo $resp->encodeResponse();
+      
+        die(0);
+    }
+
+    public function loadQuestionForm(){
+        $post = $_REQUEST;
+        $resp = new Ajax_Response($post['action']);
+
+        if(isset($post['question_id'])){
+            $id = (int) $post['question_id'];
+
+            $q = new Question($id);
+            
+            $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
+        }
+
+        echo $resp->returnHtml();
+      
+        die(0);
     }
 }

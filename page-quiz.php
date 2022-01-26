@@ -9,7 +9,7 @@
 
 get_header(); the_post(); 
 
-$quiz = new Quiz($post->ID); ?>
+$quiz = new Quiz(); ?>
 
 <div class="container x-small">
   <div class="primary">
@@ -17,7 +17,7 @@ $quiz = new Quiz($post->ID); ?>
       <div class="page-content">
         <?php the_content(); ?>
         <br />
-        <?php echo $quiz->getRegisterForm(); ?>
+        <div class="aeneaQuiz" data-quiz-container><?php echo $quiz->getQuiz(); ?></div>
       </div>
     </section>
   </div>
