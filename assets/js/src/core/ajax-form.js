@@ -36,7 +36,7 @@ export default class AjaxForm {
 		this.collectData();
 
 		if (this.confirmFormRequest()) {
-			$(document).trigger('core:progress:show');
+			$(document).trigger('core:progress:show', { msg: 'Saving Data...' });
 
 			this.makeRequest(this);
 		} else {
@@ -120,7 +120,10 @@ export default class AjaxForm {
 	formSuccess(resp) {
 		let response = JSON.parse(resp);
 
-		$(document).trigger('core:message:show', { resp: response });
+		if(!response.data.status){
+			$(document).trigger('core:message:show', { resp: response });
+		}
+
 		$(document).trigger('core:request:success', {
 			form: self,
 			resp: response,

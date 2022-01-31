@@ -1,4 +1,7 @@
-<?php $html .= '';
+<?php $html = '';
+
+$classes = count($question['q_selections']) <= 2 || $question['q_type'] === 'range' ? 'formControlInlineInputs' : '' ;
+$classes .= $question['q_type'] === 'range' ? ' formControlInlineRangeInputs' : '';
 
 if(is_array($question)){ ?>
 
@@ -16,7 +19,7 @@ if(is_array($question)){ ?>
 
         <div data-form-msg></div>
 
-        <fieldset class="<?php echo count($question['q_selections']) <= 2 || $question['q_type'] === 'range' ? 'formControlInlineInputs' : '' ; ?>"> 
+        <fieldset class="<?php echo $classes; ?>"> 
 
             <?php if( $question['q_type'] === 'checkboxes' ){  $i = 0; ?> 
                 

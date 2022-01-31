@@ -136,6 +136,10 @@
 
 .submitButton{
   text-align: right;
+
+  & .btn{
+    display: inline-block;
+  }
 }
 
 [data-quiz-container]{
@@ -143,7 +147,14 @@
     
   & [data-quiz-back]{
     position: absolute;
-    bottom:8px;
+    bottom:32px;
     left:0;
+  }
+
+  @media only screen and (min-width:768px){
+
+    & [data-quiz-back]{
+      bottom:8px;
+    }
   }
 }

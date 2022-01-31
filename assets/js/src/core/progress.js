@@ -45,10 +45,10 @@ export default class Progress{
 
     createProgressHTML(el){
         if( el.length > 0 && el.find('[data-progress]').length <= 0 ){
-            $(el).append('<div data-progress><div><i class="fa fa-spin fa-spinner fa-pulse fa-fw"></i><br /><div data-progess-msg></div></div></div>');
+            $(el).append('<div data-progress><div><i class="fa fa-spin fa-spinner fa-pulse fa-fw"></i><br /><div data-progress-msg></div></div></div>');
 
             this.progress = el.find('[data-progress]');
-            this.msg = this.progress.find('[data-progress-msg]');
+            this.msg      = el.find('[data-progress-msg]');
         }
     }
 

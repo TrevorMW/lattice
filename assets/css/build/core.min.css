@@ -340,10 +340,19 @@ fieldset {
   margin: 0; }
   fieldset legend {
     display: none; }
+  fieldset.formControlInlineInputs {
+    max-width: 100%;
+    display: flex; }
   @media only screen and (min-width: 768px) {
     [data-quiz-container] fieldset {
       max-width: 65%;
-      margin: 0 auto; } }
+      margin: 0 auto; }
+    fieldset.formControlInlineInputs {
+      max-width: 45%; }
+    fieldset.formControlInlineRangeInputs {
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex; } }
 
 label {
   display: block;
@@ -354,6 +363,9 @@ label {
   line-height: 22px; }
   label mark {
     color: #000; }
+  .formControlInlineInputs label.formControlRadioRange {
+    display: inline-flex;
+    flex-direction: column; }
 
 [data-forgot-password] {
   display: block;
@@ -393,7 +405,7 @@ input[type="checkbox"] {
   height: 1.2rem;
   accent-color: #00637a;
   margin: 0;
-  display: block; }
+  display: inline-block; }
 
 .cc-error {
   display: none;
@@ -419,6 +431,23 @@ input[type="checkbox"] {
       .formControl.formControlCheckbox label div:first-child, .formControl.formControlRadio label div:first-child, .formControl.formControlRadioRange label div:first-child {
         flex: 0 0 35px;
         text-align: left; }
+  .formControlInlineInputs .formControl.formControlRadio label {
+    display: inline-flex; }
+  .formControlInlineInputs .formControl.formControlRadio label div {
+    flex: 1; }
+    .formControlInlineInputs .formControl.formControlRadio label div:first-child {
+      flex: 1;
+      text-align: right;
+      margin-right: 14px; }
+  .formControlInlineRangeInputs .formControl.formControlRadioRange label {
+    flex-direction: column; }
+  .formControlInlineRangeInputs .formControl.formControlRadioRange label div {
+    flex: 1;
+    text-align: center; }
+    .formControlInlineRangeInputs .formControl.formControlRadioRange label div:first-child {
+      flex: 1;
+      text-align: center;
+      margin-bottom: 5px; }
   @media only screen and (min-width: 768px) {
     .formControl {
       display: inline-block;
@@ -486,7 +515,7 @@ input[type="checkbox"] {
     text-align: center;
     width: 100%; }
   [data-progress].active {
-    background-color: rgba(241, 239, 224, 0.5);
+    background-color: rgba(241, 239, 224, 0.8);
     position: absolute;
     left: 0;
     top: 0;
@@ -497,6 +526,10 @@ input[type="checkbox"] {
     text-align: center;
     font-size: 3rem;
     color: #69b7bb; }
+  [data-progress] [data-progress-msg] {
+    font-size: 1.5rem;
+    line-height: 30px;
+    margin-top: 21px; }
 
 /* COLORS */
 /* FONTS */
@@ -793,13 +826,18 @@ ul li, ol li {
 
 .submitButton {
   text-align: right; }
+  .submitButton .btn {
+    display: inline-block; }
 
 [data-quiz-container] {
   position: relative; }
   [data-quiz-container] [data-quiz-back] {
     position: absolute;
-    bottom: 8px;
+    bottom: 32px;
     left: 0; }
+  @media only screen and (min-width: 768px) {
+    [data-quiz-container] [data-quiz-back] {
+      bottom: 8px; } }
 
 [data-overlay] {
   text-align: center;

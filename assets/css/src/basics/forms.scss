@@ -13,12 +13,26 @@ fieldset{
         display: none;
     }
 
+    &.formControlInlineInputs{
+        max-width:100%;
+        display: flex;
+    }
 
     @media only screen and (min-width:768px){
 
         [data-quiz-container] &{
             max-width:65%;
             margin: 0 auto;
+        }
+
+        &.formControlInlineInputs{
+            max-width:45%;
+        }
+
+        &.formControlInlineRangeInputs {
+            max-width:100%;
+            margin: 0 auto;
+            display: flex;
         }
     }
 }
@@ -35,9 +49,13 @@ label{
         color:$btn-hover;
     }
 
+    .formControlInlineInputs &.formControlRadioRange{
+        display: inline-flex;
+        flex-direction: column;
+    }
+
     @media only screen and (min-width:768px){
-        
-        
+ 
     }
 }
 
@@ -80,7 +98,7 @@ input[type="checkbox"] {
   height: 1.2rem;
   accent-color: $darkBlue;
   margin:0;
-  display: block;
+  display: inline-block;
 }
 
 .cc-error{
@@ -121,6 +139,41 @@ input[type="checkbox"] {
         }
     }
 
+    .formControlInlineInputs &.formControlRadio{
+        
+        & label{
+            display: inline-flex;
+        }
+
+        & label div{
+            flex:1;
+            
+
+            &:first-child{
+                flex:1;
+                text-align:right;
+                margin-right:14px;
+            }
+        }
+    }
+
+    .formControlInlineRangeInputs &.formControlRadioRange{
+
+        & label{
+            flex-direction:column;
+        }
+    
+        & label div{
+            flex:1;
+            text-align:center;
+
+            &:first-child{
+                flex:1;
+                text-align:center;
+                margin-bottom:5px;
+            }
+        }
+    }
 
     @media only screen and (min-width:768px){
         display: inline-block;
@@ -215,7 +268,6 @@ input[type="checkbox"] {
     text-align:right;
 }
 
-
 [data-progress]{
     position: relative;
     display: none;
@@ -226,7 +278,7 @@ input[type="checkbox"] {
     }
 
     &.active{
-        background-color:rgba($cream, 0.5);
+        background-color:rgba($cream, 0.8);
         position:absolute;
         left:0;
         top:0;
@@ -237,5 +289,12 @@ input[type="checkbox"] {
         text-align:center;
         font-size:3rem;
         color:$aqua;
+    }
+
+    & [data-progress-msg]{
+        font-size:1.5rem;
+        line-height:30px;
+        margin-top:21px;
+
     }
 }
