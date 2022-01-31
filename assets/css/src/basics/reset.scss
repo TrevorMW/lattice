@@ -20,6 +20,28 @@ img{
   .primary &{
     display: block;
     width:auto;
+    margin-bottom:21px;
+    max-width:100%;
+  }
+
+  @media only screen and (min-width:768px){
+    &.alignright{
+      float:right;
+      margin-left:21px;
+      margin-bottom:21px;
+    }
+
+    &.alignleft{
+      float:left;
+      margin-right:21px;
+      margin-bottom:21px;
+    }
+
+    &.aligncenter{
+      margin: 0 auto;
+    }
+
+    
   }
 }
 

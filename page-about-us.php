@@ -30,7 +30,7 @@ $team  = new Team_Member($post->ID) ?>
 </div>  
 
 <div class="wrapper teamMemberGrid">
-  <div class="container centered">
+  <div class="container centered grid">
     <?php echo $about->getTeamMemberGrid(); ?>
   </div>
 </div>

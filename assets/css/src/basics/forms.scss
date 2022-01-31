@@ -12,6 +12,15 @@ fieldset{
     & legend{
         display: none;
     }
+
+
+    @media only screen and (min-width:768px){
+
+        [data-quiz-container] &{
+            max-width:65%;
+            margin: 0 auto;
+        }
+    }
 }
 
 label{
@@ -24,6 +33,11 @@ label{
 
     & mark{
         color:$btn-hover;
+    }
+
+    @media only screen and (min-width:768px){
+        
+        
     }
 }
 
@@ -89,7 +103,8 @@ input[type="checkbox"] {
     width:100%;
 
     &.formControlCheckbox,
-    &.formControlRadio{
+    &.formControlRadio,
+    &.formControlRadioRange{
         margin-bottom:7px;
         
         & label{
@@ -106,8 +121,8 @@ input[type="checkbox"] {
         }
     }
 
-    @media only screen and (min-width:768px){
 
+    @media only screen and (min-width:768px){
         display: inline-block;
         width:100%;
 
@@ -198,4 +213,29 @@ input[type="checkbox"] {
 
 .vfb-item-submit{
     text-align:right;
+}
+
+
+[data-progress]{
+    position: relative;
+    display: none;
+
+    & > div{
+        text-align:center;
+        width:100%;
+    }
+
+    &.active{
+        background-color:rgba($cream, 0.5);
+        position:absolute;
+        left:0;
+        top:0;
+        bottom:0;
+        right:0;
+        display: flex;
+        align-items: center;
+        text-align:center;
+        font-size:3rem;
+        color:$aqua;
+    }
 }

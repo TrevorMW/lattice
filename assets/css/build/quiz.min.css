@@ -24,7 +24,20 @@ img {
   height: auto; }
   .primary img {
     display: block;
-    width: auto; }
+    width: auto;
+    margin-bottom: 21px;
+    max-width: 100%; }
+  @media only screen and (min-width: 768px) {
+    img.alignright {
+      float: right;
+      margin-left: 21px;
+      margin-bottom: 21px; }
+    img.alignleft {
+      float: left;
+      margin-right: 21px;
+      margin-bottom: 21px; }
+    img.aligncenter {
+      margin: 0 auto; } }
 
 .screenReader {
   display: none; }
@@ -212,6 +225,11 @@ main.wrapper.frontPage, main.wrapper.innerPage {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; }
+    .teamMemberGrid .grid {
+      gap: 150px;
+      text-align: center; }
+    .entryContent .grid img {
+      margin: 0 auto; }
     .grid.twoByTwo {
       gap: 120px; }
     .grid .gridItem {
@@ -322,6 +340,10 @@ fieldset {
   margin: 0; }
   fieldset legend {
     display: none; }
+  @media only screen and (min-width: 768px) {
+    [data-quiz-container] fieldset {
+      max-width: 65%;
+      margin: 0 auto; } }
 
 label {
   display: block;
@@ -388,13 +410,13 @@ input[type="checkbox"] {
 .formControl {
   display: block;
   width: 100%; }
-  .formControl.formControlCheckbox, .formControl.formControlRadio {
+  .formControl.formControlCheckbox, .formControl.formControlRadio, .formControl.formControlRadioRange {
     margin-bottom: 7px; }
-    .formControl.formControlCheckbox label, .formControl.formControlRadio label {
+    .formControl.formControlCheckbox label, .formControl.formControlRadio label, .formControl.formControlRadioRange label {
       display: flex; }
-    .formControl.formControlCheckbox label div, .formControl.formControlRadio label div {
+    .formControl.formControlCheckbox label div, .formControl.formControlRadio label div, .formControl.formControlRadioRange label div {
       flex: 1; }
-      .formControl.formControlCheckbox label div:first-child, .formControl.formControlRadio label div:first-child {
+      .formControl.formControlCheckbox label div:first-child, .formControl.formControlRadio label div:first-child, .formControl.formControlRadioRange label div:first-child {
         flex: 0 0 35px;
         text-align: left; }
   @media only screen and (min-width: 768px) {
@@ -457,6 +479,25 @@ input[type="checkbox"] {
 .vfb-item-submit {
   text-align: right; }
 
+[data-progress] {
+  position: relative;
+  display: none; }
+  [data-progress] > div {
+    text-align: center;
+    width: 100%; }
+  [data-progress].active {
+    background-color: rgba(241, 239, 224, 0.5);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    color: #69b7bb; }
+
 /* COLORS */
 /* FONTS */
 /* BUTTONS */
@@ -513,6 +554,8 @@ p {
   .primary p {
     margin-bottom: 28px;
     line-height: 22px; }
+  [data-quiz-container] p {
+    text-align: center; }
   @media only screen and (min-width: 768px) {
     .frontPage p {
       font-size: 1.95rem;
@@ -560,6 +603,9 @@ h1 {
   margin-bottom: 21px; }
   .primary h1 {
     color: #007894; }
+  .blogPost h1 {
+    font-size: 1.3rem;
+    line-height: 26px; }
   @media only screen and (min-width: 768px) {
     .frontPage h1 {
       font-size: 6.2rem;
@@ -609,6 +655,8 @@ h4 {
   .moduleTitle h4,
   .resourceTitle h4 {
     font-size: 1.4rem; }
+  [data-quiz-container] h4 {
+    text-align: center; }
   @media only screen and (min-width: 768px) {
     .frontPage h4 {
       font-size: 3.2rem;
@@ -686,6 +734,17 @@ ul li, ol li {
     font-size: 1rem;
     min-width: 0;
     border: 0; }
+  .btn.btn-link {
+    background-color: transparent;
+    color: #454545;
+    padding: 0;
+    border: 0;
+    margin-bottom: 0;
+    min-width: 0;
+    width: auto;
+    display: inline-block; }
+    .btn.btn-link:hover {
+      color: #5f5f5f; }
   .inlineForm .btn {
     border-radius: 0;
     padding: 11px 14px 10px;
@@ -734,6 +793,13 @@ ul li, ol li {
 
 .submitButton {
   text-align: right; }
+
+[data-quiz-container] {
+  position: relative; }
+  [data-quiz-container] [data-quiz-back] {
+    position: absolute;
+    bottom: 8px;
+    left: 0; }
 
 [data-overlay] {
   text-align: center;
@@ -1025,6 +1091,11 @@ ul li, ol li {
     [data-mobile-nav] {
       max-width: 340px; } }
 
+[data-mobile-nav-close-trigger] {
+  font-size: 1.8rem;
+  position: relative;
+  top: -4px; }
+
 [data-mobile-nav-close] {
   display: flex;
   background-color: #69b7bb;
@@ -1035,6 +1106,21 @@ ul li, ol li {
     font-size: 1.5rem; }
     [data-mobile-nav-close] > div:last-child {
       text-align: right; }
+
+.teamMemberGrid .teamMemberImage {
+  border-radius: 500px;
+  overflow: hidden;
+  margin-bottom: 28px; }
+
+.teamMemberGrid .teamMember p {
+  margin-bottom: 21px; }
+
+.teamMemberImage {
+  margin-bottom: 21px; }
+  @media only screen and (min-width: 768px) {
+    .teamMemberImage {
+      margin-left: 21px;
+      float: right; } }
 
 .pageMyAccount {
   display: flex;
@@ -1271,6 +1357,37 @@ ul li, ol li {
           flex: 0 0 300px;
           text-align: right; } }
 
+.postsPage .blogPost {
+  padding: 28px;
+  background-color: #fff;
+  position: relative;
+  margin-bottom: 28px; }
+
+.postsPage .entryReadMore a {
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 1rem; }
+
+@media only screen and (min-width: 768px) {
+  .postsPage .entrySummary {
+    min-height: 260px; }
+  .postsPage .entryHeader {
+    min-height: 100px; }
+  .postsPage .blogPostGrid {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap; }
+  .postsPage .blogPost {
+    margin-bottom: 0;
+    flex: 1;
+    max-width: 33%;
+    display: flex; } }
+
+.postMeta,
+.entryMeta {
+  margin-bottom: 21px;
+  font-size: .78rem; }
+
 .inspirationBlockGrid {
   display: block; }
   .inspirationBlockGrid .inspirationBlock {
@@ -1339,6 +1456,20 @@ hr {
     width: auto;
     margin: 0 8px;
     font-size: 1.3rem; }
+  .pagination.postPagination {
+    display: block;
+    width: 100%; }
+    .pagination.postPagination > div {
+      margin-top: 14px; }
+  @media only screen and (min-width: 768px) {
+    .pagination.postPagination {
+      display: flex;
+      text-align: right;
+      padding-top: 21px; }
+      .pagination.postPagination div {
+        flex: 1; }
+        .pagination.postPagination div:first-child {
+          text-align: left; } }
 
 
 /*# sourceMappingURL=quiz.min.css.map*/

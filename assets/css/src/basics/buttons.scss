@@ -51,6 +51,21 @@
     border:0;
   }
 
+  &.btn-link{
+    background-color:transparent;
+    color:$darkGray;
+    padding:0;
+    border:0;
+    margin-bottom:0;
+    min-width:0;
+    width:auto;
+    display: inline-block;
+
+    &:hover{
+      color:lighten($darkGray, 10%);
+    }
+  }
+
   .inlineForm &{
     border-radius:0;
     padding:11px 14px 10px;
@@ -121,4 +136,14 @@
 
 .submitButton{
   text-align: right;
+}
+
+[data-quiz-container]{
+  position: relative;
+    
+  & [data-quiz-back]{
+    position: absolute;
+    bottom:8px;
+    left:0;
+  }
 }

@@ -44,8 +44,8 @@ class Question extends WP_ACF_CPT
             $selections = $this->q_type_radios;
         }
 
-        if($this->question_type['value'] == 'text_field'){
-            $selections = $this->q_type_text_field;
+        if($this->question_type['value'] == 'range'){
+            $selections = $this->q_type_range;
         }
 
         $data = array( 'question' => 

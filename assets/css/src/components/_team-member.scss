@@ -1,0 +1,21 @@
+.teamMemberGrid{
+
+    & .teamMemberImage{
+        border-radius:500px;
+        overflow:hidden;
+        margin-bottom:28px;
+    }
+
+    & .teamMember p{
+        margin-bottom:21px;
+    }
+}
+
+.teamMemberImage{
+    margin-bottom:21px;
+
+    @media only screen and (min-width:768px){
+        margin-left:21px;
+        float:right;
+    }
+}

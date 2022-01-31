@@ -43,5 +43,29 @@ hr{
 
 
   &.postPagination{
+    display: block;
+    width:100%;
+
+    & > div{
+      margin-top:14px;
+    }
+  }
+
+  @media only screen and (min-width:768px){
+    
+    &.postPagination{
+      display: flex;
+      text-align:right;
+      padding-top:21px;
+
+
+      & div{
+        flex:1;
+
+        &:first-child{
+          text-align:left;
+        }
+      }
+    }
   }
 }

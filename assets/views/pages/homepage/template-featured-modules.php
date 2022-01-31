@@ -10,12 +10,12 @@ if(is_array($modules)){
         foreach( $modules['modules'] as $module ){
             
             $html .= '<div class="latticeModule">
-                        <div class="latticeModuleInner">
+                        <a href="' . get_permalink($module->ID) . '" class="latticeModuleInner">
                             <div class="moduleImg">
                                 ' . get_the_post_thumbnail( $module->ID, 'medium'). '
                             </div>
                             <div class="moduleTitle"><h4>' . $module->post_title . '</h4></div>  
-                        </div>
+                        </a>
                     </div>';
             
         }

@@ -311,6 +311,15 @@ main{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    .teamMemberGrid &{
+      gap:150px;
+      text-align:center;
+    }
+
+    .entryContent & img{
+      margin: 0 auto;
+    }
     
     &.twoByTwo{
       gap:120px;

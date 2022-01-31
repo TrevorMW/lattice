@@ -1,3 +1,5 @@
+import Progress from './progress';
+
 /**
  * @package     AjaxForm
  * @version     1.0
@@ -13,7 +15,7 @@ export default class AjaxForm {
 			url: null,
 		};
 
-		this.data = { formData: null };
+		this.data  = { formData: null };
 		this.flags = { canSubmit: false };
 
 		return this;
@@ -22,7 +24,7 @@ export default class AjaxForm {
 	init(form, url) {
 		if (form.length > 0) {
 			this.form.el = form;
-			this.form.submit = form.find('button[type="submit"]');
+			this.form.submit = form.find('[data-submit]');
 			this.form.action = form.data('action');
 			this.form.url = url;
 
@@ -34,29 +36,60 @@ export default class AjaxForm {
 		this.collectData();
 
 		if (this.confirmFormRequest()) {
+			$(document).trigger('core:progress:show');
+
 			this.makeRequest(this);
 		} else {
-			$(document).trigger('core:loader:hide');
+			$(document).trigger('core:progress:hide');
 		}
 	}
 
 	setObservers() {
-		var self = this;
+		var self = this,
+			ajaxForm = $('[data-ajax-form]'),
+       		backBtn = $('[data-quiz-back]');
+		
+		if(ajaxForm.length > 0){
+			ajaxForm.on('submit', (e) => {
+				e.preventDefault();
 
-		$('[data-ajax-form]').on('submit', (e) => {
-			e.preventDefault();
+				var form = $(e.currentTarget),
+					formMsg = form.find('[data-form-msg]');
 
-			var form = $(e.currentTarget),
-				formMsg = form.find('[data-form-msg]');
+				if (formMsg.length > 0) {
+					$(document)
+						.trigger('core:message:init', { formMessage: formMsg })
+						.trigger('core:message:hide');
+				}
 
-			if (formMsg.length > 0) {
-				$(document)
-					.trigger('core:message:init', { formMessage: formMsg })
-					.trigger('core:message:hide');
-			}
+				self.init(form, core.ajaxUrl);
+			});	
 
-			self.init(form, core.ajaxUrl);
-		});
+			new Progress(ajaxForm);
+		}
+
+		if (backBtn) {
+			backBtn.on('click', (e) => {
+				e.preventDefault();
+
+				const el = $(e.currentTarget);
+
+				if (el.length > 0) {
+					const form = el.closest('[data-quiz-container]').find('[data-ajax-form]');
+
+					if (form.length > 0) {
+						const prev = form
+							.find('input[name="prev_question_id"]')
+							.val();
+
+						$(document).trigger('quiz:form:previous', {
+							prev_question_id: prev,
+						});
+					}
+				}
+			});
+		}
+
 	}
 
 	collectData() {
@@ -69,7 +102,6 @@ export default class AjaxForm {
 
 	makeRequest() {
 		var self = this;
-		$(document).trigger('core:overlay:show');
 
 		// Ajax POST call using native DW library.
 		$.ajax({
@@ -78,6 +110,8 @@ export default class AjaxForm {
 			url: this.form.url,
 			data: this.data.formData + '&action=' + this.form.action,
 			success: (resp) => {
+				$(document).trigger('core:progress:hide');
+
 				this.formSuccess(resp);
 			},
 		});
@@ -86,7 +120,6 @@ export default class AjaxForm {
 	formSuccess(resp) {
 		let response = JSON.parse(resp);
 
-		$(document).trigger('core:overlay:hide');
 		$(document).trigger('core:message:show', { resp: response });
 		$(document).trigger('core:request:success', {
 			form: self,

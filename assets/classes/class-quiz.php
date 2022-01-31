@@ -61,7 +61,25 @@ class Quiz extends WP_ACF_CPT
     }
 
     public function getRegisterForm(){
-        return Template_Helper::loadView('quiz-register' , '/assets/views/pages/quiz/');
+        return Template_Helper::loadView('quiz-register', '/assets/views/pages/quiz/');
+    }
+
+    public function getResultsScreen(){
+        $html = '';
+
+        $data = array( 'quizdata' => 
+            array(
+                'results_title'      => 'For $89, you receive 30 days access to your customized curriculum and our full content library. For $229, receive a full years access!',
+                'module_results'     => '',
+                'intro_video'        => $this->quiz_results_page_intro_video,
+                'intro_video_poster' => $this->quiz_results_page_intro_video_thumbnail,
+                'membership_plans'   => $this->quiz_membership_plans
+            )
+        );
+
+        $html .= Template_Helper::loadView('quiz-results', '/assets/views/pages/quiz/', $data);
+        
+        return $html;
     }
 
     public function createIndex(){
@@ -100,10 +118,10 @@ class Quiz extends WP_ACF_CPT
                 if($currIdx <= 0){
                     //assume that we are at the first question
                     
-                    if(is_user_logged_in()){
+                    if(!is_user_logged_in()){
                         $data['prev'] = 'register';
                     } else {
-                        $data['prev'] = "0";
+                        $data['prev'] = null;
                     }
 
                     $data['next'] = $qList[($currIdx + 1)];
@@ -126,10 +144,16 @@ class Quiz extends WP_ACF_CPT
         return $data;
     }
 
+    public function getQuizResults(){
+        if ( ! is_admin() && isset( $_POST['lcrq'] ) ) {
+            $return = aenea_return_quiz_results_data( $_POST['lcrq'] );
+        }
+    }
+
     public function aeneaQuiz() {
         $post = $_REQUEST;
         $resp = new Ajax_Response($post['action']);
-        $qid = $post['currentQuestionID'];
+        $qid = $post['current_id'];
         
         if(isset($post['question_' . $qid])){
             
@@ -149,15 +173,37 @@ class Quiz extends WP_ACF_CPT
     }
 
     public function loadQuestionForm(){
-        $post = $_REQUEST;
-        $resp = new Ajax_Response($post['action']);
+        $post      = $_REQUEST;
+        $resp      = new Ajax_Response($post['action']);
+        $direction = $post['direction'];
 
-        if(isset($post['question_id'])){
-            $id = (int) $post['question_id'];
+        if($direction === 'forward'){
+            if(isset($post['next_question_id'])){
+                
+                if( $post['next_question_id'] === 'payment' ) {
+                    $resp->data = array('msg' => 'Loading Results...');
+                    $resp->html = $this->getResultsScreen();
+                } else {
+                    $id = (int) $post['next_question_id'];
+    
+                    $q = new Question($id);
+                    $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
+                }
+            }
+        }
 
-            $q = new Question($id);
-            
-            $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
+        if($direction === 'back'){
+            if(isset($post['next_question_id'])){
+                if($post['prev_question_id'] === 'register'){
+                    $resp->html = $this->getRegisterForm();
+                } else {
+                    $id = (int) $post['prev_question_id'];
+        
+                    $q = new Question($id);
+                    
+                    $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
+                }
+            }            
         }
 
         echo $resp->returnHtml();

@@ -70,10 +70,6 @@
 	</nav>
 </div>
 
-<div data-overlay>
-	<div><i class="fa fa-spin fa-spinner fa-pulse fa-fw"></i></div>
-</div>
-
 <div data-popup>
 	<div>
 		<div class="popupBody">

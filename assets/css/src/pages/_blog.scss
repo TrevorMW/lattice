@@ -1,0 +1,48 @@
+.postsPage{
+
+    .blogPost{
+        padding:28px;
+        background-color:$white;
+        position: relative;
+        margin-bottom:28px;
+    }
+    
+    .entryReadMore a{
+        width:100%;
+        text-transform: uppercase;
+        font-size:1rem;
+    }
+
+
+    @media only screen and (min-width:768px){
+
+        .entrySummary{
+            min-height:260px;
+        }
+        
+        .entryHeader{
+            min-height:100px;
+        }
+
+        .blogPostGrid{
+            display: flex;
+            gap:28px;
+            flex-wrap:wrap;
+        }
+        
+        .blogPost{
+            margin-bottom:0;
+            flex:1;
+            max-width:33%;
+            display: flex;
+        }   
+
+    }
+}
+
+
+.postMeta,
+.entryMeta{
+    margin-bottom:21px;
+    font-size:.78rem;
+}

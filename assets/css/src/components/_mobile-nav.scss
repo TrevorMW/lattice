@@ -20,6 +20,12 @@
     }
 }
 
+[data-mobile-nav-close-trigger]{
+    font-size:1.8rem;
+    position: relative;
+    top:-4px;
+}
+
 [data-mobile-nav-close]{
     display: flex;
     background-color:$aqua;
