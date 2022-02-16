@@ -15,7 +15,10 @@
     margin-bottom:21px;
 
     @media only screen and (min-width:768px){
-        margin-left:21px;
-        float:right;
+
+        .single-team &{
+            margin-left:21px;
+            float:right;
+        }
     }
 }

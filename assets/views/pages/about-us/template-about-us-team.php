@@ -3,7 +3,7 @@
 if( is_array($team) ){
 
     foreach( $team['members'] as $member ){
-        $html .= Team_Member::getTeamMemberGridItem($member, true);
+        $html .= Team_Member::getTeamMemberGridItem($member, false);
     }
 }
 

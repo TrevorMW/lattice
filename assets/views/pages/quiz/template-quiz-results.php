@@ -5,7 +5,6 @@ if(is_array($quizdata)){
     $moduleHtml = $quizdata['module_html'];?>
 
     <div class="resultsVideo">
-        
         <iframe src="https://player.vimeo.com/video/<?php echo $quizdata['intro_video'] ?>?loop=0&amp;title=0&amp;portrait=0&amp;byline=0&amp;muted=0&amp;color&amp;autopause=0&amp;autoplay=0" frameborder="0" allowfullscreen="1" allow="encrypted-media;"></iframe>
         <br />
         <div class="courseUnlockCTA">
