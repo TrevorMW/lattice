@@ -43,7 +43,7 @@ export default class FormMsg{
     show(data){
         var resp = data.resp;
         
-        if ('message' in resp) {
+        if ('message' in resp && resp.message !== null) {
             this.el.text(resp.message)
                     .addClass('active')
                     .addClass(resp.status ? 'success' : 'error');

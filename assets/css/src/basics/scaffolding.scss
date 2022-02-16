@@ -115,6 +115,10 @@ body{
       align-items: center;
       width:100%;
     }
+
+    .membershipCheckout &{
+      align-items: flex-start;
+    }
   }
 
   @media only screen and (min-width:1280px){
@@ -295,10 +299,29 @@ main{
     max-width:900px;
     margin: 0 auto;
   }
+
+  .membershipCheckout &{
+    margin-bottom:28px;
+  }
+
+  @media only screen and (min-width:768px){
+
+    .membershipCheckout &{
+      padding-right:40px;
+      order:1;
+    }
+  }
 }
 
 .secondary{
-  flex:0 0 300px;
+  flex:0 0 340px;
+
+  @media only screen and (min-width:768px){
+
+    .membershipCheckout &{
+      order:2;
+    }
+  }
 }
 
 .grid{
@@ -331,6 +354,28 @@ main{
   }
 }
 
+[data-quiz-container]{
+  
+ 
+  @media only screen and (min-width:768px){
+    &.resultsPage{
+      display: flex;
+      
+    }
+    
+    & .resultsVideo{
+      flex:1;
+      padding-right: 40px;
+    }
 
+    & .resultsModules{
+      flex:0 0 350px;
+    }
+
+    & .courseUnlockCTA{
+      text-align:center;
+    }
+  }
+}
 
 

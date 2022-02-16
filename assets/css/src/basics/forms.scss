@@ -38,9 +38,9 @@ fieldset{
 }
 
 label{
-    display: block;
+    display: inline-block;
     padding:0 0 8px 0;
-    width:100%;
+    width:auto;
     color:$darkGray;
     font-size:1rem;
     line-height:22px;
@@ -82,8 +82,7 @@ textarea{
     margin-bottom:22px;
     padding:16px 15px 15px;
     border-radius:2px;
-    border:0;
-    border-bottom:2px solid transparent;
+    border:2px solid transparent;
     font-family:$base;
     font-size:1rem;
 
@@ -91,6 +90,7 @@ textarea{
         border-color:$darkBlue;
     }
 }
+
 
 input[type="radio"],
 input[type="checkbox"] {
@@ -101,10 +101,14 @@ input[type="checkbox"] {
   display: inline-block;
 }
 
+select{
+    height:51px;
+}
+
 .cc-error{
     display: none;
     color:$error;
-    font-size:.788rem;
+    font-size:.688rem;
     line-height:16px;
 }
 
@@ -181,6 +185,7 @@ input[type="checkbox"] {
 
         &.half{
             width:47%;
+            clear:left;
         }
 
         &.last{

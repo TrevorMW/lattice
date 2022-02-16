@@ -11,7 +11,7 @@ if(is_array($question)){ ?>
     <hr />
     <br />
     <form data-ajax-form data-action="aenea_quiz">
-
+        <input type="hidden" name="subaction" value="question_response" />
         <input type="hidden" name="next_question_id"  value="<?php echo $question['q_next'] ?>" />
         <input type="hidden" name="prev_question_id"  value="<?php echo $question['q_prev'] ?>" />
         <input type="hidden" name="current_id"        value="<?php echo (int)$question['q_idx'] ?>" />
@@ -29,7 +29,7 @@ if(is_array($question)){ ?>
                     
                     <div class="formControl formControlCheckbox">
                         <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
-                            <div><input type="checkbox" name="question_<?php echo $question['q_idx'] ?>[]" value="<?php echo $q['q_type_checkbox_value']->post_name ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" tabindex="<?php echo $i?>"></div>
+                            <div><input type="checkbox" name="question_<?php echo $question['q_idx'] ?>[]" value="<?php echo implode('|', $q['q_type_checkbox_value']) ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" tabindex="<?php echo $i?>"></div>
                             <div><?php echo $q['q_type_checkbox_title'] ?></div>
                         </label>
                     </div>
@@ -46,7 +46,7 @@ if(is_array($question)){ ?>
                     
                     <div class="formControl formControlRadio">
                         <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
-                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $q['q_type_radio_value']->post_name ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
+                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $q['q_type_radio_value'] ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
                             <div><?php echo $q['q_type_radio_title'] ?></div>
                         </label>
                     </div>
@@ -63,7 +63,7 @@ if(is_array($question)){ ?>
                     
                     <div class="formControl formControlRadioRange">
                         <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
-                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $q['q_type_radio_range_value']->post_name ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
+                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo implode('|', $q['q_type_radio_range_value']) ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
                             <div><?php echo $q['q_type_radio_range_title'] ?></div>
                         </label>
                     </div>

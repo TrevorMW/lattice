@@ -120,21 +120,19 @@ export default class AjaxForm {
 	formSuccess(resp) {
 		let response = JSON.parse(resp);
 
-		if(!response.data.status){
-			$(document).trigger('core:message:show', { resp: response });
-		}
-
-		$(document).trigger('core:request:success', {
-			form: self,
-			resp: response,
-		});
-
+		$(document).trigger('core:message:show', { resp: response });
+		
 		if (response.status && response.pageRefresh) {
 			if (response.redirectURL !== null) {
 				window.location = response.redirectURL;
 			} else {
 				location.reload();
 			}
+		} else {
+			$(document).trigger('core:request:success', {
+				form: self,
+				resp: response,
+			});
 		}
 	}
 }

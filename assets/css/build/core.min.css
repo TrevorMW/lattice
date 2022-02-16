@@ -116,7 +116,9 @@ body.locked {
     .container.flexed {
       display: flex;
       align-items: center;
-      width: 100%; } }
+      width: 100%; }
+    .membershipCheckout .container {
+      align-items: flex-start; } }
   @media only screen and (min-width: 1280px) {
     .container {
       max-width: 1100px; }
@@ -213,9 +215,18 @@ main.wrapper.frontPage, main.wrapper.innerPage {
   .primary.small {
     max-width: 900px;
     margin: 0 auto; }
+  .membershipCheckout .primary {
+    margin-bottom: 28px; }
+  @media only screen and (min-width: 768px) {
+    .membershipCheckout .primary {
+      padding-right: 40px;
+      order: 1; } }
 
 .secondary {
-  flex: 0 0 300px; }
+  flex: 0 0 340px; }
+  @media only screen and (min-width: 768px) {
+    .membershipCheckout .secondary {
+      order: 2; } }
 
 .grid .gridItem {
   margin-bottom: 21px; }
@@ -234,6 +245,17 @@ main.wrapper.frontPage, main.wrapper.innerPage {
       gap: 120px; }
     .grid .gridItem {
       flex: 1; } }
+
+@media only screen and (min-width: 768px) {
+  [data-quiz-container].resultsPage {
+    display: flex; }
+  [data-quiz-container] .resultsVideo {
+    flex: 1;
+    padding-right: 40px; }
+  [data-quiz-container] .resultsModules {
+    flex: 0 0 350px; }
+  [data-quiz-container] .courseUnlockCTA {
+    text-align: center; } }
 
 /* COLORS */
 /* FONTS */
@@ -355,9 +377,9 @@ fieldset {
       display: flex; } }
 
 label {
-  display: block;
+  display: inline-block;
   padding: 0 0 8px 0;
-  width: 100%;
+  width: auto;
   color: #454545;
   font-size: 1rem;
   line-height: 22px; }
@@ -387,8 +409,7 @@ textarea {
   margin-bottom: 22px;
   padding: 16px 15px 15px;
   border-radius: 2px;
-  border: 0;
-  border-bottom: 2px solid transparent;
+  border: 2px solid transparent;
   font-family: "Helvetica", sans-serif;
   font-size: 1rem; }
   input[type="text"]:focus,
@@ -407,10 +428,13 @@ input[type="checkbox"] {
   margin: 0;
   display: inline-block; }
 
+select {
+  height: 51px; }
+
 .cc-error {
   display: none;
   color: #c6553e;
-  font-size: .788rem;
+  font-size: .688rem;
   line-height: 16px; }
 
 .mepr-form-has-errors {
@@ -453,7 +477,8 @@ input[type="checkbox"] {
       display: inline-block;
       width: 100%; }
       .formControl.half {
-        width: 47%; }
+        width: 47%;
+        clear: left; }
       .formControl.last {
         float: right; } }
 
@@ -828,6 +853,8 @@ ul li, ol li {
   text-align: right; }
   .submitButton .btn {
     display: inline-block; }
+  .membershipCheckout .submitButton {
+    margin-top: 28px; }
 
 [data-quiz-container] {
   position: relative; }
@@ -1160,6 +1187,59 @@ ul li, ol li {
       margin-left: 21px;
       float: right; } }
 
+[data-accordion-item] [data-accordion-trigger] {
+  position: relative;
+  border: 0;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 28px 14px 14px;
+  background-color: #afafa7;
+  font-size: 1.3rem;
+  cursor: pointer; }
+  [data-accordion-item] [data-accordion-trigger]:after {
+    content: "+";
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 14px;
+    top: 48%;
+    font-size: 1rem;
+    text-align: right;
+    transform: translateY(-60%) rotate(90deg); }
+
+[data-accordion-item] [data-accordion-content] {
+  border: 0;
+  background-color: #fff;
+  display: block;
+  width: 100%;
+  text-align: left;
+  transition: max-height 0.3s ease;
+  height: 0;
+  overflow: hidden;
+  max-height: 0; }
+  [data-accordion-item] [data-accordion-content] [data-accordion-trigger] {
+    font-size: 1rem; }
+
+[data-accordion-item].active > [data-accordion-content] {
+  max-height: 100vh;
+  height: auto;
+  padding: 14px; }
+
+.resultsPage [data-accordion-trigger] {
+  background-color: transparent;
+  color: #00637a; }
+
+.resultsPage [data-accordion-content] {
+  background-color: transparent;
+  padding: 0; }
+  .resultsPage [data-accordion-content] [data-accordion-trigger] {
+    background-color: transparent;
+    color: #69b7bb; }
+
+.resultsPage [data-accordion-item].active > [data-accordion-content] {
+  padding: 0 0 14px 14px; }
+
 .pageMyAccount {
   display: flex;
   width: 100%;
@@ -1469,6 +1549,10 @@ hr {
   border: 0;
   border-top: 1px solid #e9e6ce;
   margin: 14px 0; }
+
+.resultsPage iframe {
+  display: block;
+  width: 100%; }
 
 .rtl {
   direction: rtl;

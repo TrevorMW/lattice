@@ -30,4 +30,8 @@ class Global_Settings{
 
     return $data;
   }
+
+  public function getBasicModules(){
+    return get_field('basic_quiz_modules', $this->postID);
+  }
 }

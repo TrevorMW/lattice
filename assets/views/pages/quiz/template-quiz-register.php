@@ -1,6 +1,8 @@
 <form data-ajax-form data-action="aenea_quiz">
     <div data-form-msg></div>
 
+    <input type="hidden" name="subaction" value="register" />
+
     <div class="formControl half">
         <label for="first">First Name:</label>
         <div class="formInput">
@@ -15,17 +17,24 @@
         </div>
     </div>
 
-    <div class="formControl">
+    <div class="formControl half">
         <label for="email">Email Address:</label>
         <div class="formInput">
             <input type="email" name="email" id="email" placeholder="example.email@site.com" required tabindex="3">
         </div>
     </div>
 
+    <div class="formControl half last">
+        <label for="email">Username: </label>
+        <div class="formInput">
+            <input type="text" name="username" id="username" placeholder="" required tabindex="4">
+        </div>
+    </div>
+
     <div class="formControl half">
         <label for="login-password">Password:</label>
         <div class="formInput formInputPasswordWithView">
-            <input type="password" name="password" id="login-password" required tabindex="4">
+            <input type="password" name="password" id="login-password" required tabindex="5">
             <a href="" data-view-password="login-password">
                 <i class="fa fa-fw fa-eye"></i>
             </a>
@@ -35,7 +44,7 @@
     <div class="formControl half last">
         <label for="password-confirm">Password:</label>
         <div class="formInput formInputPasswordWithView">
-            <input type="password" name="confirm" id="password-confirm" tabindex="5">
+            <input type="password" name="confirm" id="password-confirm" tabindex="6">
             <a href="" data-view-password="password-confirm">
                 <i class="fa fa-fw fa-eye"></i>
             </a>
@@ -44,14 +53,14 @@
 
     <div class="formControl formControlCheckbox">
          <label for="register_newsletter">
-            <div><input type="checkbox" name="newsletter_signup" id="register_newsletter" tabindex="6"></div>
+            <div><input type="checkbox" name="newsletter_signup" id="register_newsletter" tabindex="7"></div>
             <div>Please sign me up for Lattice Climbers’ newsletter!</div>
         </label>
     </div>
 
     <div class="formControl formControlCheckbox">
          <label for="age_certification">
-            <div><input type="checkbox" name="age_certification" id="age_certification" required tabindex="7"></div>
+            <div><input type="checkbox" name="age_certification" id="age_certification" required tabindex="8"></div>
             <div>I certify that I am age 18 or over. If I am between the ages of 13-17, I am using this website with parental or guardian permission.</div>
         </label>
     </div>

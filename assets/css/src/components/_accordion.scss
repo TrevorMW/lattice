@@ -1,0 +1,77 @@
+[data-accordion-item]{
+    
+    [data-accordion-trigger]{
+        position: relative;
+        border:0;
+        display: block;
+        width:100%;
+        text-align:left;
+        padding: 14px 28px 14px 14px;
+        background-color:$gray;
+        font-size:1.3rem;
+        cursor:pointer;
+
+        &:after{
+            content:"+";
+            width:15px;
+            height:15px;
+            position: absolute;
+            right:14px;
+            top:48%;
+            font-size:1rem;
+            text-align:right;
+            transform: translateY(-60%) rotate(90deg);
+        }
+    }
+
+    [data-accordion-content]{
+        border:0;
+        background-color:$white;
+        display: block;
+        width:100%;
+        text-align:left;
+        transition:max-height 0.3s ease;
+        height:0;
+        overflow:hidden;
+        max-height:0;
+
+        [data-accordion-trigger]{
+            font-size:1rem;
+        }
+    }
+
+    &.active{
+        
+        & > [data-accordion-content]{
+            max-height:100vh;
+            height:auto;
+            padding:14px;
+        }
+    }
+}
+
+.resultsPage {
+
+    [data-accordion-trigger]{
+        background-color:transparent;
+        color:$darkBlue;
+    }
+
+    [data-accordion-content]{
+        background-color:transparent;
+        padding: 0;
+
+        [data-accordion-trigger]{
+            background-color:transparent;
+            color:$aqua;
+        }
+    }
+
+    & [data-accordion-item].active{
+        
+        & > [data-accordion-content]{
+            padding: 0 0 14px 14px;
+            
+        }
+    }
+}

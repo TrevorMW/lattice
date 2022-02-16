@@ -2,6 +2,7 @@ import PopupWatcher from './core/popup-watcher';
 import FieldWatcher from './core/field-watcher';
 import MobileNav from './core/mobile-nav';
 import AjaxFormWatcher from './core/ajax-form-watcher';
+import Accordion from './core/accordion';
 
 (() => {
 	'use strict';
@@ -11,5 +12,6 @@ import AjaxFormWatcher from './core/ajax-form-watcher';
 		new AjaxFormWatcher();
 		new PopupWatcher();
 		new FieldWatcher();
+		new Accordion();
 	});
 })();

@@ -29,12 +29,12 @@ export default class AjaxQuiz {
 		const self = this;
 
 		$(document).on('core:request:success', (e, data) => {
-			const resp = data.resp;		
+			const resp = data.resp;	
 
 			if(resp.data.canProceed){
 				let msg = '';
 
-				if(data && 'msg' in data){
+				if(resp && 'data' in resp && 'msg' in resp.data){
 					msg = resp.data.msg;
 				}
 
@@ -59,21 +59,26 @@ export default class AjaxQuiz {
 		if(id){
 			$.ajax({
 				method: 'POST',
-				dataType: 'html',
+				dataType: 'json',
 				url: core.ajaxUrl,
 				data: this.quiz.container.find('[data-ajax-form]').serialize() + '&action=load_question_form' + '&direction=' + direction
 			})
-			.then((html) => {
+			.then((resp) => {
 				$(document).trigger('core:progress:hide');
 
 				// replace question HTML
-				self.quiz.container.html(html);
+				self.quiz.container.html(resp.html);
+				
+				if(resp.data && 'containerClass' in resp.data && resp.data.containerClass){
+					$(document).trigger('core:quiz:results');
+					
+					self.quiz.container.addClass(resp.data.containerClass);
+					self.quiz.container.closest('.InnerPage').find('.container').removeClass('x-small');
+				}
 
 				// Rebind AjaxForm
 				const ajaxForm = new AjaxForm();
 				ajaxForm.setObservers();
-
-				
 
 			}).catch((err) => {
 

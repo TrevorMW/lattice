@@ -48,8 +48,9 @@ class Ajax_Response
                                'message'     => $this->message,
                                'data'        => $this->data,
                                'action'      => $this->action,
+                               'html'        => $this->html,
                                'pageRefresh' => $this->pageRefresh,
-                               'redirectURL' => $this->redirectURL) );
+                               'redirectURL' => $this->redirectURL ) );
   }
 
   /**

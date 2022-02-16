@@ -10,6 +10,14 @@ hr{
   margin: 14px 0;
 }
 
+iframe{
+
+  .resultsPage &{
+    display: block;
+    width:100%;
+  }
+}
+
 .rtl{
   direction: rtl;
   text-align: left;

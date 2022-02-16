@@ -12,8 +12,7 @@ abstract class WP_ACF_CPT
    */
   public function __construct( $id = null )
   {
-    if( is_int( $id ) )
-    {
+    if( is_int( $id ) ){
       $new_fields = array();
 
       $post   = get_post( $id );
@@ -35,6 +34,6 @@ abstract class WP_ACF_CPT
           }
         }
       }
-    }
+    } 
   }
 }

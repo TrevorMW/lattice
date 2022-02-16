@@ -19,6 +19,10 @@ class Quiz extends WP_ACF_CPT
     public $post;
     public $questionIndex;
 
+    //////////////////////////////////////////////////////////////// 
+    //////////////// SETUP /////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
     public function __construct(){
         $id = (int) get_option('page_for_quiz');
 
@@ -39,48 +43,10 @@ class Quiz extends WP_ACF_CPT
         add_action( 'wp_ajax_load_question_form',        array($this, 'loadQuestionForm'));
     }
 
-    public function getQuiz(){
-        $html = '';
 
-        if( is_user_logged_in() ){
-            $html .= $this->getQuizQuestion();
-        } else {
-            $html .= $this->getRegisterForm();
-        }
-
-        return $html;
-    }
-
-    public function getQuizQuestion(){
-        $firstQID = $this->quiz_questions[0]->ID;
-
-        $q = new Question($this->quiz_questions[0]);
-        $navData = $this->getQuizNavigationData($firstQID);
-
-        return $q->getQuestionForm($firstQID, $navData);
-    }
-
-    public function getRegisterForm(){
-        return Template_Helper::loadView('quiz-register', '/assets/views/pages/quiz/');
-    }
-
-    public function getResultsScreen(){
-        $html = '';
-
-        $data = array( 'quizdata' => 
-            array(
-                'results_title'      => 'For $89, you receive 30 days access to your customized curriculum and our full content library. For $229, receive a full years access!',
-                'module_results'     => '',
-                'intro_video'        => $this->quiz_results_page_intro_video,
-                'intro_video_poster' => $this->quiz_results_page_intro_video_thumbnail,
-                'membership_plans'   => $this->quiz_membership_plans
-            )
-        );
-
-        $html .= Template_Helper::loadView('quiz-results', '/assets/views/pages/quiz/', $data);
-        
-        return $html;
-    }
+    //////////////////////////////////////////////////////////////// 
+    //////////////// Utilities ///////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////
 
     public function createIndex(){
         if(count($this->quiz_questions) > 0){
@@ -102,12 +68,8 @@ class Quiz extends WP_ACF_CPT
         return $idx;
     }
 
-    public function saveQuizQuestionData($id, $data){
-        
-    }
-
     public function getQuizNavigationData($currentQID, $canProceed = false){
-        $data = array( 'next' => '', 'prev' => '', 'canProceed' => $canProceed);
+        $data = array( 'next' => '', 'prev' => '', 'canProceed' => $canProceed, 'msg' => 'Loading Question...');
         $qList = $this->questionIndex;
 
         if(count($qList) > 0){
@@ -136,36 +98,189 @@ class Quiz extends WP_ACF_CPT
                 // Explicitly the last item
                 if($currIdx === (count($qList) - 1)){
                     $data['next'] = 'payment';
+                    $data['msg']  = 'Loading Results...';
                     $data['prev'] = $qList[($currIdx - 1)];
                 }                
             }
         }
 
         return $data;
+    } 
+
+    public function maybeArray($data = null){
+        $dataArray = array();
+
+        if( is_array($data)){
+            $dataArray = $this->simplifyQuizDataArray($data);
+        }
+
+        return $dataArray;
     }
 
-    public function getQuizResults(){
-        if ( ! is_admin() && isset( $_POST['lcrq'] ) ) {
-            $return = aenea_return_quiz_results_data( $_POST['lcrq'] );
+    public function simplifyQuizDataArray($data){
+        $oneDimArray = array();
+
+        if( is_array($data) ){
+            foreach($data as $val){
+                $oneDimArray[] = $val['module_id'];
+            }
         }
+
+        return $oneDimArray;
     }
+
+    
+    //////////////////////////////////////////////////////////////// 
+    //////////////// VIEWS /////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
+
+    public function getQuiz(){
+        $html = '';
+
+        if( is_user_logged_in() ){
+            $html .= $this->getQuizQuestion();
+        } else {
+            $html .= $this->getRegisterForm();
+        }
+
+        return $html;
+    }
+
+    public function getRegisterForm(){
+        return Template_Helper::loadView('quiz-register', '/assets/views/pages/quiz/');
+    }
+
+    public function resetQuizData(){
+        $aeneaUser = new Aenea_User(wp_get_current_user());
+
+        $aeneaUser->saveOrUpdateQuizModulesList( array() );
+    }
+
+    public function getQuizQuestion(){
+        $this->resetQuizData();
+        $firstQID = $this->quiz_questions[0]->ID;
+
+        $q = new Question($this->quiz_questions[0]);
+        $navData = $this->getQuizNavigationData($firstQID);
+        
+
+        return $q->getQuestionForm($firstQID, $navData);
+    }
+
+    public function getResultsScreen(){
+        $html = '';
+
+        $data = array( 'quizdata' => 
+            array(
+                'results_title'      => 'Your Results',
+                'module_html'        => $this->getQuizModuleResultsHTML($this->quiz_membership_plans[0]),
+                'intro_video'        => $this->quiz_results_page_intro_video_id,
+                'intro_video_poster' => $this->quiz_results_page_intro_video_thumbnail,
+                'membership_plan'    => get_post($this->quiz_membership_plans[0])
+            )
+        );
+
+        $html .= Template_Helper::loadView('quiz-results', '/assets/views/pages/quiz/', $data);
+        
+        return $html;
+    }
+
+    public function getQuizModuleResultsHTML($membership){
+        $modules = array();
+
+        $aeneaUser = new Aenea_User(wp_get_current_user());
+
+        if($aeneaUser instanceof Aenea_User){
+            $modules = Module::getResultsModulesHTML($aeneaUser->quizModulesList, $aeneaUser, $membership);
+        }
+
+        return $modules;
+    }
+
+
+    //////////////////////////////////////////////////////////////// 
+    //////////////// AJAX OPERATIONS /////////////////////////////// 
+    ////////////////////////////////////////////////////////////////
 
     public function aeneaQuiz() {
-        $post = $_REQUEST;
-        $resp = new Ajax_Response($post['action']);
-        $qid = $post['current_id'];
+        $proceed   = true;
+        $post      = $_REQUEST;
+        $resp      = new Ajax_Response($post['action']);
+        $subaction = $post['subaction'];
         
-        if(isset($post['question_' . $qid])){
+        // handle registrations of users. Set them as subscriber, they will become aenea_user when they start a membership
+        if( $subaction === 'register' ){
             
-            //$this->saveQuizQuestionData($qid, $post['question_' . $qid]);
+            // if passwords dont match, throw an error.
+            if( $post['password'] !== $post['confirm'] ){
+                $error         = new WP_Error( 'nonmatchingPass', 'Your passwords do not match.');
+                $proceed       = false;
+                $resp->message = $error->get_error_message();
+            }
 
-            $resp->message = 'Data saved, loading next question';
-            $resp->status = true;            
-        } else {
-            $resp->message = 'Please choose a quiz question';
+            // Check email is proper.
+            if($proceed){
+                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+                if(!$email){
+                    $error         = new WP_Error( 'invalidEmail', 'Your email address is not in a valid format.');
+                    $proceed       = false;
+                    $resp->message = $error->get_error_message();
+                }
+            }
+
+            // Try and create new user.
+            if($proceed){
+                $username = $post['username'];
+                $pass     = $post['password'];
+                $email    = $post['email'];
+
+                $newUserID = wp_create_user( $username, $pass, $email );
+
+                if(!$newUserID instanceof WP_User){                    
+                    update_user_meta( $newUserID, "first_name", $post['first_name'] );
+                    update_user_meta( $newUserID, "last_name",  $post['last_name']  );
+
+                    // Handle newsletter signup
+                    if(isset($post['newsletter_signup'])){
+
+                    }
+
+                    $loginResult = wp_signon(
+                        array(
+                            'user_login'    => $username,
+                            'user_password' => $pass,
+                            'remember'      => true 
+                        )
+                    );
+
+                    $resp->status  = true;
+                    $resp->message = 'User Created!';
+
+                    // refresh the page to start quiz with a logged in current user that we can then save data to. 
+                    $resp->pageRefresh = true;
+                } else {
+                    $proceed       = false;
+                    $resp->message = $newUserID->get_error_message();
+                }
+            }            
         }
 
-        $resp->data = $this->getQuizNavigationData($qid, $resp->status);
+        if( $subaction === 'question_response' ){
+            $qid          = $post['current_id'];
+            $questionResp = $post['question_' . $qid];
+            
+            //returns either true for success or WP_Error for a problem.
+            $result = $this->saveQuizQuestionData($qid, $post['question_' . $qid]);
+
+            if($result instanceof WP_Error){
+                $resp->status = false;
+                $resp->message = $result->get_error_message();
+            } else {
+                $resp->status = true; 
+                $resp->data = $this->getQuizNavigationData($qid, true);
+            }
+        }
 
         echo $resp->encodeResponse();
       
@@ -179,14 +294,14 @@ class Quiz extends WP_ACF_CPT
 
         if($direction === 'forward'){
             if(isset($post['next_question_id'])){
-                
                 if( $post['next_question_id'] === 'payment' ) {
-                    $resp->data = array('msg' => 'Loading Results...');
+                    $resp->data = array('msg' => 'Loading Results...', 'containerClass' => 'resultsPage');
                     $resp->html = $this->getResultsScreen();
                 } else {
                     $id = (int) $post['next_question_id'];
     
                     $q = new Question($id);
+                    $resp->data = array('msg' => 'Loading Next Question...');
                     $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
                 }
             }
@@ -195,19 +310,58 @@ class Quiz extends WP_ACF_CPT
         if($direction === 'back'){
             if(isset($post['next_question_id'])){
                 if($post['prev_question_id'] === 'register'){
+                    $resp->data = array('msg' => 'Loading Registration Form...');
                     $resp->html = $this->getRegisterForm();
                 } else {
                     $id = (int) $post['prev_question_id'];
         
                     $q = new Question($id);
-                    
+                    $resp->data = array('msg' => 'Loading Previous Question...');
                     $resp->html = $q->getQuestionForm($id, $this->getQuizNavigationData($id, true));
                 }
             }            
         }
 
-        echo $resp->returnHtml();
+        echo $resp->encodeResponse();
       
         die(0);
     }
+
+    //////////////////////////////////////////////////////////////// 
+    //////////////// EXPLICIT CRUD OPERATIONS ////////////////////// 
+    ////////////////////////////////////////////////////////////////
+
+    public function saveQuizQuestionData($id, $data){
+        $result    = true;
+        $aeneaUser = new Aenea_User(wp_get_current_user());
+        
+        if($id !== null && !empty($data)){
+            $finalList    = array();
+            $settings     = new Global_Settings();
+
+            $formattedData = array();
+            
+            // convert new data to proper format
+            if( is_array($data) ){
+                foreach( $data as $module ){
+                    $formattedData[] = (int) $module; 
+                }
+            } else {
+                $formattedData[] = (int) $data;
+            }
+
+            // Get default modules
+            $basicModules = $this->maybeArray($settings->getBasicModules());
+            $currModules  = $this->maybeArray($aeneaUser->getModulesList());
+
+            $finalList = array_merge( $basicModules, $currModules, $formattedData);
+
+            $uniq = array_unique($finalList);
+
+            $result = $aeneaUser->saveOrUpdateQuizModulesList( $uniq );
+        } 
+        
+        return $result;
+    }
+
 }
