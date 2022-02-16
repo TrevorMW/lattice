@@ -1559,7 +1559,11 @@ hr {
 .resultsVideo iframe {
   display: block;
   width: 100%;
-  height: 400px; }
+  margin-bottom: 14px; }
+
+@media only screen and (min-width: 768px) {
+  .resultsVideo iframe {
+    height: 400px; } }
 
 .rtl {
   direction: rtl;
