@@ -39,7 +39,7 @@ class Module extends WP_ACF_CPT
         if(count($lessons) > 0){
             $content = Module::getLessonHTML($lessons, $usr, $membership);
         } else {
-            $btnTxt = $usr->isUserRegistered() ? 'Start Lesson <i class="fa fa-fw fa-play"></i> ' : '<i class="fa fa-fw fa-lock"></i> Unlock Course' ;
+            $btnTxt = $usr->isUserRegistered() ? 'Start Lesson <i class="fa fa-fw fa-play"></i> ' : '<i class="fa fa-fw fa-lock"></i> Unlock Module' ;
             $href   = $usr->isUserRegistered() ? get_permalink($mid) : get_permalink($membership) ; 
             $content = '<a href="' . $href . '" class="btn btn-secondary btn-small btn-disabled" type="submit">' . $btnTxt . '</a>';
         }
@@ -69,7 +69,7 @@ class Module extends WP_ACF_CPT
                 $id   = (int) $lesson;
                 $post = get_post($id);
 
-                $btnTxt  = $usr->isUserRegistered() ? 'Start Lesson <i class="fa fa-fw fa-play"></i> ' : '<i class="fa fa-fw fa-lock"></i> Unlock Course' ;
+                $btnTxt  = $usr->isUserRegistered() ? 'Start Lesson <i class="fa fa-fw fa-play"></i> ' : '<i class="fa fa-fw fa-lock"></i> Unlock Lesson' ;
                 $href    = $usr->isUserRegistered() ? get_permalink($id) : get_permalink($membership) ; 
                 $content = '<a href="' . $href . '" class="btn btn-secondary btn-small btn-disabled" type="submit" disabled>' . $btnTxt . '</a>';
                 

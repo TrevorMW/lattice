@@ -48,6 +48,10 @@
             padding:14px;
         }
     }
+
+    & .btn{
+        margin-bottom:0;
+    }
 }
 
 .resultsPage {
@@ -64,14 +68,6 @@
         [data-accordion-trigger]{
             background-color:transparent;
             color:$aqua;
-        }
-    }
-
-    & [data-accordion-item].active{
-        
-        & > [data-accordion-content]{
-            padding: 0 0 14px 14px;
-            
         }
     }
 }

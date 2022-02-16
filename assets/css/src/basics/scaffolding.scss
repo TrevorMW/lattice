@@ -355,6 +355,14 @@ main{
 }
 
 [data-quiz-container]{
+
+  & .courseUnlockCTA{
+    text-align:center;
+    
+    & .btn{
+      line-height: 1.5;
+    }
+  }
   
  
   @media only screen and (min-width:768px){
@@ -373,7 +381,11 @@ main{
     }
 
     & .courseUnlockCTA{
-      text-align:center;
+      
+      & .btn{
+        padding: 15px 10px;
+        line-height: 1;
+      }
     }
   }
 }

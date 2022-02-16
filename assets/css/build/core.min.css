@@ -246,6 +246,11 @@ main.wrapper.frontPage, main.wrapper.innerPage {
     .grid .gridItem {
       flex: 1; } }
 
+[data-quiz-container] .courseUnlockCTA {
+  text-align: center; }
+  [data-quiz-container] .courseUnlockCTA .btn {
+    line-height: 1.5; }
+
 @media only screen and (min-width: 768px) {
   [data-quiz-container].resultsPage {
     display: flex; }
@@ -254,8 +259,9 @@ main.wrapper.frontPage, main.wrapper.innerPage {
     padding-right: 40px; }
   [data-quiz-container] .resultsModules {
     flex: 0 0 350px; }
-  [data-quiz-container] .courseUnlockCTA {
-    text-align: center; } }
+  [data-quiz-container] .courseUnlockCTA .btn {
+    padding: 15px 10px;
+    line-height: 1; } }
 
 /* COLORS */
 /* FONTS */
@@ -1226,6 +1232,9 @@ ul li, ol li {
   height: auto;
   padding: 14px; }
 
+[data-accordion-item] .btn {
+  margin-bottom: 0; }
+
 .resultsPage [data-accordion-trigger] {
   background-color: transparent;
   color: #00637a; }
@@ -1236,9 +1245,6 @@ ul li, ol li {
   .resultsPage [data-accordion-content] [data-accordion-trigger] {
     background-color: transparent;
     color: #69b7bb; }
-
-.resultsPage [data-accordion-item].active > [data-accordion-content] {
-  padding: 0 0 14px 14px; }
 
 .pageMyAccount {
   display: flex;
