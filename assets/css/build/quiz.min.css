@@ -1588,8 +1588,80 @@ ul li, ol li {
   text-align: center;
   margin-top: 80px; }
 
-.curriculumTabs {
-  margin-top: 21px; }
+[data-modules-list] [data-accordion-trigger] {
+  background-color: #015d72;
+  color: #f1efe0;
+  transition: background-color .3s ease;
+  border-top: 1px solid #014859; }
+  [data-modules-list] [data-accordion-trigger]:hover {
+    background-color: #014859; }
+
+[data-modules-list] [data-accordion-item].active > [data-accordion-content] {
+  padding: 0;
+  background-color: transparent; }
+
+[data-modules-list] [data-accordion-content] ul {
+  padding: 0 0 0 14px;
+  margin: 0; }
+
+[data-modules-list] [data-accordion-content] li {
+  display: block;
+  margin: 0;
+  border-top: 1px solid #57afb3; }
+
+[data-modules-list] [data-accordion-content] a {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  background-color: #69b7bb;
+  transition: background-color .3s ease; }
+  [data-modules-list] [data-accordion-content] a span {
+    padding: 14px 10px;
+    color: #f1efe0; }
+    [data-modules-list] [data-accordion-content] a span:first-child {
+      padding-right: 0; }
+  [data-modules-list] [data-accordion-content] a:hover {
+    background-color: #57afb3; }
+  [data-modules-list] [data-accordion-content] a.done i {
+    color: greenyellow; }
+  [data-modules-list] [data-accordion-content] a.play i {
+    color: #0a7188; }
+
+@media only screen and (min-width: 768px) {
+  [data-modules-list] {
+    margin-top: 0; } }
+
+.curriculumModuleList {
+  margin-top: 28px; }
+  @media only screen and (min-width: 768px) {
+    .curriculumModuleList {
+      margin-top: 0; } }
+
+.introBlurp {
+  font-size: .65rem;
+  color: #454545;
+  font-style: italic;
+  display: inline-block;
+  margin-left: 21px;
+  line-height: 1; }
+
+.progressBarLabel div,
+.progressBarLabel label {
+  font-size: .78rem;
+  font-style: normal;
+  line-height: 1; }
+
+[data-lesson-title],
+.curriculumModuleList h3 {
+  font-size: 1.6rem;
+  line-height: 32px;
+  color: #015d72;
+  display: block;
+  letter-spacing: 0px; }
+
+.curriculumModuleList h3 {
+  text-align: center;
+  text-transform: capitalize; }
 
 .curriculumPlayer {
   margin-bottom: 21px; }
@@ -1600,11 +1672,11 @@ ul li, ol li {
 
 .lessonPlayer {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 58.25%;
   height: 0;
   overflow: hidden;
   max-width: 100%;
-  margin: 21px 0 0 0; }
+  margin: 4px 0 0 0; }
   .lessonPlayer iframe {
     position: absolute;
     top: 0;
@@ -1614,14 +1686,16 @@ ul li, ol li {
     margin: 0; }
   @media only screen and (min-width: 768px) {
     .lessonPlayer iframe {
-      min-height: 427px; } }
+      height: 400px; } }
 
 [data-lesson-finished] {
-  margin-bottom: 21px;
-  padding-bottom: 21px;
-  border-bottom: 1px solid #e9e6ce; }
+  margin: 35px 0 21px;
+  text-align: center; }
   [data-lesson-finished] .btn {
     width: 100%; }
+  @media only screen and (min-width: 768px) {
+    [data-lesson-finished] .btn {
+      width: 75%; } }
 
 /* COLORS */
 /* FONTS */

@@ -40,6 +40,14 @@ class Curriculum
 
         add_action( 'wp_ajax_nopriv_mark_done', array($this, 'markLessonDone'));
         add_action( 'wp_ajax_mark_done',        array($this, 'markLessonDone'));
+
+        add_action( 'wp_ajax_nopriv_load_progress', array($this, 'loadProgressData'));
+        add_action( 'wp_ajax_load_progress',        array($this, 'loadProgressData'));
+
+        add_action( 'wp_ajax_nopriv_load_modules', array($this, 'loadModules'));
+        add_action( 'wp_ajax_load_modules',        array($this, 'loadModules'));
+
+        
     }
 
     public function getCurriculumModulesHTML(){
@@ -124,8 +132,29 @@ class Curriculum
         die(0);
     }
 
-    public function markLessonDone($id){
+    public function markLessonDone(){
+        $post = $_REQUEST;
+        $resp = new Ajax_Response($post['action']);
+        
+        $id = (int) $post['lesson_id'];
 
+        if( is_int($id)){
+            $user = new Aenea_User(wp_get_current_user());
+            
+            if($user instanceof Aenea_User){
+                $user->completionData[$id] = true;
+                
+                $result = $user->saveCompletionData($user->completionData);
+
+                if($result){
+                    $resp->status = true;
+                }
+            }
+        }
+
+        echo $resp->encodeResponse();
+
+        die(0);
     }
 
     public function getTotalFinishedLessonCount(){
@@ -170,4 +199,34 @@ class Curriculum
 
         return $html; 
     }
+
+    public function loadProgressData(){
+        $post = $_REQUEST;
+        $resp = new Ajax_Response($post['action']);
+        
+        $resp->status = true;
+        $resp->data = array(
+            'progress' => $this->getCurriculumProgressBar()
+        );
+
+        echo $resp->encodeResponse();
+
+        die(0);
+    }
+
+    public function loadModules(){
+        $post = $_REQUEST;
+        $resp = new Ajax_Response($post['action']);
+        
+        $resp->status = true;
+        $resp->data = array(
+            'modules' => $this->getCurriculumModulesHTML()
+        );
+
+        echo $resp->encodeResponse();
+
+        die(0);
+    }
+
+    
 }

@@ -8,7 +8,7 @@ if( is_array($lesson) ){
     $status  = $lesson['completed'] ?>
 
     <li>
-        <a href="#" data-curriculum-lesson="<?php echo $id ?>">
+        <a href="#" data-curriculum-lesson="<?php echo $id ?>" class="<?php echo $status ? 'done' : 'play' ?>">
             <span>
                 <?php if ($status){ ?> 
                     <i class="fa fa-fw fa-check"></i>

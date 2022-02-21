@@ -33,8 +33,17 @@ class Lesson extends WP_ACF_CPT {
     }
 
     public function getLessonVideoHtml(){
+        $html = '';
+
         $id = $this->getVideoID();
-        
+
+        $data = array( 'video' => array(
+            'id' => $id
+        ));
+
+        $html .= Template_Helper::loadView('video-player', '/assets/views/pages/curriculum/', $data);
+
+        return $html;
     }
 
     public function getLessonTabHTML(){

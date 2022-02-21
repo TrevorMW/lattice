@@ -240,7 +240,7 @@ class Quiz extends WP_ACF_CPT
             }
 
             if( is_array($completionData) ){
-                $aeneaUser->saveInitialCompletionData($completionData); 
+                $aeneaUser->saveCompletionData($completionData); 
             }
 
             $modules = Module::getResultsModulesHTML($moduleList, $aeneaUser, $membership);

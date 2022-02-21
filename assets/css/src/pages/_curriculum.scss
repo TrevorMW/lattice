@@ -2,12 +2,111 @@
 
 }
 
-.curriculumTabs{
+[data-modules-list]{
 
+    & [data-accordion-trigger]{
+        background-color:$darkBlue;
+        color:$cream;
+        transition: background-color .3s ease;
+        border-top:1px solid darken($darkBlue, 5%);
+
+        &:hover{
+            background-color:darken($darkBlue, 5%);
+        }
+    }
+
+    & [data-accordion-item].active > [data-accordion-content]{
+        padding:0;
+        background-color:transparent;
+    }
+
+    & [data-accordion-content]{
+        
+        & ul{
+            padding:0 0 0 14px;
+            margin:0;
+        }
+
+        & li{
+            display: block;  
+            margin:0;
+            border-top:1px solid darken($aqua, 5%);
+        }
+
+        & a{
+            margin:0;
+            display: flex;
+            width:100%;
+            background-color:$aqua;
+            transition: background-color .3s ease;
+
+            & span{
+                padding:14px 10px;
+                color:$cream;
+
+                &:first-child{
+                    padding-right:0;
+                }  
+            }
+
+            &:hover{
+                background-color:darken($aqua, 5%);
+            }
+
+            &.done i{
+                color:greenyellow;
+            }
+
+            &.play i{
+                color:$turquoise;
+            }
+        }
+
+        
+    }
+
+    @media only screen and (min-width:768px){
+        margin-top:0;
+    }
 }
 
-.curriculumTabs{
-    margin-top:21px;
+.curriculumModuleList{
+    margin-top:28px;
+
+    @media only screen and (min-width:768px){
+        margin-top:0;
+    }
+}
+
+.introBlurp{
+    font-size:.65rem;
+    color:$darkGray;
+    font-style:italic;
+    display: inline-block;
+    margin-left:21px;
+    line-height:1;
+}
+
+.progressBarLabel div,
+.progressBarLabel label{
+    font-size:.78rem;
+    font-style:normal;
+    line-height:1;
+}
+
+[data-lesson-title],
+.curriculumModuleList h3{
+    font-size:1.6rem;
+    line-height:32px;
+    color:$darkBlue;
+    display: block;
+    letter-spacing:0px;
+}
+
+.curriculumModuleList h3{
+    text-align:center;
+    text-transform:capitalize;
+    
 }
 
 .curriculumPlayer{
@@ -21,11 +120,11 @@
 
 .lessonPlayer{
     position: relative; 
-    padding-bottom: 56.25%;
+    padding-bottom: 58.25%;
     height: 0;
     overflow: hidden;
     max-width: 100%;
-    margin: 21px 0 0 0;
+    margin: 4px 0 0 0;
 
     & iframe{
         position: absolute; 
@@ -39,17 +138,23 @@
     @media only screen and (min-width:768px){
         
         & iframe{
-            min-height:427px;
+            height:400px;
         }
     }
 }
 
 [data-lesson-finished]{
-    margin-bottom:21px;
-    padding-bottom:21px;
-    border-bottom:1px solid darken($cream, 5%);
+    margin:35px 0 21px;
+    text-align:center;
 
     & .btn{
         width:100%;
+    }
+
+    @media only screen and (min-width:768px){
+        
+        & .btn{
+            width:75%;
+        }
     }
 }

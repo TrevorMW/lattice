@@ -80,8 +80,8 @@ class Aenea_User extends WP_ACF_CPT
         return in_array( self::AENEA_ROLE_NAME, (array) $this->user->roles );
     }
 
-    public function saveInitialCompletionData($data){
+    public function saveCompletionData($data){
         $serializedData = serialize($data);
-        update_field(self::CURRICULUM_PROGRESS_FIELD_NAME, $serializedData, 'user_' . $this->user->ID);
+        return update_field(self::CURRICULUM_PROGRESS_FIELD_NAME, $serializedData, 'user_' . $this->user->ID);
     }
 }
