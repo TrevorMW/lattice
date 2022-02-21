@@ -3,6 +3,7 @@ import FieldWatcher from './core/field-watcher';
 import MobileNav from './core/mobile-nav';
 import AjaxFormWatcher from './core/ajax-form-watcher';
 import Accordion from './core/accordion';
+import Tabs from './core/tabs';
 
 (() => {
 	'use strict';
@@ -13,5 +14,6 @@ import Accordion from './core/accordion';
 		new PopupWatcher();
 		new FieldWatcher();
 		new Accordion();
+		new Tabs();
 	});
 })();

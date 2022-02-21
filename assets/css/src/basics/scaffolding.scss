@@ -116,7 +116,8 @@ body{
       width:100%;
     }
 
-    .membershipCheckout &{
+    .membershipCheckout &,
+    &.alignTop {
       align-items: flex-start;
     }
   }
@@ -368,7 +369,6 @@ main{
   @media only screen and (min-width:768px){
     &.resultsPage{
       display: flex;
-      
     }
     
     & .resultsVideo{
@@ -389,5 +389,4 @@ main{
     }
   }
 }
-
 

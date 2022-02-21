@@ -58,6 +58,26 @@ class Module extends WP_ACF_CPT
         return $html;
     }
 
+    public static function getCurriculumAccordion($module, $lessonHTML, $idx){
+        $html = '';
+
+        if( $module instanceof Module ){
+
+            $class = $idx <= 0 ? 'active' : '' ;
+
+            $data = array( 'module' => array( 
+                'tag' => 'div',
+                'class' => $class,
+                'content' => $lessonHTML,
+                'title' => $module->post->post_title,
+                'id' => $module->post->ID
+            ));
+
+            $html .= Template_Helper::loadView('curriculum-module', '/assets/views/pages/curriculum/', $data);
+        }
+
+        return $html;
+    }
 
     public static function getLessonHTML($lessons, $usr, $membership){
         $html = '';
@@ -91,43 +111,17 @@ class Module extends WP_ACF_CPT
         return $html;
     }
 
-
     public static function getResultsModulesHTML($modules, $usr, $membership){
         $html = '';
-
-        $moduleList = array();
-        
+      
         if( is_array($modules) ){ 
-            foreach( $modules as $k => $module ){
-                $mid = $module['module_id'];
-
-                if($mid){
-                    $type = get_post_type($mid);
-
-                    if($type !== 'sfwd-topic' && !array_key_exists($mid, $moduleList)){
-                        $moduleList[$mid] = array();
-                    } 
-
-                    if($type === 'sfwd-topic'){
-                        $meta = get_post_meta($mid, 'lesson_id');
-                        
-                        if(is_array($meta) && count($meta) > 0){
-                            $moduleList[$meta[0]][] = $mid;
-                        }
-                    }
-                }
-            }
-        }
-
-        if( is_array($moduleList) ){ 
             
             $i = 1;
 
-            foreach( $moduleList as $k => $lessons ){
+            foreach( $modules as $k => $lessons ){
                 $modID   = $k;
-                $lessons = $lessons;
                 
-                if($module['module_id']){
+                if($modID){
                     $html .= Module::getModuleAccordion((int) $modID, $lessons, $usr, $i, $membership);
                 }  
 

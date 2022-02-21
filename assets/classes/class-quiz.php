@@ -191,7 +191,59 @@ class Quiz extends WP_ACF_CPT
         $aeneaUser = new Aenea_User(wp_get_current_user());
 
         if($aeneaUser instanceof Aenea_User){
-            $modules = Module::getResultsModulesHTML($aeneaUser->quizModulesList, $aeneaUser, $membership);
+            $allModules    = $aeneaUser->quizModulesList;
+            $moduleList = array();
+            $completionData = array();
+        
+            if( is_array($allModules) ){ 
+                foreach( $allModules as $k => $module ){
+                    $mid = $module['module_id'];
+
+                    if($mid){
+                        $type = get_post_type($mid);
+
+                        if($type !== 'sfwd-topic' && !array_key_exists($mid, $moduleList)){
+                            $moduleList[$mid] = array();
+                        } 
+
+                        if($type === 'sfwd-topic'){
+                            $meta = get_post_meta($mid, 'lesson_id');
+                            
+                            if(is_array($meta) && count($meta) > 0){
+                                $moduleList[$meta[0]][] = $mid;
+                            }
+                        }
+
+                        if($type === 'sfwd-lessons'){
+                            $args = array(
+                                'post_type' => 'sfwd-topic',
+                                'posts_per_page' => '-1',
+                                'meta_key' => 'lesson_id',
+                                'meta_value' => $mid,
+                                'meta_compare' => '='
+                            );
+                
+                            $loop = new WP_Query($args);
+                
+                            if($loop->have_posts()){
+                                $moduleList[$mid] = array();
+
+                                foreach( $loop->posts as $post ){
+                                    $moduleList[$mid][] = $post->ID;
+
+                                    $completionData[$post->ID] = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if( is_array($completionData) ){
+                $aeneaUser->saveInitialCompletionData($completionData); 
+            }
+
+            $modules = Module::getResultsModulesHTML($moduleList, $aeneaUser, $membership);
         }
 
         return $modules;

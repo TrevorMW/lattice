@@ -20,7 +20,7 @@ spl_autoload_register(function ($className) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 new Aenea_User();
 new Quiz();
-
+new Curriculum();
 
 /**
  * Load any needed body classes

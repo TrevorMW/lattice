@@ -9,7 +9,8 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
-    quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss']
+    quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss'],
+    curriculum : ['/assets/js/src/curriculum.js', '/assets/css/src/style.scss']
   },
   output: {
     filename: './assets/js/build/bundle.[name].min.js',

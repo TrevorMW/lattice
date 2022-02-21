@@ -212,7 +212,18 @@ function add_javascript()
 
     if($post->ID === (int) get_option('page_for_quiz')){
       $depURL = '/bundle.quiz.min.js';
+    }
 
+    if($post->post_name === 'my-curriculum'){
+      $depURL = '/bundle.curriculum.min.js';
+
+      wp_enqueue_script(
+        'vimeo',
+        'https://player.vimeo.com/api/player.js',
+        array('jquery'),
+        true,
+        null
+      );
     }
 
     wp_enqueue_script(

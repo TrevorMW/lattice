@@ -17,9 +17,11 @@ class Aenea_User extends WP_ACF_CPT
 {   
     public $user;
     public $quizModulesList;
+    public $completionData;
 
-    CONST FIELD_NAME = 'quiz_data';
-    CONST AENEA_ROLE_NAME = 'aeneaUser';
+    const CURRICULUM_PROGRESS_FIELD_NAME = 'curriculum_completion_data';
+    const FIELD_NAME = 'quiz_data';
+    const AENEA_ROLE_NAME = 'aeneaUser';
 
     public function __construct($user = null){
         if(is_int($user)){
@@ -31,7 +33,8 @@ class Aenea_User extends WP_ACF_CPT
         }
 
         if($this->user instanceof WP_User){
-            $this->quizModulesList = get_field(self::FIELD_NAME, 'user_' . $this->user->ID);
+            $this->quizModulesList = get_field(self::FIELD_NAME,                     'user_' . $this->user->ID);
+            $this->completionData  = unserialize(get_field(self::CURRICULUM_PROGRESS_FIELD_NAME, 'user_' . $this->user->ID));
         }
 
         add_action( 'init', array($this, 'addAeneaUserRole') );
@@ -65,11 +68,20 @@ class Aenea_User extends WP_ACF_CPT
         return $results;
     }
 
+    public function getCompletionData(){
+        return $this->completionData;
+    }
+
     public function getModulesList(){
         return $this->quizModulesList;
     }
 
     public function isUserRegistered(){
         return in_array( self::AENEA_ROLE_NAME, (array) $this->user->roles );
+    }
+
+    public function saveInitialCompletionData($data){
+        $serializedData = serialize($data);
+        update_field(self::CURRICULUM_PROGRESS_FIELD_NAME, $serializedData, 'user_' . $this->user->ID);
     }
 }

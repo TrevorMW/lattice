@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 class Template_Helper
 {
+  const BASE_URL = '/assets/views/';
 
   public static function fileName( $name ){
 
@@ -49,7 +50,7 @@ class Template_Helper
   public static function loadView( $name, $altUrl = null, $params = null )
   {
     $html = '';
-    $url = '/assets/views/';
+    $url  = self::BASE_URL;
 
     if( $altUrl !== null){
       $url = $altUrl;

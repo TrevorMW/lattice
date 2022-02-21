@@ -36,7 +36,7 @@ export default class AjaxForm {
 		this.collectData();
 
 		if (this.confirmFormRequest()) {
-			$(document).trigger('core:progress:show', { msg: 'Saving Data...' });
+			$(document).trigger('core:progress:show', { form: this.form.el, msg: 'Saving Data...' });
 
 			this.makeRequest(this);
 		} else {
@@ -53,7 +53,7 @@ export default class AjaxForm {
 			ajaxForm.on('submit', (e) => {
 				e.preventDefault();
 
-				var form = $(e.currentTarget),
+				var form    = $(e.currentTarget),
 					formMsg = form.find('[data-form-msg]');
 
 				if (formMsg.length > 0) {
@@ -65,8 +65,20 @@ export default class AjaxForm {
 				self.init(form, core.ajaxUrl);
 			});	
 
-			new Progress(ajaxForm);
+			ajaxForm.each((idx, el) => {
+				const form = $(el);
+				new Progress(form);
+			});
 		}
+
+		$(document).on('core:popup:contentLoaded', (e, data) => {
+			const popupContent = data.popup;
+			const form = popupContent.find('[data-ajax-form]');
+
+			if(popupContent.length > 0 && form.length > 0){
+				new Progress(form);
+			}
+		});
 
 		if (backBtn) {
 			backBtn.on('click', (e) => {

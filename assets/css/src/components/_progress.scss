@@ -1,0 +1,42 @@
+.progressBar{
+    padding-bottom:14px;
+
+    & .progressBarLabel{
+        display: flex;
+        width:100%;
+        align-items: center;
+        margin-bottom:14px;
+
+        & label{
+            padding:0;
+        }
+
+        & > div{
+            flex:1;
+            text-align:right;
+    
+            &:first-child{
+                text-align:left;
+            }
+        }
+    }
+
+    & progress{
+        display: block;
+        width:100%;
+
+        &[value]{
+            -webkit-appearance: none;
+            appearance: none;
+
+            &::-webkit-progress-bar{
+                background-color:$white;
+            }
+
+            &::-webkit-progress-value{
+                background-color:$aqua;
+                padding:3px;
+            }
+        }
+    }    
+}

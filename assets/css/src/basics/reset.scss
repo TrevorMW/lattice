@@ -48,3 +48,9 @@ img{
 .screenReader{
   display: none;
 }
+
+a,
+button,
+input[type="submit"]{
+  cursor:pointer;
+}

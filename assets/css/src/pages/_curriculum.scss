@@ -1,0 +1,55 @@
+.curriculum{
+
+}
+
+.curriculumTabs{
+
+}
+
+.curriculumTabs{
+    margin-top:21px;
+}
+
+.curriculumPlayer{
+    margin-bottom:21px;
+
+    @media only screen and (min-width:768px){
+        margin-bottom:0;
+        padding-right:40px;
+    }
+}
+
+.lessonPlayer{
+    position: relative; 
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 21px 0 0 0;
+
+    & iframe{
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        margin:0;
+    }
+
+    @media only screen and (min-width:768px){
+        
+        & iframe{
+            min-height:427px;
+        }
+    }
+}
+
+[data-lesson-finished]{
+    margin-bottom:21px;
+    padding-bottom:21px;
+    border-bottom:1px solid darken($cream, 5%);
+
+    & .btn{
+        width:100%;
+    }
+}

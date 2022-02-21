@@ -66,6 +66,11 @@
     }
   }
 
+  &[disabled]{
+    opacity:.4;
+    cursor:not-allowed;
+  }
+
   .inlineForm &{
     border-radius:0;
     padding:11px 14px 10px;
