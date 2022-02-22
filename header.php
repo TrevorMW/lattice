@@ -59,5 +59,10 @@
 			</div>	
 		</div>
 
-		<main class="wrapper cream addLace mainContent InnerPage">
+		<?php if($post->post_name === 'my-curriculum') { ?> 
+			<main class="wrapper cream addLaceTop mainContent InnerPage">
+		<?php } else { ?> 
+			<main class="wrapper cream addLace mainContent InnerPage">
+		<?php } ?>
+		
 	<?php } ?>

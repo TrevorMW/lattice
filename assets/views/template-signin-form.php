@@ -4,7 +4,7 @@
 
     </div>
 
-    <form data-ajax-form data-action="user_login">
+    <form data-ajax-form data-action="user_login" data-no-progress>
         <div data-form-msg></div>
 
         <div class="formControl">

@@ -1,5 +1,12 @@
-.curriculum{
+.page-my-curriculum{
 
+    & main{
+        padding-bottom:0;
+    }
+
+    & .resources{
+        margin-top:50px;
+    }
 }
 
 [data-modules-list]{
@@ -113,7 +120,7 @@
     margin-bottom:21px;
 
     @media only screen and (min-width:768px){
-        margin-bottom:0;
+        margin-bottom:50px;
         padding-right:40px;
     }
 }
@@ -138,13 +145,17 @@
     @media only screen and (min-width:768px){
         
         & iframe{
-            height:400px;
+            min-height:400px;
+        }
+
+        .single-sfwd-topic & iframe{
+            margin-bottom:21px;
         }
     }
 }
 
 [data-lesson-finished]{
-    margin:35px 0 21px;
+    margin:28px 0;
     text-align:center;
 
     & .btn{

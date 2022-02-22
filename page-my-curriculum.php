@@ -44,4 +44,31 @@ $firstLesson = $curr->getInitialLesson();?>
   </div>
 </div>
 
+<div class="wrapper turqToAqua centered resources">
+    <div class="container">
+        <h3>Climb the Lattice With Us</h3><div class="container x-small"><div class="grid ctaGrid twoByTwo"><div class="gridItem resourceCTA">
+                        <div class="resourceImage">
+                        <img src="http://localhost/~trevor.wagner/lattice/wp-content/uploads/2022/01/podcast-380x380.png" alt="" title="podcast" height="380" width="380"></div>
+                        <div class="resourceTitle"><h4><a href="http://localhost/~trevor.wagner/lattice/podcast/" title="Podcast ">Listen to our podcast</a></h4></div>
+                      </div><div class="gridItem resourceCTA">
+                        <div class="resourceImage">
+                        <img src="http://localhost/~trevor.wagner/lattice/wp-content/uploads/2022/01/laptop-380x380.png" alt="" title="laptop" height="380" width="380"></div>
+                        <div class="resourceTitle"><h4><a href="http://localhost/~trevor.wagner/lattice/blog/" title="Blog ">Read our Blog</a></h4></div>
+                      </div></div></div>    </div>
+</div>
+
+<?php if ($curr->hasNewLessons()) { ?> 
+  <div class="wrapper cream addLaceBottom centered newLessons">
+      <div class="container">
+        <header>
+          <h4>Newest Lessons</h4>
+        </header>
+        <br />
+        <div class="newLessonCardList">
+          <?php echo $curr->getNewestLessons();?>
+        </div>
+      </div>
+  </div>
+<?php } ?>
+
 <?php get_footer(); ?>

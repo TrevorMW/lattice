@@ -64,7 +64,7 @@
 			)) ?>
 
 			<li class="signOutLink">
-				<a href="" data-sign-out class="btn btn-primary">Sign Out</a>
+				<a href="<?php echo wp_logout_url()?>" data-sign-out class="btn btn-primary">Sign Out</a>
 			</li>
 		</ul>
 	</nav>

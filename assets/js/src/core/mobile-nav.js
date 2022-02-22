@@ -64,18 +64,6 @@
             e.preventDefault();
             self.close();
         });
-
-        self.mobileNav.signout.on('click', (e) => { 
-            e.preventDefault();
-
-            self.signout((resp) => {
-                const data = resp;
-
-                if(data.success && data.pageRefresh){
-                    location.reload();
-                }
-            });
-        });
     }
 
     open(){
@@ -94,18 +82,4 @@
     lockBody(lockIt){
 		lockIt ? $('body').addClass('locked') : $('body').removeClass('locked');
 	}
-
-    signout(cb) {
-        $.ajax({
-            url:core.ajaxUrl,
-            data:{
-                action:'signout'
-            },
-            type:'POST',
-            dataType: 'json',
-            success:function(resp){
-                cb(resp);
-            }
-        })
-    }
 }

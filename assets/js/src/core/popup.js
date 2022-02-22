@@ -52,12 +52,13 @@
 			
 			if(!self.popup.el.hasClass('contentLoaded')){
 				self.loadContent(self.popup.id, (html) => {
-					$(document).trigger('core:popup:contentLoaded', { popup: self.popup.el });
 					if(html !== null){
 						self.populateContent(self.popup.title, html);
 					} else {
 						self.populateContent(self.popup.title, self.popup.content);
 					}
+					
+					$(document).trigger('core:popup:contentLoaded', { popup: self.popup.el });
 				});
 			} 
 

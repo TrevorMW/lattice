@@ -12,11 +12,11 @@ export default class AjaxForm {
 			action: null,
 			confirm: false,
 			submit: null,
-			url: null,
+			url: null
 		};
 
 		this.data  = { formData: null };
-		this.flags = { canSubmit: false };
+		this.flags = { canSubmit: false, showProgress:true };
 
 		return this;
 	}
@@ -36,11 +36,15 @@ export default class AjaxForm {
 		this.collectData();
 
 		if (this.confirmFormRequest()) {
-			$(document).trigger('core:progress:show', { form: this.form.el, msg: 'Saving Data...' });
+			if(!this.flags.showProgress){
+				$(document).trigger('core:progress:show', { form: this.form.el, msg: 'Saving Data...' });
+			}
 
 			this.makeRequest(this);
 		} else {
-			$(document).trigger('core:progress:hide');
+			if(!this.flags.showProgress){
+				$(document).trigger('core:progress:hide');
+			}
 		}
 	}
 
@@ -76,7 +80,14 @@ export default class AjaxForm {
 			const form = popupContent.find('[data-ajax-form]');
 
 			if(popupContent.length > 0 && form.length > 0){
-				new Progress(form);
+
+				if(!form[0].hasAttribute('data-no-progress')){
+					self.flags.showProgress = false;
+				}
+
+				if(!self.flags.showProgress){
+					new Progress(form);
+				}
 			}
 		});
 
@@ -122,8 +133,11 @@ export default class AjaxForm {
 			url: this.form.url,
 			data: this.data.formData + '&action=' + this.form.action,
 			success: (resp) => {
-				$(document).trigger('core:progress:hide');
-
+				
+				if(!this.flags.showProgress){
+					$(document).trigger('core:progress:hide');
+				}
+				
 				this.formSuccess(resp);
 			},
 		});

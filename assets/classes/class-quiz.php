@@ -259,6 +259,9 @@ class Quiz extends WP_ACF_CPT
         $post      = $_REQUEST;
         $resp      = new Ajax_Response($post['action']);
         $subaction = $post['subaction'];
+
+        $pass     = $post['password'];
+        $email    = $post['email'];
         
         // handle registrations of users. Set them as subscriber, they will become aenea_user when they start a membership
         if( $subaction === 'register' ){
@@ -281,13 +284,17 @@ class Quiz extends WP_ACF_CPT
                 }
             }
 
+            $user = get_user_by('email', $email);
+            
+
+            if($user instanceof WP_User){
+                $proceed       = false;
+                $resp->message = 'Email address "' . $email. '" is already in use.';
+            }
+
             // Try and create new user.
             if($proceed){
-                $username = $post['username'];
-                $pass     = $post['password'];
-                $email    = $post['email'];
-
-                $newUserID = wp_create_user( $username, $pass, $email );
+                $newUserID = wp_create_user( $email, $pass, $email );
 
                 if(!$newUserID instanceof WP_User){                    
                     update_user_meta( $newUserID, "first_name", $post['first_name'] );
@@ -300,7 +307,7 @@ class Quiz extends WP_ACF_CPT
 
                     $loginResult = wp_signon(
                         array(
-                            'user_login'    => $username,
+                            'user_login'    => $email,
                             'user_password' => $pass,
                             'remember'      => true 
                         )

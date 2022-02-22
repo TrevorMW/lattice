@@ -17,17 +17,10 @@
         </div>
     </div>
 
-    <div class="formControl half">
+    <div class="formControl">
         <label for="email">Email Address:</label>
         <div class="formInput">
             <input type="email" name="email" id="email" placeholder="example.email@site.com" required tabindex="3">
-        </div>
-    </div>
-
-    <div class="formControl half last">
-        <label for="email">Username: </label>
-        <div class="formInput">
-            <input type="text" name="username" id="username" placeholder="" required tabindex="4">
         </div>
     </div>
 

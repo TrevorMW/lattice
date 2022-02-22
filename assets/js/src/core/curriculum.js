@@ -94,35 +94,54 @@ export default class Curriculum {
 	}
 
 	setObservers() {
+		var self = this;
 		
         if (this.lessonTriggers.length > 0) {
 			this.lessonTriggers.each((idx, el) => {
 				const trigger = $(el);
 
 				trigger.on('click', (e) => {
-					const trigger = $(e.target).closest('a');
+					const trigger  = $(e.target).closest('a');
+					const lessonID = trigger.data('curriculumLesson');
 
 					e.preventDefault();
-
-					this.disableCompleteButton();
-
-					this.loadLessonData(trigger.data('curriculumLesson'));
+ 
+					$(document).trigger('curriculum:lesson:load', { lessonID : lessonID })
 				});
 			});
 		}
 
+		$(document).on('curriculum:lesson:load', (e, data) => {
+			const id = data.lessonID;
+
+			self.disableCompleteButton();
+			self.loadLessonData(id);
+		});
+
+		$(document).on('curriculum:lesson:done', (e, data) => {
+			const id = data.lessonID;
+
+			if(id){
+				self.markAsDone(id);
+			}
+		});
+
+		this.setDoneButtonObservers();
+		this.setVimeoObservers();
+	}
+
+	setDoneButtonObservers(){
+
 		if (this.curriculum.doneBtn.length > 0) {
 			const btn = this.curriculum.doneBtn;
-			const self = this;
 
 			btn.on('click', (e) => {
 				e.preventDefault();
+				const lessonID = btn.data('lessonId');
 
-				self.markAsDone(btn.data('lessonId'));
+				$(document).trigger('curriculum:lesson:done', { lessonID : lessonID });
 			});
 		}
-
-		this.setVimeoObservers();
 	}
 
 	disableCompleteButton() {
@@ -151,8 +170,10 @@ export default class Curriculum {
 				dataType: 'json',
 			}).then((resp) => {
 				if (resp.status) {
+					self.disableCompleteButton();
 					self.loadProgressBar();
 					self.loadModulesList();
+
 				}
 			});
 		}
@@ -248,7 +269,7 @@ export default class Curriculum {
 
 					new Tabs();
 
-					self.setObservers();
+					self.setVimeoObservers();
 				}
 			});
 		}

@@ -48,6 +48,42 @@ body{
         top:100%;
       }
     }
+
+    &.addLaceTop{
+      &:before{
+        content:"";
+        position: absolute;
+        z-index:2;
+        width:100%;
+        left:0;
+        right:0;
+        height:28px;
+        background: url('../../../assets/static/img/x-lace.png') repeat-x center center;
+        background-size:28px 28px;
+      }
+
+      &:before{
+        bottom:100%;
+      }
+    }
+
+    &.addLaceBottom{
+      &:after{
+        content:"";
+        position: absolute;
+        z-index:2;
+        width:100%;
+        left:0;
+        right:0;
+        height:28px;
+        background: url('../../../assets/static/img/x-lace.png') repeat-x center center;
+        background-size:28px 28px;
+      }
+
+      &:after{
+        top:100%;
+      }
+    }
   }
 
   &.darkBlue{

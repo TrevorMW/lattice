@@ -2,11 +2,15 @@ const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const yargs = require('yargs');
 
 const webpack = require('webpack');
 
+const argv = yargs.argv;
+const isDev = argv.mode === 'development';
+
 module.exports = {
-  devtool: 'source-map',
+  devtool:  'source-map',
   entry: {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
     quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss'],

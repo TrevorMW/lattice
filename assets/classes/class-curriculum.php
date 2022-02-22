@@ -46,8 +46,6 @@ class Curriculum
 
         add_action( 'wp_ajax_nopriv_load_modules', array($this, 'loadModules'));
         add_action( 'wp_ajax_load_modules',        array($this, 'loadModules'));
-
-        
     }
 
     public function getCurriculumModulesHTML(){
@@ -138,12 +136,11 @@ class Curriculum
         
         $id = (int) $post['lesson_id'];
 
-        if( is_int($id)){
+        if( is_int($id) ){
             $user = new Aenea_User(wp_get_current_user());
             
             if($user instanceof Aenea_User){
-                $user->completionData[$id] = true;
-                
+                $user->completionData[$id] = true;                
                 $result = $user->saveCompletionData($user->completionData);
 
                 if($result){
@@ -228,5 +225,59 @@ class Curriculum
         die(0);
     }
 
+    public function hasNewLessons(){
+        $hasNew = false;
+
+        $args = array(
+            'post_type'      => 'sfwd-topic',
+            'orderby'        => 'date',
+            'posts_per_page' => '3',
+            'date_query' => array(
+                array(
+                    'after' => '2 weeks ago'
+                )
+            )
+        );
     
+        $loop = new WP_Query($args);
+
+        if($loop->have_posts()){
+            $hasNew = true;
+        }
+
+        return $hasNew;
+    }
+
+    public function getNewestLessons(){
+        $html = '';
+        $lessons = null;
+
+        $args = array(
+            'post_type'      => 'sfwd-topic',
+            'orderby'        => 'date',
+            'posts_per_page' => '3',
+            'date_query' => array(
+                array(
+                    'after' => '2 weeks ago'
+                )
+            )
+        );
+    
+        $loop = new WP_Query($args);
+
+        if($loop->have_posts()){
+            $lessons = $loop->posts; 
+
+            foreach( $lessons as $lesson ){
+                $lessonData = new Lesson($lesson->ID);
+                $data       = array( 'lesson' => $lessonData );
+
+                $html .= Template_Helper::loadView('newest-lessons', '/assets/views/pages/curriculum/', $data);
+            }
+        }
+
+        
+
+        return $html;
+    }
 }
