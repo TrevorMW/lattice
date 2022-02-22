@@ -145,7 +145,7 @@ export default class Curriculum {
 	}
 
 	disableCompleteButton() {
-		this.curriculum.doneBtn.attr('disabled');
+		this.curriculum.doneBtn.attr('disabled', 'disabled');
 	}
 
 	enableCompleteButton() {
@@ -172,10 +172,25 @@ export default class Curriculum {
 				if (resp.status) {
 					self.disableCompleteButton();
 					self.loadProgressBar();
-					self.loadModulesList();
-
+					self.markLessonItemDone(id);
 				}
 			});
+		}
+	}
+
+	markLessonItemDone(id){
+
+		if(id){
+			const lesson = $('[data-curriculum-lesson="' + id + '"]');
+
+			if(lesson.length > 0){
+				const i = lesson.find('i.fa');
+
+				if( i.length > 0){
+					lesson.removeClass('play').addClass('done');
+					i.removeClass('fa-play').addClass('fa-check');
+				}
+			}
 		}
 	}
 
@@ -197,8 +212,6 @@ export default class Curriculum {
 					self.updateElement(self.curriculum.modules, modules);
 
 					new Accordion();
-
-					self.init();
 				}
 			}
 		});
@@ -263,6 +276,7 @@ export default class Curriculum {
 						if (resp && 'data' in resp && 'id' in resp.data) {
 							const id = resp.data.id;
 
+							btn.data('lessonId', id);
 							btn.attr('data-lesson-id', id);
 						}
 					}

@@ -117,7 +117,6 @@ class Curriculum
                     'id'       => $lesson->post->ID,
                     'title'    => $lesson->post->post_title,
                     'tabs'     => $lesson->getLessonTabHTML(),
-                    'progress' => $this->getCurriculumProgressBar(),
                     'video'    => $lesson->getLessonVideoHtml() 
                 );
             }
