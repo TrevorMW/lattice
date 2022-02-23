@@ -76,9 +76,10 @@ class Curriculum
 
                 if($type === 'sfwd-lessons'){
                     $args = array(
-                        'post_type' => 'sfwd-topic',
+                        'post_type'      => 'sfwd-topic',
                         'posts_per_page' => '-1',
-                        'meta_key' => 'lesson_id',
+                        'meta_key'       => 'lesson_id',
+                        'order'          => 'ASC',
                         'meta_value' => $mid,
                         'meta_compare' => '='
                     );

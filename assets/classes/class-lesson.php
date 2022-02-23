@@ -50,7 +50,7 @@ class Lesson extends WP_ACF_CPT {
         $html = '';
         
         $downloadsContent = '';
-
+        
         if(is_array($this->downloads) && count($this->downloads) > 0){
             $downloadsContent .= '<ul>';
             
@@ -71,15 +71,20 @@ class Lesson extends WP_ACF_CPT {
         }
 
         $data = array('tabs' => array(
-            'downloads' => array(
-                'title'   => 'Downloads',
-                'content' => $downloadsContent 
-            ),
             'transcript' => array(
                 'title'   => 'Transcripts',
                 'content' => $this->transcript
             )
         ));
+
+        if(is_array($this->downloads) && count($this->downloads) > 0){
+            $data['tabs']['downloads'] = array(
+                'title'   => 'Downloads',
+                'content' => $downloadsContent 
+            );
+        }
+
+        //var_dump($data);
 
         $html .= Template_Helper::loadView('tabs','/assets/views/', $data);
 
