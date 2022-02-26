@@ -14,7 +14,7 @@ if( is_array( $resources ) ){
             $img = $resource['cta_image'];
             $html .= '<div class="gridItem resourceCTA">
                         <div class="resourceImage">
-                        <img src="' . $img['sizes']['medium'] . '" alt="' . $img['alt'] . '" title="' . $img['title'] . '" height="' . $img['sizes']['medium-height'] . '" width="' . $img['sizes']['medium-width'] . '" /></div>
+                        <a href="' . $resource['cta_link']['url'] . '" title="' . $resource['cta_link']['title'] . ' "><img src="' . $img['sizes']['medium'] . '" alt="' . $img['alt'] . '" title="' . $img['title'] . '" height="' . $img['sizes']['medium-height'] . '" width="' . $img['sizes']['medium-width'] . '" /></a></div>
                         <div class="resourceTitle"><h4><a href="' . $resource['cta_link']['url'] . '" title="' . $resource['cta_link']['title'] . ' ">' . $resource['cta_text'] . '</a></h4></div>
                       </div>';
         }
