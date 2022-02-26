@@ -1,0 +1,94 @@
+.courseList{
+
+    & .entry-content{
+        text-align:center;
+    }
+}
+
+.lessonCardGrid{
+    display:block;
+
+    & .lessonCard{
+        display: block;
+        margin-bottom:21px;
+    }
+
+    & .lessonCardImage,
+    & .lessonCardNoImage{
+        height:270px;
+        overflow:hidden;
+        background-image:linear-gradient($darkBlue, $aqua);
+        color:$cream;
+    }
+
+    & .lessonCardImage{
+        
+        & img{
+            height:100%;
+            display: block;
+            min-width:100%;
+        }
+    }
+
+    & .lessonCardNoImage{
+        
+        display: flex;
+        align-items: center;
+        text-align:center;
+
+        & img{
+            width:50%;
+            margin: 0 auto;
+        }
+    }
+
+    & .lessonCardContent{
+        background-color:$white;
+        padding:21px;
+
+        & h2{
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            min-height:100px;
+        }
+    }
+
+    & .btn{
+        display: block;
+        width:100%;
+        padding:20px;
+        margin: 0;
+    }
+
+    & .lessonCardContent{
+
+        & h2{
+            margin: 0;
+        }
+    }
+
+    @media only screen and (min-width:768px){
+        display:flex;
+        gap:21px 21px;
+        flex-wrap:wrap;
+        justify-content: space-between;
+
+        & .lessonCard{
+            flex: 1 1 33%;
+            max-width:31%;
+        }
+
+        & .lessonCardNoImage{
+
+            & img{
+                height:auto;
+                min-width:0;
+            }
+        }
+
+        & .lessonCardContent{
+            background-color:$white;
+            padding:21px;
+        }
+    }
+}

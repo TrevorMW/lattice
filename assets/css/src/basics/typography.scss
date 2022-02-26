@@ -145,6 +145,11 @@ h1{
     line-height:26px;
   }
 
+  .page-header &{
+    font-size:2.5rem;
+    line-height:48px;
+  }
+
   @media only screen and (min-width:768px){
   
     .frontPage &{
@@ -152,6 +157,11 @@ h1{
       line-height:110px;
       letter-spacing:2px;
     }
+
+    .page-header &{
+      font-size:3rem;
+      line-height:56px;
+    }  
   }
 }
 

@@ -22,6 +22,11 @@ class Lesson extends WP_ACF_CPT {
             $this->post = get_post($id);
             parent::__construct($id);
         }
+
+        if(is_object($id)){
+            $this->post = $id;
+            parent::__construct($id);
+        }
     }
 
     public function getFirstLesson(){
@@ -52,30 +57,58 @@ class Lesson extends WP_ACF_CPT {
         $downloadsContent = '';
         
         if(is_array($this->downloads) && count($this->downloads) > 0){
-            $downloadsContent .= '<ul>';
-            
-            foreach( $this->downloads as $download ){
-                $download = $download['download'];
+            $downloadsContent .= '<div class="downloadsGrid">';
+            $i = 0;
 
-                $downloadData = array( 'download' => array(
-                    'type'     => 'link',
-                    'title'    => $download['title'],
-                    'filename' => $download['url'],
-                    'nicename' => $download['filename']
-                ));
+            foreach( $this->downloads as $download ){
+                $image = $download['download_preview_image'];
                 
-                $downloadsContent .= '<li>' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</li>';
+                if($image['url'] !== null){
+                    $download = $download['download'];
+
+                    $downloadData = array( 'download' => array(
+                        'type'     => 'image',
+                        'title'    => $download['title'],
+                        'filename' => $download['url'],
+                        'nicename' => $download['filename'],
+                        'image'    => $image
+                    ));
+
+                    $i++;
+
+                    $downloadsContent .= '<div class="downloadCard">' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</div>';
+                }
             }
 
-            $downloadsContent .= '</ul>';
+            $downloadsContent .= '</div>';
+
+            if($i !== count($this->downloads)){
+                $downloadsContent .= '<br /><br /><h5>Additional Downloads:</h5>';
+                $downloadsContent .= '<ul class="additionalDownloads">';
+                
+                foreach( $this->downloads as $download ){ 
+                    $image = $download['download_preview_image'];
+                    
+                    if(!$image['url']){
+                        $download = $download['download'];
+
+                        $downloadData = array( 'download' => array(
+                            'type'     => 'link',
+                            'title'    => $download['title'],
+                            'filename' => $download['url'],
+                            'nicename' => $download['filename'],
+                        ));
+
+                        $downloadsContent .= '<li>' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</li>';
+
+                    }
+                }
+
+                $downloadsContent .= '</ul>';
+            }
         }
 
-        $data = array('tabs' => array(
-            'transcript' => array(
-                'title'   => 'Transcripts',
-                'content' => $this->transcript
-            )
-        ));
+        $data = array('tabs' => array());
 
         if(is_array($this->downloads) && count($this->downloads) > 0){
             $data['tabs']['downloads'] = array(
@@ -84,7 +117,10 @@ class Lesson extends WP_ACF_CPT {
             );
         }
 
-        //var_dump($data);
+        $data['tabs']['transcript'] = array(
+            'title'   => 'Transcripts',
+            'content' => $this->transcript
+        );
 
         $html .= Template_Helper::loadView('tabs','/assets/views/', $data);
 
@@ -116,6 +152,24 @@ class Lesson extends WP_ACF_CPT {
             $html .= '</ul>';
         }
         
+        return $html;
+    }
+
+    public function getLessonCard(){
+        $html = '';
+
+        $id = $this->post->ID;
+
+        $data = array( 'lessonCard' => array(
+            'id'    => $id,
+            'title' => $this->post->post_title,
+            'image' => get_the_post_thumbnail($id),
+            'permalink' => get_permalink($id),
+            'status' => 'completed'
+        )); 
+
+        $html .= Template_Helper::loadView('lesson-card', '/assets/views/pages/library/', $data);
+
         return $html;
     }
 }

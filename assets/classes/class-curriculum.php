@@ -46,6 +46,7 @@ class Curriculum
 
         add_action( 'wp_ajax_nopriv_load_modules', array($this, 'loadModules'));
         add_action( 'wp_ajax_load_modules',        array($this, 'loadModules'));
+
     }
 
     public function getCurriculumModulesHTML(){
@@ -234,7 +235,7 @@ class Curriculum
             'posts_per_page' => '3',
             'date_query' => array(
                 array(
-                    'after' => '2 weeks ago'
+                    'after' => '4 weeks ago'
                 )
             )
         );
@@ -258,7 +259,7 @@ class Curriculum
             'posts_per_page' => '3',
             'date_query' => array(
                 array(
-                    'after' => '2 weeks ago'
+                    'after' => '6 months ago'
                 )
             )
         );
@@ -269,14 +270,12 @@ class Curriculum
             $lessons = $loop->posts; 
 
             foreach( $lessons as $lesson ){
-                $lessonData = new Lesson($lesson->ID);
+                $lessonData = new Lesson($lesson);
                 $data       = array( 'lesson' => $lessonData );
 
-                $html .= Template_Helper::loadView('newest-lessons', '/assets/views/pages/curriculum/', $data);
+                $html .= $lessonData->getLessonCard();
             }
         }
-
-        
 
         return $html;
     }

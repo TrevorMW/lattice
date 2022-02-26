@@ -9,7 +9,7 @@
 
 get_header(); the_post(); 
 
-$curr = new Curriculum();
+$curr        = new Curriculum();
 $firstLesson = $curr->getInitialLesson();?>
 
 <div class="container flexed alignTop">
@@ -57,18 +57,16 @@ $firstLesson = $curr->getInitialLesson();?>
                       </div></div></div>    </div>
 </div>
 
-<?php if ($curr->hasNewLessons()) { ?> 
-  <div class="wrapper cream addLaceBottom centered newLessons">
-      <div class="container">
-        <header>
-          <h4>Newest Lessons</h4>
-        </header>
-        <br />
-        <div class="newLessonCardList">
-          <?php echo $curr->getNewestLessons();?>
-        </div>
+<div class="wrapper cream addLaceBottom centered newLessons">
+    <div class="container">
+      <header>
+        <h4>Newest Lessons</h4>
+      </header>
+      <br />
+      <div class="lessonCardGrid">
+        <?php echo $curr->getNewestLessons();?>
       </div>
-  </div>
-<?php } ?>
+    </div>
+</div>
 
 <?php get_footer(); ?>

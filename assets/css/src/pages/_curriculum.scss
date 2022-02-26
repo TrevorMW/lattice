@@ -169,3 +169,38 @@
         }
     }
 }
+
+.downloadsGrid{
+    display: block;
+
+    & .downloadCard{
+       display: block;
+        margin-bottom:21px;
+    }
+
+    & img{
+        margin-bottom:7;
+    }
+
+    & a{
+        display: block;
+        border:1px solid transparent;
+        transition:border-color .3s ease;
+
+        &:hover{
+            border-color:$darkGray;
+        }
+    }
+
+    @media only screen and (min-width:768px){
+        display: flex;
+        gap:21px;
+        justify-content: space-between;
+        flex-wrap:wrap;
+    
+        & .downloadCard{
+            flex: 0 0 48%;
+    
+        } 
+    }
+}

@@ -12,11 +12,18 @@ class Homepage
    * @param mixed $action (default: null)
    * @return void
    */
-  public function __construct($id)
+  public function __construct($id = null)
   {
     if(is_int($id)){
-        $this->postID = $id;
+        $this->postID = $id;  
     }
+
+    $this->registerAjax();
+  }
+
+  public function registerAjax(){
+    add_action( 'wp_ajax_nopriv_newsletter_signup', array($this, 'newsletterSignup'));
+    add_action( 'wp_ajax_newsletter_signup',        array($this, 'newsletterSignup'));
   }
 
   public function getHomepageHero(){
@@ -119,4 +126,64 @@ class Homepage
     return $html;
   }
 
+  public function newsletterSignup(){
+    $post = $_REQUEST;
+    $resp = new Ajax_Response($post['action']);
+    
+    $email = filter_input(INPUT_POST, 'newsletter_email', FILTER_VALIDATE_EMAIL);
+
+    if(!$email){
+        $error = new WP_Error( 'invalidEmail', 'Your email address is not in a valid format.');
+        $resp->message = $error->get_error_message();
+    } else {
+      $settings = new Global_Settings();
+      $apiKey  = $settings->getGlobalSetting('mailchimp_api_secret');
+      $result  = null;
+
+      if($apiKey != null){
+        $mchmp  = new MailChimp($apiKey);
+        $listId = $settings->getGlobalSetting('mailchimp_signup_list_id');
+
+        if($listId != null){
+          $email = $post['newsletter_email'];
+          $data = [
+            'email_address' => $email,
+            'status'        => 'pending',
+            'merge_fields'   => array(
+              'TYPE' => 0,
+              'SOURCE' => 'Homepage Newsletter'
+            )
+          ];
+
+          $endpoint = 'lists/' . $listId . '/members';
+
+          $result = $mchmp->post($endpoint, $data);
+          
+          if($result['status'] === 'pending'){
+            $resp->message = 'Success!';
+            $resp->status = true;
+          } else {
+            $error = new WP_Error( 'memberExists', str_replace('Use PUT to insert or update list members.', '', $result['detail']));
+            $resp->message = $error->get_error_message();
+          }
+        }
+
+      } else {
+        $error = new WP_Error( 'apiKey', 'Could not authenticate with email provider. Please check site settings.');
+        $resp->message = $error->get_error_message();
+      }
+
+      if($result != null){
+
+      } else {
+        $error = new WP_Error( 'noResponse', 'No response from api call.');
+        $resp->message = $error->get_error_message();
+      }
+      
+    }
+
+    echo $resp->encodeResponse();
+
+    die(0);
+  }
 }

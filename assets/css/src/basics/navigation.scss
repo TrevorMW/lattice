@@ -109,17 +109,16 @@ nav{
   &.socialMedia {
 
     & ul{
+      margin-top:21px;
       padding:0;
       text-align: center;
       display: flex;
       align-items:center;
-      gap:20px;
+      gap:8px;
       justify-content: center;
     }
 
     & li{
-      width:75px;
-      height:75px;
       display: flex;
       align-items:center;
       text-align:center;
@@ -127,11 +126,32 @@ nav{
 
     & a{
       display: block;
-      width:100%;
-      font-size:2.5rem;
+      width:50px;
+      height:50px;
+      transition: opacity .3s ease;
 
       &:hover{
-        color:$aqua;
+        opacity:0.7;
+      }
+
+      &.facebook{
+        background:url('/assets/static/img/facebook.svg') no-repeat center center;
+      }
+
+      &.instagram{
+        background:url('/assets/static/img/instagram.svg') no-repeat center center;
+      }
+
+      &.youtube{
+        background:url('/assets/static/img/youtube.svg') no-repeat center center;
+      }
+
+      &.tiktok{
+        background:url('/assets/static/img/tiktok.svg') no-repeat center center;
+      }
+
+      &.twitter{
+        background:url('/assets/static/img/twitter.svg') no-repeat center center;
       }
     }
   }
@@ -159,6 +179,22 @@ nav{
       &:hover{
         background-color:$darkBlue;
         color:$white;
+      }
+    }
+  }
+
+  @media only screen and (min-width:768px){
+
+    &.socialMedia {
+
+      & ul{
+        gap:20px;
+      }
+
+      & a{
+        width:75px;
+        height:75px;
+  
       }
     }
   }

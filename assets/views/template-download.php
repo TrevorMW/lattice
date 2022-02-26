@@ -7,7 +7,7 @@ if( is_array($download) ){
     }
 
     if( $download['type'] === 'image' ){
-        $html .= '<a href="' . $download['filename'] . '" download="' . $download['nicename'] . '">' . $download['image'] . '</a>';
+        $html .= '<div><a href="' . $download['filename'] . '" download="' . $download['nicename'] . '"><img src="' . $download['image']['url'] . '" alt="' . $download['image']['alt'] . '" title="' . $download['image']['title'] . '" /></a></div>';
     }
 }
 

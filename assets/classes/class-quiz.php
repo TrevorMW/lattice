@@ -220,6 +220,7 @@ class Quiz extends WP_ACF_CPT
                                 'posts_per_page' => '-1',
                                 'meta_key' => 'lesson_id',
                                 'meta_value' => $mid,
+                                'order'          => 'ASC',
                                 'meta_compare' => '='
                             );
                 
@@ -300,11 +301,6 @@ class Quiz extends WP_ACF_CPT
                     update_user_meta( $newUserID, "first_name", $post['first_name'] );
                     update_user_meta( $newUserID, "last_name",  $post['last_name']  );
 
-                    // Handle newsletter signup
-                    if(isset($post['newsletter_signup'])){
-
-                    }
-
                     $loginResult = wp_signon(
                         array(
                             'user_login'    => $email,
@@ -312,6 +308,40 @@ class Quiz extends WP_ACF_CPT
                             'remember'      => true 
                         )
                     );
+
+                    // Handle newsletter signup
+                    if(isset($post['newsletter_signup']) && $post['newsletter_signup'] == 'on'){
+                        $settings = new Global_Settings();
+                        $apiKey  = $settings->getGlobalSetting('mailchimp_api_secret');
+                        $result  = null;
+
+                        if($apiKey != null){
+                            $mchmp  = new MailChimp($apiKey);
+                            $listId = $settings->getGlobalSetting('mailchimp_signup_list_id');
+
+                            if($listId != null){
+                                $email = $post['newsletter_email'];
+                                $data = [
+                                    'email_address' => $email,
+                                    'status'        => 'pending',
+                                    'merge_fields'  => array(
+                                        'FNAME'  => $post['first_name'],
+                                        'LNAME'  => $post['last_name'],
+                                        'TYPE'   => 1,
+                                        'SOURCE' => 'Quiz'
+                                    )
+                                ];
+
+                                $endpoint = 'lists/' . $listId . '/members';
+
+                                $result = $mchmp->post($endpoint, $data);
+                            }
+
+                        } else {
+                            $error = new WP_Error( 'apiKey', 'Could not authenticate with email provider. Please check site settings.');
+                            $resp->message = $error->get_error_message();
+                        }
+                    }
 
                     $resp->status  = true;
                     $resp->message = 'User Created!';
