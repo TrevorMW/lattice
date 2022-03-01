@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
  * 
@@ -175,7 +175,7 @@ function add_style_sheets()
     );
 
     // On login page only
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), null, 'screen');
+    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), THEME_VERSION, 'screen');
   }
 }
 add_action('wp_enqueue_scripts', 'add_style_sheets');
@@ -230,7 +230,7 @@ function add_javascript()
       'coreJS',
       get_template_directory_uri() . '/assets/js/build' . $depURL,
       array('jquery'),
-      true,
+      THEME_VERSION,
       null
     );
 
