@@ -24,13 +24,13 @@ $team  = new Team_Member($post->ID) ?>
 </div>
 
 <div class="wrapper darkBlue weInspire">
-  <div class="container centered">
+  <div class="container flexed centered">
     <?php echo $about->getInspirationContent(); ?>
   </div>
 </div>  
 
-<div class="wrapper teamMemberGrid">
-  <div class="container centered grid">
+<div class="wrapper teamIntro">
+  <div class="container flexed centered ">
     <?php echo $about->getTeamMemberGrid(); ?>
   </div>
 </div>

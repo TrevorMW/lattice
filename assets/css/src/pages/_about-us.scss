@@ -1,5 +1,12 @@
 .page-about-us {
 
+    & .wrapper.mainContent{
+        padding: 50px 0;
+    }
+
+    & .primary{
+        padding: 0 30px;
+    }
 }
 
 .inspirationBlockGrid{
@@ -47,8 +54,68 @@
     }
 }
 
-.weInspire {
+.weInspire ,
+.teamIntro{
     text-align: center;
     margin-top: 80px;
 }
 
+
+
+.weInspire,
+.teamIntro{
+
+    & .container{
+        text-align:center;
+
+        & > div{
+           display: block;
+           
+
+            &:last-child{
+               margin-top:21px;
+            }
+        }
+
+        & h2,
+        & h3, 
+        & h4{
+            text-transform: none;
+            line-height:1.4;
+            font-size:1.4rem;
+        
+        }
+    }  
+    
+    @media only screen and (min-width:768px){
+
+        & .container{
+            justify-content: space-around;
+            gap:44px;
+    
+            & > div{
+                flex:1;
+            }
+
+            & h2{
+                font-size:2.5rem;
+            }
+
+            & h3{
+                font-size:2.2rem;
+            } 
+
+            & h4{
+                font-size:1.8rem;
+            }
+        }  
+    }
+}
+
+.imgWithCaption{
+
+    & figcaption{
+        margin-top:14px;
+        line-height:1.2;
+    }
+}

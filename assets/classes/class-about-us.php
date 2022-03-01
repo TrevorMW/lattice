@@ -28,8 +28,8 @@ class About_Us extends WP_ACF_CPT
         $html = '';
 
         $data = array( 'inspo' => array(
-            'title' => $this->inspiration_block_title,
-            'blocks' => $this->inspiration__blocks
+            'content' => $this->inspiration_content,
+            'image'   => $this->inspiration_image
         ));
 
         $html .= Template_Helper::loadView('inspiration-blocks', '/assets/views/pages/about-us/', $data);
@@ -40,12 +40,10 @@ class About_Us extends WP_ACF_CPT
     public function getTeamMemberGrid(){
         $html = '';
 
-        if(is_array($this->team_members)){
-            $data = array( 'team' => array(
-                'members' => $this->team_members
-            ));
-        }
-
+        $data = array( 'team' => array(
+            'image'   => $this->team_member_image,
+            'content' => $this->team_member_content
+        ));
         $html .= Template_Helper::loadView('about-us-team', '/assets/views/pages/about-us/', $data);
 
         return $html;
