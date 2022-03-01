@@ -175,7 +175,7 @@ function add_style_sheets()
     );
 
     // On login page only
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), false, 'screen');
+    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), null, 'screen');
   }
 }
 add_action('wp_enqueue_scripts', 'add_style_sheets');
