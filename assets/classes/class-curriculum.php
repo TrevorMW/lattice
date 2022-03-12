@@ -95,6 +95,18 @@ class Curriculum
                         }
                     }
                 }
+
+                if($type === 'sfwd-topic'){                    
+                    $settings = learndash_get_setting($mid);
+                    $moduleID = $settings['lesson'];
+
+                    if(!array_key_exists($moduleID, $modules)){
+                        $modules[$moduleID] = array();
+                        $modules[$moduleID][] = $mid;
+                    } else {
+                        $modules[$moduleID][] = $mid;
+                    }
+                }
             }
         }
 
@@ -143,6 +155,9 @@ class Curriculum
             if($user instanceof Aenea_User){
                 $user->completionData[$id] = true;                
                 $result = $user->saveCompletionData($user->completionData);
+                $courseId = learndash_get_course_id($id);
+
+                learndash_process_mark_complete($user->ID, $id, false, $courseId);
 
                 if($result){
                     $resp->status = true;
@@ -181,10 +196,19 @@ class Curriculum
         return $count;
     }
 
-    public function getCurriculumProgressBar(){
+    public function getCurriculumProgressBar( $finished = null, $total = null ){
         $html    = '';
         $max     = $this->getTotalLessonCount();
         $state   = $this->getTotalFinishedLessonCount();
+
+        if($finished !== null){
+            $state = $finished;
+        }
+
+        if($total !== null){
+            $max = $total;
+        }
+
         $percent = number_format((( $state / $max ) * 100), 0);
 
         $data = array( 'progress' => array(

@@ -29,6 +29,15 @@ class Library extends WP_ACF_CPT
         }
     }
 
+    public function getCompletionData(){
+        $curr = new Curriculum();
+        $user = wp_get_current_user();
+       
+        $progress = learndash_user_get_course_progress( $user->ID, 1683, true );
+
+        return $curr->getCurriculumProgressBar($progress['summary']['completed'], $progress['summary']['total']);
+    }
+
     public function getAllLessons(){
         $html = '';
         $query = '';
@@ -47,13 +56,25 @@ class Library extends WP_ACF_CPT
         $loop = new WP_Query($args);
 
         if($loop->have_posts()){
-            
+            $courseId = learndash_get_course_id($loop->posts[0]->ID);
+            $aeneaUser = new Aenea_User(wp_get_current_user());
+
+            $progress = learndash_user_get_course_progress( $aeneaUser->user->ID, $courseId, false );
+            $topicProgress = $progress['co'];
+
             $html .= '<div class="lessonCardGrid">';
 
             foreach( $loop->posts as $lesson ){
                 $l = new Lesson($lesson);
+                $completed = false;
 
-                $html .= $l->getLessonCard();
+                $completionData = $topicProgress['sfwd-topic:' . $lesson->ID];
+
+                if($completionData){
+                    $completed = true;
+                }
+                
+                $html .= $l->getLessonCard($completed);
             }
 
             $html .= '</div>';

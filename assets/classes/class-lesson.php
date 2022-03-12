@@ -155,7 +155,7 @@ class Lesson extends WP_ACF_CPT {
         return $html;
     }
 
-    public function getLessonCard(){
+    public function getLessonCard($status = false){
         $html = '';
 
         $id = $this->post->ID;
@@ -165,7 +165,7 @@ class Lesson extends WP_ACF_CPT {
             'title' => $this->post->post_title,
             'image' => get_the_post_thumbnail($id),
             'permalink' => get_permalink($id),
-            'status' => 'completed'
+            'status' => $status
         )); 
 
         $html .= Template_Helper::loadView('lesson-card', '/assets/views/pages/library/', $data);

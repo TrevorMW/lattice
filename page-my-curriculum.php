@@ -44,17 +44,13 @@ $firstLesson = $curr->getInitialLesson();?>
   </div>
 </div>
 
+<?php 
+
+$id = (int) get_option('page_on_front');
+$homepage = new Homepage($id); ?>
+
 <div class="wrapper turqToAqua centered resources">
-    <div class="container">
-        <h3>Climb the Lattice With Us</h3><div class="container x-small"><div class="grid ctaGrid twoByTwo"><div class="gridItem resourceCTA">
-                        <div class="resourceImage">
-                        <img src="http://localhost/~trevor.wagner/lattice/wp-content/uploads/2022/01/podcast-380x380.png" alt="" title="podcast" height="380" width="380"></div>
-                        <div class="resourceTitle"><h4><a href="http://localhost/~trevor.wagner/lattice/podcast/" title="Podcast ">Listen to our podcast</a></h4></div>
-                      </div><div class="gridItem resourceCTA">
-                        <div class="resourceImage">
-                        <img src="http://localhost/~trevor.wagner/lattice/wp-content/uploads/2022/01/laptop-380x380.png" alt="" title="laptop" height="380" width="380"></div>
-                        <div class="resourceTitle"><h4><a href="http://localhost/~trevor.wagner/lattice/blog/" title="Blog ">Read our Blog</a></h4></div>
-                      </div></div></div>    </div>
+  <?php echo $homepage->getHomepageResources(); ?>
 </div>
 
 <div class="wrapper cream addLaceBottom centered newLessons">

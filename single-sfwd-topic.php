@@ -25,6 +25,12 @@ get_header();  the_post(); $lesson = new Lesson($post->ID); ?>
           
           <?php the_content(); ?>
         </div>
+        <br />
+        <hr/>
+        <br />
+        <div class="topicTabs">
+            <?php echo $lesson->getLessonTabHTML(); ?>
+        </div>
 
       </article>
   </div>

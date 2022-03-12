@@ -4,7 +4,7 @@
  * @subpackage themename
  */
 
-get_header(); the_post(); 
+get_header(); the_post();  
 
 $library = new Library($post); ?>
 
@@ -18,6 +18,8 @@ $library = new Library($post); ?>
         </div>
         <br />
         <div data-lesson-library>
+          <?php echo $library->getCompletionData();?>
+          <hr /><br />
           <?php echo $library->getAllLessons(); ?>
         </div>
       </article>
