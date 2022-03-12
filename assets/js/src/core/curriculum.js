@@ -139,8 +139,8 @@ export default class Curriculum {
 				e.preventDefault();
 				const btn = $(e.target);
 				const lessonID = btn.data('lessonId');
-				
-				if(!btn.is(":disabled")){
+
+				if(btn.attr('disabled') !== 'disabled'){
 					$(document).trigger('curriculum:lesson:done', { lessonID : lessonID });
 				}
 			});
