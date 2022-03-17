@@ -31,12 +31,24 @@ class Homepage
     $settings = new Global_Settings();
 
     if(is_int($this->postID)){
+
         $data = array( 'hero' => array(
             'title'          => get_field('hero_title', $this->postID),
             'subtitle'       => get_field('hero_subtitle', $this->postID),
             'cta_text'       => get_field('hero_cta_text', $this->postID),
             'quiz_link'      => $settings->getGlobalSetting('quiz_page_id')
         ));
+
+        $user = wp_get_current_user();
+
+        if( in_array( Aenea_User::AENEA_ROLE_NAME, (array) $user->roles ) ){
+          $data = array( 'hero' => array(
+              'title'          => get_field('hero_title', $this->postID),
+              'subtitle'       => get_field('hero_subtitle', $this->postID),
+              'cta_text'       => 'View My Curriculum',
+              'quiz_link'      => get_option('page_for_curriculum')
+          ));
+        }
 
         $html = Template_Helper::loadView('hero', '/assets/views/pages/homepage/', $data);
     } 
@@ -87,6 +99,17 @@ class Homepage
             'cta_text'  => get_field('journey_cta_text', $this->postID),
             'quiz_link' => $settings->getGlobalSetting('quiz_page_id')
         ));
+
+        $user = wp_get_current_user();
+
+        if( in_array( Aenea_User::AENEA_ROLE_NAME, (array) $user->roles ) ){
+          $data = array( 'journey' => array(
+              'title'     => get_field('journey_title',    $this->postID),
+              'subtitle'  => get_field('journey_subtext', $this->postID),
+              'cta_text'  => 'View My Curriculum',
+              'quiz_link' => get_option('page_for_curriculum')
+          ));
+        }
 
         $html = Template_Helper::loadView('journey', '/assets/views/pages/homepage/', $data);
     } 

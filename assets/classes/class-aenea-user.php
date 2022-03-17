@@ -33,7 +33,7 @@ class Aenea_User extends WP_ACF_CPT
         }
 
         if($this->user instanceof WP_User){
-            $this->quizModulesList = get_field(self::FIELD_NAME,                     'user_' . $this->user->ID);
+            $this->quizModulesList = get_field(self::FIELD_NAME,                                 'user_' . $this->user->ID);
             $this->completionData  = unserialize(get_field(self::CURRICULUM_PROGRESS_FIELD_NAME, 'user_' . $this->user->ID));
         }
 

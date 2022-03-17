@@ -75,6 +75,17 @@ function extendReadingSettings(){
     )
   );
 
+  // register our setting
+  register_setting( 
+    'reading', // option group "reading", default WP group
+    'page_for_curriculum', // option name
+    array(
+      'type' => 'string', 
+      'sanitize_callback' => 'sanitize_text_field',
+      'default' => NULL
+    )
+  );
+
   // add our new setting
   add_settings_field(
       'page_for_settings', // ID
@@ -94,6 +105,16 @@ function extendReadingSettings(){
     'default', // section
     array( 'label_for' => 'page_for_quiz' )
   );
+
+  // add our new setting
+  add_settings_field(
+    'page_for_curriculum', // ID
+    __('Curriculum Page', 'textdomain'), // Title
+    'page_for_curriculum_callback_function', // Callback
+    'reading', // page
+    'default', // section
+    array( 'label_for' => 'page_for_curriculum' )
+);
 }
 add_action('admin_init', 'extendReadingSettings');
 
@@ -142,6 +163,36 @@ function page_for_quiz_callback_function(){
   $items = get_posts( $args );
 
   echo '<select id="quizPageSelect" name="page_for_quiz">';
+  // empty option as default
+  echo '<option value="0">'.__('— Select —', 'wordpress').'</option>';
+
+  // foreach page we create an option element, with the post-ID as value
+  foreach($items as $item) {
+
+      // add selected to the option if value is the same as $project_page_id
+      $selected = ($project_page_id == $item->ID) ? 'selected="selected"' : '';
+
+      echo '<option value="'.$item->ID.'" '.$selected.'>'.$item->post_title.'</option>';
+  }
+
+  echo '</select>';
+}
+
+function page_for_curriculum_callback_function(){
+  // get saved project page ID
+  $project_page_id = get_option('page_for_curriculum');
+
+  // get all pages
+  $args = array(
+      'posts_per_page'   => -1,
+      'orderby'          => 'name',
+      'order'            => 'ASC',
+      'post_type'        => 'page',
+  );
+  
+  $items = get_posts( $args );
+
+  echo '<select id="curriculumPageSelect" name="page_for_curriculum">';
   // empty option as default
   echo '<option value="0">'.__('— Select —', 'wordpress').'</option>';
 
@@ -416,6 +467,13 @@ function logUserIn() {
         $resp->status      = true;
         $resp->pageRefresh = true;
         $resp->redirectURL = home_url();
+        
+        $user = wp_get_current_user();
+
+        if( in_array( Aenea_User::AENEA_ROLE_NAME, (array) $user->roles ) ){
+          $resp->redirectURL = get_permalink(get_option('page_for_curriculum'));
+        }
+        
         $resp->message = 'Login Successful!';
       } else {
         $resp->message = 'Username or Password invalid. Try Again.';
