@@ -130,6 +130,7 @@ class Curriculum
                 $resp->data = array(
                     'id'       => $lesson->post->ID,
                     'title'    => $lesson->post->post_title,
+                    'module'   => (int) get_post_meta($lesson->post->ID, 'lesson_id')[0],
                     'tabs'     => $lesson->getLessonTabHTML(),
                     'video'    => $lesson->getLessonVideoHtml() 
                 );
@@ -147,7 +148,8 @@ class Curriculum
         $post = $_REQUEST;
         $resp = new Ajax_Response($post['action']);
         
-        $id = (int) $post['lesson_id'];
+        $id    = (int) $post['lesson_id'];
+        $modID = (int) $post['module_id'];
 
         if( is_int($id) ){
             $user = new Aenea_User(wp_get_current_user());
@@ -164,6 +166,10 @@ class Curriculum
                 }
             }
         }
+
+        if( is_int($modID) ){
+            $resp->data['moduleFinished'] = Module::isModuleFinished($modID);
+        } 
 
         echo $resp->encodeResponse();
 

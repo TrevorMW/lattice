@@ -21,7 +21,7 @@ $firstLesson = $curr->getInitialLesson();?>
     <?php echo $firstLesson->getLessonVideoHtml() ?>
 
     <div data-lesson-finished>
-        <a href="" class="btn btn-secondary btn-large" disabled data-lesson-id="<?php echo $firstLesson->post->ID ?>">Mark Complete <i class="fa fa-fw fa-check"></i></a>
+        <a href="" class="btn btn-secondary btn-large" disabled data-module-id="<?php echo get_post_meta($firstLesson->post->ID, 'lesson_id')[0] ?>" data-lesson-id="<?php echo $firstLesson->post->ID ?>">Mark Complete <i class="fa fa-fw fa-check"></i></a>
     </div>
 
     <div data-lesson-tabs>

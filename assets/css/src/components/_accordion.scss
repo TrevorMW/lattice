@@ -43,7 +43,7 @@
     &.active{
         
         & > [data-accordion-content]{
-            max-height:100vh;
+            max-height:300vh;
             height:auto;
             padding:14px;
         }

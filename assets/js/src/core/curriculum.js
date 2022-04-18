@@ -105,6 +105,11 @@ export default class Curriculum {
 					const lessonID = trigger.data('curriculumLesson');
 
 					e.preventDefault();
+
+					self.curriculum.video[0].scrollIntoView({
+						behavior:"smooth",
+						block: "center"
+					});
  
 					$(document).trigger('curriculum:lesson:load', { lessonID : lessonID })
 				});
@@ -119,10 +124,11 @@ export default class Curriculum {
 		});
 
 		$(document).on('curriculum:lesson:done', (e, data) => {
-			const id = data.lessonID;
-
+			const id  = data.lessonID;
+			const mod = data.moduleID;
+			
 			if(id){
-				self.markAsDone(id);
+				self.markAsDone(id, mod);
 			}
 		});
 
@@ -137,11 +143,12 @@ export default class Curriculum {
 
 			btn.on('click', (e) => {
 				e.preventDefault();
-				const btn = $(e.target);
+				const btn 	   = $(e.target);
 				const lessonID = btn.data('lessonId');
+				const modID    = btn.data('moduleId');
 
 				if(btn.attr('disabled') !== 'disabled'){
-					$(document).trigger('curriculum:lesson:done', { lessonID : lessonID });
+					$(document).trigger('curriculum:lesson:done', { lessonID : lessonID, moduleID: modID });
 				}
 			});
 		}
@@ -159,16 +166,17 @@ export default class Curriculum {
 		el.html(content);
 	}
 
-	markAsDone(id) {
+	markAsDone(id, mod) {
 		var self = this;
 
-		if (id) {
+		if (id && mod) {
 			$.ajax({
 				method: 'POST',
 				url: core.ajaxUrl,
 				data: {
 					action: 'mark_done',
 					lesson_id: id,
+					module_id: mod
 				},
 				dataType: 'json',
 			}).then((resp) => {
@@ -176,6 +184,17 @@ export default class Curriculum {
 					self.disableCompleteButton();
 					self.loadProgressBar();
 					self.markLessonItemDone(id);
+
+					debugger;
+					console.log(resp.data.moduleFinished);
+
+					if(resp.data.moduleFinished){
+						const lessonParentModule = $('[data-curriculum-lesson="' + id + '"]').closest('[data-accordion-item]').find('[data-accordion-trigger]');
+
+						if(lessonParentModule.length > 0){
+							self.markModuleDone(lessonParentModule);
+						}
+					}
 				}
 			});
 		}
@@ -195,6 +214,13 @@ export default class Curriculum {
 				}
 			}
 		}
+	}
+
+	markModuleDone(el){
+		const checkmarkBox = el.find('[data-module-finished]');
+
+		el.closest('[data-accordion-item]').addClass('done');
+		checkmarkBox.html('<i class="fa fa-fw fa-check"></i>');
 	}
 
 	loadModulesList() {
@@ -281,6 +307,17 @@ export default class Curriculum {
 
 							btn.data('lessonId', id);
 							btn.attr('data-lesson-id', id);
+						}
+					}
+
+					const modID = $('[data-module-id]')
+
+					if (modID.length > 0) {
+						if (resp && 'data' in resp && 'module' in resp.data) {
+							const id = resp.data.module;
+
+							btn.data('moduleId', id);
+							btn.attr('data-module-id', id);
 						}
 					}
 
