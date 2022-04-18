@@ -185,9 +185,6 @@ export default class Curriculum {
 					self.loadProgressBar();
 					self.markLessonItemDone(id);
 
-					debugger;
-					console.log(resp.data.moduleFinished);
-
 					if(resp.data.moduleFinished){
 						const lessonParentModule = $('[data-curriculum-lesson="' + id + '"]').closest('[data-accordion-item]').find('[data-accordion-trigger]');
 
