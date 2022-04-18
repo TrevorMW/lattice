@@ -38,6 +38,8 @@
 		</header>
 	</div>
 
+	
+
 	<?php if(is_front_page()){ ?> 
 		<main class="wrapper cream mainContent frontPage">
 	<?php } else { 

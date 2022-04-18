@@ -22,6 +22,10 @@
         }
     }
 
+    & .done [data-accordion-trigger] i{
+        color:greenyellow;
+    }
+
     & [data-accordion-item].active > [data-accordion-content]{
         padding:0;
         background-color:transparent;
@@ -68,8 +72,6 @@
                 color:$turquoise;
             }
         }
-
-        
     }
 
     @media only screen and (min-width:768px){

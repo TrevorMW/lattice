@@ -70,13 +70,43 @@ class Module extends WP_ACF_CPT
                 'class' => $class,
                 'content' => $lessonHTML,
                 'title' => $module->post->post_title,
-                'id' => $module->post->ID
+                'id' => $module->post->ID,
+                'status' => false,
             ));
+            
+            $data['module']['status'] = Module::isModuleFinished($module->post->ID);
+
+            if($data['module']['status']){
+                $data['module']['class'] .= ' done';
+            }
 
             $html .= Template_Helper::loadView('curriculum-module', '/assets/views/pages/curriculum/', $data);
         }
 
         return $html;
+    }
+
+    public static function isModuleFinished($moduleID){
+        $finished = false;
+
+        $user            = new Aenea_User(wp_get_current_user());
+        $courseId        = learndash_get_course_id($moduleID);
+        $course_progress = learndash_user_get_course_progress( $user->user->ID, $courseId  );
+
+        $moduleTopics =  $course_progress['topics'][$moduleID];
+
+        if(is_array($moduleTopics) && count($moduleTopics) > 0){
+            foreach($moduleTopics as $k => $topic){
+                if($topic <= 0){
+                    $finished = false;
+                    break;
+                } else {
+                    $finished = true;
+                }
+            }
+        }
+
+        return $finished;
     }
 
     public static function getLessonHTML($lessons, $usr, $membership){

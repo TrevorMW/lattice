@@ -34,7 +34,7 @@
     }
 
     @media only screen and (min-width:768px){
-
+        flex:1 0 auto;
     }
 }
 
@@ -62,5 +62,10 @@
 
 [data-tab-content="downloads"]{
     max-height:700px;
+    overflow-y:scroll;
+}
+
+[data-tab-content="transcript"]{
+    max-height:400px;
     overflow-y:scroll;
 }
