@@ -54,7 +54,7 @@ class Lesson extends WP_ACF_CPT {
     public function getLessonTabHTML(){
         $html = '';
         
-        $downloadsContent = '';
+        $downloadsContent = $deepdive = '';
         
         if(is_array($this->downloads) && count($this->downloads) > 0){
             $downloadsContent .= '<div class="downloadsGrid">';
@@ -108,6 +108,65 @@ class Lesson extends WP_ACF_CPT {
             }
         }
 
+        if(is_array($this->deepdive) && count($this->deepdive) > 0){
+            $links = $imgs = $files = $posts = '';
+
+            foreach( $this->deepdive as $deepdive ){
+                $type = $deepdive['dd_material_type'];
+                
+                if($type === 'link'){
+                    
+                    $data = array( 'link' => array(
+                        'url' => $deepdive['dd_link_url'],
+                        'title' => $deepdive['dd_link_title'],
+                        'newTab' => true,
+                        'classes' => ''
+                    ));
+
+                    $links .= '<li>' . Template_Helper::loadView('link','/assets/views/', $data) . '</li>';
+                }
+
+                if($type === 'file'){
+                    //var_dump($deepdive);
+                    $data = array( 'file-download' => array(
+                        'url' => '',
+                        'alt' => '',
+                        'downloadNiceName' => '',
+                        'classes' => '',
+                        'url' => '',
+                    ));
+
+                    $files .= Template_Helper::loadView('link','/assets/views/', $data);
+                }
+
+                if($type === 'img'){
+
+                    $data = array( 'image-download' => array(
+                        '' => '',
+                    ));
+                }
+
+                if($type === 'post'){
+                    $data = array( 'post' => $deepdive['dd_blog_post']);
+
+                    $posts .= Template_Helper::loadView('post-card', '/assets/views/', $data);
+                }
+
+                $deepdive .= '<div class="deepDiveMaterials">';
+
+                $deepdive .= '<h4>Related Links:</h4>' ;
+                $deepdive .= '<ul>' . $links . '</ul>' ;
+
+                $deepdive .= '<br /><h4>Related Posts:</h4>' ;
+                $deepdive .= '<div class="blogPostGrid">' . $posts . '</div>' ;
+
+                $deepdive .= '<br /><h4>Related Files & Images:</h4>' ;
+                $deepdive .= '<div class="">' . $files . '</div>' ;
+
+                $deepdive .= '<div class="deepDiveMaterials">';
+            }
+        }
+
         $data = array('tabs' => array());
 
         if(is_array($this->downloads) && count($this->downloads) > 0){
@@ -121,6 +180,13 @@ class Lesson extends WP_ACF_CPT {
             'title'   => 'Transcripts',
             'content' => $this->transcript
         );
+
+        if(is_array($this->deepdive) && count($this->deepdive) > 0){
+            $data['tabs']['deepdive'] = array(
+                'title'   => 'Deep Dive Materials',
+                'content' => $deepdive 
+            );
+        }
 
         $html .= Template_Helper::loadView('tabs','/assets/views/', $data);
 
