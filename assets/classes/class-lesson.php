@@ -54,137 +54,105 @@ class Lesson extends WP_ACF_CPT {
     public function getLessonTabHTML(){
         $html = '';
         
-        $downloadsContent = $deepdive = '';
-        
-        if(is_array($this->downloads) && count($this->downloads) > 0){
+        $deepdive = '';
+        $links = $files = $posts = '';
+
+        if(is_array($this->deep_dive_downloadable_items) && count($this->deep_dive_downloadable_items) > 0){
             $downloadsContent .= '<div class="downloadsGrid">';
             $i = 0;
 
-            foreach( $this->downloads as $download ){
-                $image = $download['download_preview_image'];
+            foreach( $this->deep_dive_downloadable_items as $download ){ //var_dump($download);
+                $downloadTitle = $download['dd_downloadable_item_title'];
+
+                $downloadURL   = '';
+                $downloadImage = '';
                 
-                if($image['url'] !== null){
-                    $download = $download['download'];
-
-                    $downloadData = array( 'download' => array(
-                        'type'     => 'image',
-                        'title'    => $download['title'],
-                        'filename' => $download['url'],
-                        'nicename' => $download['filename'],
-                        'image'    => $image
-                    ));
-
-                    $i++;
-
-                    $downloadsContent .= '<div class="downloadCard">' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</div>';
+                if(!$download['dd_downloadable_item_file'] && $download['downloadable_item_thumbnail']){
+                    $downloadURL   = $download['downloadable_item_thumbnail']['url'];
+                    $downloadImage = $download['downloadable_item_thumbnail'];
                 }
+
+                if($download['dd_downloadable_item_file'] && !$download['downloadable_item_thumbnail']){
+                    $downloadURL   = $download['dd_downloadable_item_file']['url'];
+                    $downloadImage = get_template_directory_uri() . '/assets/static/img/no-image-found.jpg';
+                }
+
+                if($download['dd_downloadable_item_file'] && $download['downloadable_item_thumbnail']){
+                    $downloadURL   = $download['dd_downloadable_item_file']['url'];
+                    $downloadImage = $download['downloadable_item_thumbnail'];
+                }
+                
+                $downloadData = array( 'download' => array(
+                    'title'      => $downloadTitle,
+                    'filename'   => $downloadURL,
+                    'nicename'   => sanitize_title($downloadTitle),
+                    'imageUrl'   => isset($downloadImage['url']) ? $downloadImage['url'] : get_template_directory_uri() . '/assets/static/img/no-image-found.jpg' ,
+                    'imageAlt'   => isset($downloadImage['alt']) ? $downloadImage['alt'] : '',
+                    'imageTitle' => isset($downloadImage['title']) ? $downloadImage['title'] : '',
+                ));
+
+                $downloadsContent .= '<div class="downloadCard">' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</div>';
             }
 
             $downloadsContent .= '</div>';
+        }
 
-            if($i !== count($this->downloads)){
-                $downloadsContent .= '<br /><br /><h5>Additional Downloads:</h5>';
-                $downloadsContent .= '<ul class="additionalDownloads">';
+        if(is_array($this->deep_dive_helpful_posts) && count($this->deep_dive_helpful_posts) > 0){
+            foreach( $this->deep_dive_helpful_posts as $helpfulPost ){
+                $data = array( 'post' => $helpfulPost['dd_helpful_post'][0]);
+                $posts .= Template_Helper::loadView('post-card', '/assets/views/', $data);
                 
-                foreach( $this->downloads as $download ){ 
-                    $image = $download['download_preview_image'];
-                    
-                    if(!$image['url']){
-                        $download = $download['download'];
-
-                        $downloadData = array( 'download' => array(
-                            'type'     => 'link',
-                            'title'    => $download['title'],
-                            'filename' => $download['url'],
-                            'nicename' => $download['filename'],
-                        ));
-
-                        $downloadsContent .= '<li>' . Template_Helper::loadView('download', '/assets/views/', $downloadData) . '</li>';
-
-                    }
-                }
-
-                $downloadsContent .= '</ul>';
             }
         }
 
-        if(is_array($this->deepdive) && count($this->deepdive) > 0){
-            $links = $imgs = $files = $posts = '';
+        if(is_array($this->deep_dive_helpful_links) && count($this->deep_dive_helpful_links) > 0){
+            foreach( $this->deep_dive_helpful_links as $link ){
 
-            foreach( $this->deepdive as $deepdive ){
-                $type = $deepdive['dd_material_type'];
-                
-                if($type === 'link'){
-                    
-                    $data = array( 'link' => array(
-                        'url' => $deepdive['dd_link_url'],
-                        'title' => $deepdive['dd_link_title'],
-                        'newTab' => true,
-                        'classes' => ''
-                    ));
-
-                    $links .= '<li>' . Template_Helper::loadView('link','/assets/views/', $data) . '</li>';
-                }
-
-                if($type === 'file'){
-                    //var_dump($deepdive);
-                    $data = array( 'file-download' => array(
-                        'url' => '',
-                        'alt' => '',
-                        'downloadNiceName' => '',
-                        'classes' => '',
-                        'url' => '',
-                    ));
-
-                    $files .= Template_Helper::loadView('link','/assets/views/', $data);
-                }
-
-                if($type === 'img'){
-
-                    $data = array( 'image-download' => array(
-                        '' => '',
-                    ));
-                }
-
-                if($type === 'post'){
-                    $data = array( 'post' => $deepdive['dd_blog_post']);
-
-                    $posts .= Template_Helper::loadView('post-card', '/assets/views/', $data);
-                }
-
-                $deepdive .= '<div class="deepDiveMaterials">';
-
-                $deepdive .= '<h4>Related Links:</h4>' ;
-                $deepdive .= '<ul>' . $links . '</ul>' ;
-
-                $deepdive .= '<br /><h4>Related Posts:</h4>' ;
-                $deepdive .= '<div class="blogPostGrid">' . $posts . '</div>' ;
-
-                $deepdive .= '<br /><h4>Related Files & Images:</h4>' ;
-                $deepdive .= '<div class="">' . $files . '</div>' ;
-
-                $deepdive .= '<div class="deepDiveMaterials">';
+                $data = array( 'link' => array(
+                    'url' => $link['dd_link_url'],
+                    'title' => $link['dd_link_text'],
+                    'newTab' => $link['dd_link_new_tab'],
+                    'classes' => ''
+                ));
+    
+                $links .= '<li>' . Template_Helper::loadView('link','/assets/views/', $data) . '</li>';
             }
         }
+
+        $deepdiveHtml .= '<div class="deepDiveMaterials">';
+
+        if($downloadsContent !== ''){
+            $deepdiveHtml .= '<h4>Related Downloadables:</h4>' ;
+            $deepdiveHtml .= '<div class="">' . $downloadsContent . '</div>' ;
+            $deepdiveHtml .= '<br />';
+        }
+
+        if($posts !== ''){
+            $deepdiveHtml .= '<h4>Helpful Posts:</h4>' ;
+            $deepdiveHtml .= '<div class="postsPage curriculumPosts"><div class="blogPostGrid">' . $posts . '</div></div>' ;
+            $deepdiveHtml .= '<br />';
+        }
+        
+        if($links !== ''){
+            $deepdiveHtml .= '<h4>Helpful Links:</h4>' ;
+            $deepdiveHtml .= '<ul>' . $links . '</ul>' ;
+        }
+
+        $deepdiveHtml .= '</div>';
 
         $data = array('tabs' => array());
-
-        if(is_array($this->downloads) && count($this->downloads) > 0){
-            $data['tabs']['downloads'] = array(
-                'title'   => 'Downloads',
-                'content' => $downloadsContent 
-            );
-        }
 
         $data['tabs']['transcript'] = array(
             'title'   => 'Transcripts',
             'content' => $this->transcript
         );
 
-        if(is_array($this->deepdive) && count($this->deepdive) > 0){
+        if(is_array($this->deep_dive_downloadable_items) || 
+           is_array($this->deep_dive_helpful_posts) || 
+           is_array($this->deep_dive_helpful_links)){
             $data['tabs']['deepdive'] = array(
-                'title'   => 'Deep Dive Materials',
-                'content' => $deepdive 
+                'title'   => 'Deep Dive',
+                'content' => $deepdiveHtml 
             );
         }
 
