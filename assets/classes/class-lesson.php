@@ -147,7 +147,9 @@ class Lesson extends WP_ACF_CPT {
             'content' => $this->transcript
         );
 
-        if(is_array($this->deep_dive_downloadable_items) || is_array($this->deep_dive_helpful_posts) || is_array($this->deep_dive_helpful_links)){
+        if(is_array($this->deep_dive_downloadable_items) || 
+           is_array($this->deep_dive_helpful_posts) || 
+           is_array($this->deep_dive_helpful_links)){
             $data['tabs']['deepdive'] = array(
                 'title'   => 'Deep Dive',
                 'content' => $deepdiveHtml 
