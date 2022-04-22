@@ -13,7 +13,6 @@
         font-size:1rem;
     }
 
-
     @media only screen and (min-width:768px){
 
         .entrySummary{
@@ -35,11 +34,30 @@
             flex:1;
             max-width:33%;
             display: flex;
-        }   
-
+        }
     }
 }
 
+.postsPage{
+
+    &.curriculumPosts{
+            
+        & .blogPost{
+            border:1px solid #eee;
+        }  
+    }
+
+    @media only screen and (min-width:768px){
+
+        &.curriculumPosts{
+            
+            & .blogPost{
+                max-width:48%;
+            }  
+        }
+       
+    }
+}
 
 .postMeta,
 .entryMeta{
