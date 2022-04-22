@@ -57,6 +57,8 @@ class Lesson extends WP_ACF_CPT {
         $deepdive = '';
         $links = $files = $posts = '';
 
+        $deepdiveHtml .= '<div class="deepDiveMaterials">';
+
         if(is_array($this->deep_dive_downloadable_items) && count($this->deep_dive_downloadable_items) > 0){
             $downloadsContent .= '<div class="downloadsGrid">';
             $i = 0;
@@ -95,13 +97,24 @@ class Lesson extends WP_ACF_CPT {
             }
 
             $downloadsContent .= '</div>';
+
+            if($downloadsContent !== ''){
+                $deepdiveHtml .= '<h4>Related Downloadables:</h4>' ;
+                $deepdiveHtml .= '<div class="">' . $downloadsContent . '</div>' ;
+                $deepdiveHtml .= '<br />';
+            }
         }
 
         if(is_array($this->deep_dive_helpful_posts) && count($this->deep_dive_helpful_posts) > 0){
             foreach( $this->deep_dive_helpful_posts as $helpfulPost ){
                 $data = array( 'post' => $helpfulPost['dd_helpful_post'][0]);
                 $posts .= Template_Helper::loadView('post-card', '/assets/views/', $data);
-                
+            }
+
+            if($posts !== ''){
+                $deepdiveHtml .= '<h4>Helpful Posts:</h4>' ;
+                $deepdiveHtml .= '<div class="postsPage curriculumPosts"><div class="blogPostGrid">' . $posts . '</div></div>' ;
+                $deepdiveHtml .= '<br />';
             }
         }
 
@@ -117,25 +130,11 @@ class Lesson extends WP_ACF_CPT {
     
                 $links .= '<li>' . Template_Helper::loadView('link','/assets/views/', $data) . '</li>';
             }
-        }
 
-        $deepdiveHtml .= '<div class="deepDiveMaterials">';
-
-        if($downloadsContent !== ''){
-            $deepdiveHtml .= '<h4>Related Downloadables:</h4>' ;
-            $deepdiveHtml .= '<div class="">' . $downloadsContent . '</div>' ;
-            $deepdiveHtml .= '<br />';
-        }
-
-        if($posts !== ''){
-            $deepdiveHtml .= '<h4>Helpful Posts:</h4>' ;
-            $deepdiveHtml .= '<div class="postsPage curriculumPosts"><div class="blogPostGrid">' . $posts . '</div></div>' ;
-            $deepdiveHtml .= '<br />';
-        }
-        
-        if($links !== ''){
-            $deepdiveHtml .= '<h4>Helpful Links:</h4>' ;
-            $deepdiveHtml .= '<ul>' . $links . '</ul>' ;
+            if($links !== ''){
+                $deepdiveHtml .= '<h4>Helpful Links:</h4>' ;
+                $deepdiveHtml .= '<ul>' . $links . '</ul>' ;
+            }
         }
 
         $deepdiveHtml .= '</div>';
