@@ -21,11 +21,43 @@
                 <input type="hidden" name="mepr_process_signup_form" value="<?php echo isset($_GET['mepr_process_signup_form']) ? esc_attr($_GET['mepr_process_signup_form']) : 1 ?>" />
                 <input type="hidden" name="mepr_product_id" value="<?php echo esc_attr($product->ID); ?>" />
                 <input type="hidden" name="mepr_transaction_id" value="<?php echo isset($_GET['mepr_transaction_id']) ? esc_attr($_GET['mepr_transaction_id']) : ""; ?>" />
-
+                
                 <?php if(MeprUtils::is_user_logged_in()): ?>
                     <input type="hidden" name="logged_in_purchase" value="1" />
                     <input type="hidden" name="mepr_checkout_nonce" value="<?php echo esc_attr(wp_create_nonce('logged_in_purchase')); ?>">
                     <?php wp_referer_field(); ?>
+                <?php endif; ?>
+
+                <?php MeprHooks::do_action('mepr-before-coupon-field'); //Deprecated ?>
+                <?php MeprHooks::do_action('mepr-checkout-before-coupon-field', $product->ID); ?>
+
+
+                <?php if($payment_required || !empty($product->plan_code)): ?>
+                <?php if($mepr_options->coupon_field_enabled): ?>
+                <fieldset class="checkoutPromoCode">
+                    <legend>Have a Coupon?</legend>
+                    <div class="inlineForm">
+                        <div class="formControl">
+                            <div class="inlineInput">
+                                <div class="mepr_coupon mepr_coupon_<?php echo $product->ID; ?>">
+                                    <div class="mp-form-label">
+                                        <label for="mepr_coupon_code<?php echo $unique_suffix; ?>"><?php _ex('Coupon Code:', 'ui', 'memberpress'); ?></label>
+                                        <span class="cc-error"><?php _ex('Invalid Coupon', 'ui', 'memberpress'); ?></span>
+                                        <span class="mepr-coupon-loader mepr-hidden">
+                                            <i class="fa fa-fw fa-spin fa-spinner"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="Enter promo code to apply" id="mepr_coupon_code<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-coupon-code" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" data-prdid="<?php echo $product->ID; ?>" />
+                                </div>
+                            </div>
+                            <div class="inlineSubmit">
+                                <span for="mepr_coupon_code<?php echo $unique_suffix; ?>" class="btn btn-primary btn-fake-promo-apply">Apply Code</span>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <?php else: ?>
+                    <input type="hidden" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" />
                 <?php endif; ?>
                 
                 <fieldset>
@@ -116,39 +148,7 @@
                 <?php endif; ?>
                 <?php endif; ?>
 
-                <?php MeprHooks::do_action('mepr-before-coupon-field'); //Deprecated ?>
-                <?php MeprHooks::do_action('mepr-checkout-before-coupon-field', $product->ID); ?>
-
-
-                <?php if($payment_required || !empty($product->plan_code)): ?>
-                <?php if($mepr_options->coupon_field_enabled): ?>
-                <fieldset><legend>Promotional Information</legend>
-                    <div class="inlineForm ">
-                        <div class="formControl">
-                            <div class="inlineInput">
-                                <div class="mepr_coupon mepr_coupon_<?php echo $product->ID; ?> mepr-hidden">
-                                    <div class="mp-form-label">
-                                    <label for="mepr_coupon_code<?php echo $unique_suffix; ?>"><?php _ex('Coupon Code:', 'ui', 'memberpress'); ?></label>
-
-                                        <span class="mepr-coupon-loader mepr-hidden">
-                                            <img src="<?php echo includes_url('js/thickbox/loadingAnimation.gif'); ?>" alt="<?php _e('Loading...', 'memberpress'); ?>" title="<?php _ex('Loading icon', 'ui', 'memberpress'); ?>" width="100" height="10" />
-                                        </span>
-                                        <span class="cc-error"><?php _ex('Invalid Coupon', 'ui', 'memberpress'); ?></span>
-                                    </div>
-                                    <input type="text" id="mepr_coupon_code<?php echo $unique_suffix; ?>" class="mepr-form-input mepr-coupon-code" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" data-prdid="<?php echo $product->ID; ?>" />
-                                </div>
-                            </div>
-                            <div class="inlineSubmit">
-                                <a class="btn btn-link have-coupon-link" data-prdid="<?php echo $product->ID; ?>" href="">
-                                    <?php echo MeprCouponsHelper::show_coupon_field_link_content($mepr_coupon_code); ?>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-                <?php else: ?>
-                    <input type="hidden" name="mepr_coupon_code" value="<?php echo (isset($mepr_coupon_code))?esc_attr(stripslashes($mepr_coupon_code)):''; ?>" />
-                <?php endif; ?>
+                
                 <fieldset>
                     <legend>Payment Information</legend>
                 <div class="mepr-payment-methods-wrapper">
