@@ -1,0 +1,25 @@
+.checkoutPromoCode{
+    padding:20px;
+    margin-bottom:28px;
+    background-color:$aqua;
+
+    & .inlineForm{
+        margin-bottom: 0;
+
+        & .formControl{
+            align-items: flex-end;
+        }
+    }
+
+    & label{
+        color:$white;
+        margin-bottom:14px;
+        padding:0;
+        display: inline-block;
+    }
+
+    & .btn-fake-promo-apply{
+        float:right;
+        width:auto;
+    }
+}
