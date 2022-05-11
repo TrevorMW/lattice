@@ -9,6 +9,11 @@
         & .formControl{
             align-items: flex-end;
         }
+
+        & .btn{
+            padding:12px 14px 13px;
+            line-height:1.02;
+        }
     }
 
     & label{
@@ -21,5 +26,17 @@
     & .btn-fake-promo-apply{
         float:right;
         width:auto;
+    }
+
+    @media only screen and (min-width:768px){
+
+        & .inlineForm{
+    
+    
+            & .btn{
+                //padding:11px 14px;
+    
+            }
+        } 
     }
 }

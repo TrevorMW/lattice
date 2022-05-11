@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="inlineSubmit">
-                                <span for="mepr_coupon_code<?php echo $unique_suffix; ?>" class="btn btn-primary btn-fake-promo-apply">Apply Code</span>
+                                <span for="mepr_coupon_code<?php echo $unique_suffix; ?>" class="btn btn-primary btn-fake-promo-apply">Apply</span>
                             </div>
                         </div>
                     </div>
