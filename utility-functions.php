@@ -17,11 +17,16 @@ function get_current_template($echo = false)
 /**
  * 
  */
-function get_excerpt_by_id($post_id, $length = 35)
+function get_excerpt_by_id($post_id, $length = 35, $filter = true)
 {
-  $new_post       = get_post($post_id); //Gets post ID
-  $the_excerpt    = strip_tags($new_post->post_content); //Strips tags and images
-  $words          = explode(' ', $the_excerpt, $length + 1);
+  if($post_id instanceof WP_POST){
+    $new_post = $post_id;
+  } else {
+    $new_post = get_post($post_id); // Gets post by id
+  }
+
+  $the_excerpt = strip_tags($new_post->post_content); // Strips tags and images
+  $words       = explode(' ', $the_excerpt, $length + 1);
 
   if (count($words) > $length) {
     array_pop($words);
@@ -29,7 +34,7 @@ function get_excerpt_by_id($post_id, $length = 35)
     $the_excerpt = implode(' ', $words);
   };
 
-  return apply_filters('the_content', $the_excerpt);
+  return $filter ? apply_filters('the_content', $the_excerpt) : $the_excerpt ;
 }
 
 /**
