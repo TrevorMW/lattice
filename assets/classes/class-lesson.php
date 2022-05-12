@@ -106,8 +106,8 @@ class Lesson extends WP_ACF_CPT {
         }
 
         if(is_array($this->deep_dive_helpful_posts) && count($this->deep_dive_helpful_posts) > 0){
-            foreach( $this->deep_dive_helpful_posts as $helpfulPost ){
-                $data = array( 'post' => $helpfulPost['dd_helpful_post'][0]);
+            foreach( $this->deep_dive_helpful_posts[0]['dd_helpful_post'] as $helpfulPost ){
+                $data = array( 'post' => $helpfulPost);
                 $posts .= Template_Helper::loadView('post-card', '/assets/views/', $data);
             }
 
