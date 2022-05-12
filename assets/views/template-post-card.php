@@ -3,8 +3,7 @@
 if( is_object($post) ){ 
     
     $permalink = get_permalink($post->ID);
-    $title     = get_the_title($post->ID); 
-    ?>
+    $title     = get_the_title($post->ID); ?>
 
     <article class="post blogPost" role="article">
         <div class="entry entryContent">
@@ -27,7 +26,7 @@ if( is_object($post) ){
                 </header>			
 
                 <div class="entrySummary">		
-                    <?php echo get_excerpt_by_id($post->ID, 15); ?>
+                    <?php echo get_excerpt_by_id($post, 25, false); ?>
                 </div>
             </a>        
         </div>
