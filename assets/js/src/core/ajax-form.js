@@ -133,7 +133,7 @@ export default class AjaxForm {
 			url: this.form.url,
 			data: this.data.formData + '&action=' + this.form.action,
 			success: (resp) => {
-				
+
 				if(!this.flags.showProgress){
 					$(document).trigger('core:progress:hide');
 				}
@@ -147,12 +147,21 @@ export default class AjaxForm {
 		let response = JSON.parse(resp);
 
 		$(document).trigger('core:message:show', { resp: response });
-		
-		if (response.status && response.pageRefresh) {
-			if (response.redirectURL !== null) {
-				window.location = response.redirectURL;
+
+		if (response.status) {
+			if(response.pageRefresh || response.redirectURL){
+				if (response.redirectURL !== null) {
+					window.location = response.redirectURL;
+				}
+				
+				if(response.pageRefresh) {
+					location.reload();
+				}
 			} else {
-				location.reload();
+				$(document).trigger('core:request:success', {
+					form: self,
+					resp: response,
+				});
 			}
 		} else {
 			$(document).trigger('core:request:success', {

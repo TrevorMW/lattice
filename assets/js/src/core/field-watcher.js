@@ -1,6 +1,6 @@
 
 /**
- * @package     Popup Watcher
+ * @package     Field Watcher
  * @version     1.0
  * @author      Trevor Wagner
  */
@@ -46,7 +46,6 @@
                         icon.addClass('fa-eye');
                         icon.removeClass('fa-eye-slash');
                     }
-                    
                 }
             });
         }

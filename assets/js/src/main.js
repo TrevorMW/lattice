@@ -5,6 +5,9 @@ import AjaxFormWatcher from './core/ajax-form-watcher';
 import Accordion from './core/accordion';
 import Tabs from './core/tabs';
 
+import ModalSignup from './modalSignup';
+
+
 (() => {
 	'use strict';
 
@@ -15,5 +18,7 @@ import Tabs from './core/tabs';
 		new FieldWatcher();
 		new Accordion();
 		new Tabs();
+		new ModalSignup();
+
 	});
 })();

@@ -15,8 +15,6 @@
     background-color:rgba(0,0,0,0.5);
   }
 
-  
-
   & > div{
     flex:1 0 auto;
   }
@@ -24,7 +22,8 @@
   & .popupBody{
     max-width:700px;
     width:100vw;
-    max-height:100vh;
+    max-height:85vh;
+    overflow-y:scroll;
     margin: 0 auto;
     background-color:$cream;
     -webkit-box-shadow: 0px 0px 41px 0px rgba(0,0,0,0.25);
@@ -39,7 +38,7 @@
 
   & header,
   & footer{
-    padding:5px 14px;
+    padding:14px 28px;
   }
 
   & header{
@@ -77,13 +76,18 @@
     }
   }
 
+  .popupTitle{
+    color:$darkBlue;
+    font-weight:400;
+  }
+
   & header,
   & footer{
     min-height:25px;
   }
 
   & .popupContent{
-    min-height:300px
+    min-height:300px;
   }
 
   &.popup-signin_form {

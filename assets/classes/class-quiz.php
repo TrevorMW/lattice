@@ -191,7 +191,7 @@ class Quiz extends WP_ACF_CPT
         $aeneaUser = new Aenea_User(wp_get_current_user());
 
         if($aeneaUser instanceof Aenea_User){
-            $allModules    = $aeneaUser->quizModulesList;
+            $allModules = $aeneaUser->quizModulesList;
             $moduleList = array();
             $completionData = array();
         
@@ -286,7 +286,6 @@ class Quiz extends WP_ACF_CPT
             }
 
             $user = get_user_by('email', $email);
-            
 
             if($user instanceof WP_User){
                 $proceed       = false;
@@ -297,9 +296,18 @@ class Quiz extends WP_ACF_CPT
             if($proceed){
                 $newUserID = wp_create_user( $email, $pass, $email );
 
-                if(!$newUserID instanceof WP_User){                    
+                if(!$newUserID instanceof WP_User){   
+                    do_action( 'add_user_role', $newUserID, Aenea_User::AENEA_ROLE_NAME );
+                    
+                    $hasCoupon = $post['coupon'] && $post['coupon'] !== '' ? true : false ;
+
                     update_user_meta( $newUserID, "first_name", $post['first_name'] );
                     update_user_meta( $newUserID, "last_name",  $post['last_name']  );
+                    update_user_meta( $newUserID, "user_signed_up_with_coupon", $hasCoupon);
+                    
+                    if($hasCoupon){
+                        update_user_meta( $newUserID, "user_course_coupon", $post['coupon']);
+                    }
 
                     $loginResult = wp_signon(
                         array(
@@ -345,9 +353,8 @@ class Quiz extends WP_ACF_CPT
 
                     $resp->status  = true;
                     $resp->message = 'User Created!';
+                    $resp->redirectURL = '/quiz';
 
-                    // refresh the page to start quiz with a logged in current user that we can then save data to. 
-                    $resp->pageRefresh = true;
                 } else {
                     $proceed       = false;
                     $resp->message = $newUserID->get_error_message();
@@ -385,7 +392,52 @@ class Quiz extends WP_ACF_CPT
             if(isset($post['next_question_id'])){
                 if( $post['next_question_id'] === 'payment' ) {
                     $resp->data = array('msg' => 'Loading Results...', 'containerClass' => 'resultsPage');
-                    $resp->html = $this->getResultsScreen();
+                    // $resp->html = $this->getResultsScreen();
+
+                    // lets check for whether the user saved a coupon code when they first signed up
+                    $aeneaUser = new Aenea_User(wp_get_current_user());
+                    $hasCoupon = (bool) get_field( "user_signed_up_with_coupon", 'user_'. $aeneaUser->user->ID);
+
+                    // If they have one and it's valid, we will use that and assume it will make the signup free.
+                    if($hasCoupon){
+                        $this->getResultsScreen();
+
+                        // unset this to make sure no values get to the function.
+                        $_POST['mepr_process_signup_form'] = 1;
+                        $_POST['mepr_product_id'] = '4789';
+                        $_POST['mepr_transaction_id'] = '';
+                        $_POST['mepr_stripe_txn_amount'] = 0;
+                        $_POST['logged_in_purchase'] = '1';
+                        $_POST['mepr_payment_method'] = "qqi4vj-1a8";
+                        $_POST['mepr_no_val'] = '';
+                        $_REQUEST['mepr_payment_methods_hidden'] = 1;
+                        
+                        $_POST['user_first_name'] = $aeneaUser->user->first_name;
+                        $_POST['user_last_name']  = $aeneaUser->user->last_name;
+                        $_POST['first_name']      = $aeneaUser->user->first_name;
+                        $_POST['last_name']       = $aeneaUser->user->last_name;
+                        $_POST['user_email']      = $aeneaUser->user->user_email;
+
+                        $_POST['mepr-address-one'] = '';
+                        $_POST['mepr-address-two'] = '';
+                        $_POST['mepr-address-city'] = 'Charleston';
+                        $_POST['mepr-address-country'] = 'US';
+                        $_POST['mepr-address-state'] = 'SC';
+                        $_POST['mepr-address-zip'] = '29403';
+
+                        $_POST['mepr_coupon_code'] = get_field( "user_course_coupon", 'user_'. $aeneaUser->user->ID);
+
+                        $checkout_ctrl = MeprCtrlFactory::fetch('checkout');
+                        $result = $checkout_ctrl->process_signup_form($hasCoupon, true);
+
+                        if($result['success']){
+                            $resp->redirectURL = '/my-curriculum';
+                            $resp->status = true;
+                        }
+                    } else {
+                        $resp->status = true;
+                        $resp->html = $this->getResultsScreen();
+                    }
                 } else {
                     $id = (int) $post['next_question_id'];
     

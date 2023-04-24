@@ -309,4 +309,65 @@ class Curriculum
 
         return $html;
     }
+
+    public static function parseModulesData(){
+        $aeneaUser = new Aenea_User(wp_get_current_user());
+        $moduleList = array();
+
+        if($aeneaUser instanceof Aenea_User){
+            $allModules = $aeneaUser->quizModulesList;
+            $completionData = array();
+        
+            if( is_array($allModules) ){ 
+                foreach( $allModules as $k => $module ){
+                    $mid = $module['module_id'];
+
+                    if($mid){
+                        $type = get_post_type($mid);
+
+                        if($type !== 'sfwd-topic' && !array_key_exists($mid, $moduleList)){
+                            $moduleList[$mid] = array();
+                        } 
+
+                        if($type === 'sfwd-topic'){
+                            $meta = get_post_meta($mid, 'lesson_id');
+                            
+                            if(is_array($meta) && count($meta) > 0){
+                                $moduleList[$meta[0]][] = $mid;
+                            }
+                        }
+
+                        if($type === 'sfwd-lessons'){
+                            $args = array(
+                                'post_type' => 'sfwd-topic',
+                                'posts_per_page' => '-1',
+                                'meta_key' => 'lesson_id',
+                                'meta_value' => $mid,
+                                'order'          => 'ASC',
+                                'meta_compare' => '='
+                            );
+                
+                            $loop = new WP_Query($args);
+                
+                            if($loop->have_posts()){
+                                $moduleList[$mid] = array();
+
+                                foreach( $loop->posts as $post ){
+                                    $moduleList[$mid][] = $post->ID;
+
+                                    $completionData[$post->ID] = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if( is_array($completionData) ){
+                $aeneaUser->saveCompletionData($completionData); 
+            }
+        }
+
+        return $moduleList;
+    }
 }

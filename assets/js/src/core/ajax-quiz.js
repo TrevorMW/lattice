@@ -65,6 +65,7 @@ export default class AjaxQuiz {
 			})
 			.then((resp) => {
 				$(document).trigger('core:progress:hide');
+				debugger;
 
 				// replace question HTML
 				self.quiz.container.html(resp.html);
@@ -80,6 +81,17 @@ export default class AjaxQuiz {
 				const ajaxForm = new AjaxForm();
 				ajaxForm.setObservers();
 
+				if (resp.status) {
+					if(resp.pageRefresh || resp.redirectURL){
+						if (resp.redirectURL !== null) {
+							window.location = resp.redirectURL;
+						}
+						
+						if(resp.pageRefresh) {
+							location.reload();
+						}
+					} 
+				}
 			}).catch((err) => {
 
 			})

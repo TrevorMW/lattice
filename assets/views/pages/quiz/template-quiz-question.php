@@ -25,7 +25,8 @@ if(is_array($question)){ ?>
                 
                 <?php foreach( $question['q_selections'] as $q ){ 
                     
-                    $fieldSlug = sanitize_title($q['q_type_checkbox_title']);  ?> 
+                    $fieldSlug = sanitize_title($q['q_type_checkbox_title']); 
+                    $values = is_array($q['q_type_checkbox_value']) ? implode('|', $q['q_type_checkbox_value']) : $q['q_type_checkbox_value']  ?> 
                     
                     <div class="formControl formControlCheckbox">
                         <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
@@ -59,11 +60,12 @@ if(is_array($question)){ ?>
                 
                 <?php foreach( $question['q_selections'] as $q ){
                     
-                    $fieldSlug = sanitize_title($q['q_type_radio_range_title']);  ?> 
+                    $fieldSlug = sanitize_title($q['q_type_radio_range_title']);  
+                    $values = is_array($q['q_type_radio_range_value']) ? implode('|', $q['q_type_radio_range_value']) : $q['q_type_radio_range_value'] ?> 
                     
                     <div class="formControl formControlRadioRange">
                         <label for="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>">
-                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo implode('|', $q['q_type_radio_range_value']) ?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
+                            <div><input type="radio" name="question_<?php echo $question['q_idx'] ?>" value="<?php echo $values?>" id="question_<?php echo $question['q_idx'] ?>_<?php echo $fieldSlug ?>" required tabindex="<?php echo $i?>"></div>
                             <div><?php echo $q['q_type_radio_range_title'] ?></div>
                         </label>
                     </div>

@@ -8,7 +8,7 @@ if( is_array( $hero ) )
 
   if( $hero['add_cta'] )
   {
-    $link .= '<a href="'.$hero['cta_link'].'" class="btn ">'.$hero['cta_text'].'</a>';
+    $link .= '<a href="'.$hero['cta_link'].'" class="btn">'.$hero['cta_text'].'</a>';
   }
 
   $html .= '<div class="wrapper" data-hero data-hero-off="'.$hero['hero_turns_off'].'">';

@@ -50,17 +50,15 @@
 
 		$(document).on('core:popup:show', (e, data) =>  {
 			
-			if(!self.popup.el.hasClass('contentLoaded')){
-				self.loadContent(self.popup.id, (html) => {
-					if(html !== null){
-						self.populateContent(self.popup.title, html);
-					} else {
-						self.populateContent(self.popup.title, self.popup.content);
-					}
-					
-					$(document).trigger('core:popup:contentLoaded', { popup: self.popup.el });
-				});
-			} 
+			self.loadContent(self.popup.id, (html) => {
+				if(html !== null){
+					self.populateContent(self.popup.title, html);
+				} else {
+					self.populateContent(self.popup.title, self.popup.content);
+				}
+				
+				$(document).trigger('core:popup:contentLoaded', { popup: self.popup.el });
+			});
 
 			self.show();
 		});
@@ -93,7 +91,11 @@
 		
 		self.popup.el.removeClass('visible');
  		self.popup.el.removeClass('active');
+		self.popup.el.removeClass('contentLoaded');
 		self.popup.el.removeClass('popup-' + self.popup.id);
+		self.popup.el.find('[data-content]').html('');
+		self.popup.el.find('[data-title]').html('');
+
 		self.lockBody(false);
 	}
 
@@ -102,7 +104,7 @@
 	}
 
 	populateContent(title, content){
-		var self = this;
+		const self = this;
 
 		if( content !== null ){
 			self.popup.content = content;
@@ -121,6 +123,8 @@
 	}
 
 	loadContent(id, cb) {
+		const self = this;
+		
 		if(id !== null){
 			$.ajax({
 				url: core.ajaxUrl,
@@ -131,7 +135,7 @@
 				type:"POST",
 				dataType : "html",
 				success:function(html){
-					cb(html);
+					typeof cb === 'function' ? cb(html, self) : '' ;
 				}
 			})
 		}

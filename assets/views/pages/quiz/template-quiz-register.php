@@ -1,4 +1,4 @@
-<form data-ajax-form data-action="aenea_quiz">
+<form data-ajax-form data-no-progress data-action="aenea_quiz">
     <div data-form-msg></div>
 
     <input type="hidden" name="subaction" value="register" />
@@ -6,14 +6,14 @@
     <div class="formControl half">
         <label for="first">First Name:</label>
         <div class="formInput">
-            <input type="text" name="first_name" id="first" placeholder="First Name" required pattern="[a-zA-Z0-9]+" tabindex="1">
+            <input type="text" name="first_name" id="first" placeholder="First Name" required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" tabindex="1">
         </div>
     </div>
 
     <div class="formControl half last">
         <label for="Last">Last Name:</label>
         <div class="formInput">
-            <input type="text" name="last_name" id="last" placeholder="Last Name" required pattern="[a-zA-Z0-9]+" tabindex="2">
+            <input type="text" name="last_name" id="last" placeholder="Last Name" required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" tabindex="2">
         </div>
     </div>
 
@@ -44,19 +44,28 @@
         </div>
     </div>
 
+    <div class="formControl ">
+        <label for="coupon">Coupon Code: <span data-validation-msg></span></label>
+        <div class="formInput formInputCouponCode">
+            <i data-coupon-code-loader class="fa fa-fw fa-spin fa-spinner"></i>
+            <input type="text" name="coupon" id="coupon" tabindex="7" data-program-coupon-code="" data-program-coupon-product-id="4789" data-program-coupon-nonce="<?php echo wp_create_nonce('mepr_coupons');?>" pattern="[a-zA-Z0-9]+" placeholder="Coupon Code">
+        </div>
+    </div>
+
     <div class="formControl formControlCheckbox">
-         <label for="register_newsletter">
+        <label for="register_newsletter">
             <div><input type="checkbox" name="newsletter_signup" id="register_newsletter" tabindex="7"></div>
             <div>Please sign me up for Lattice Climbers’ newsletter!</div>
         </label>
     </div>
 
     <div class="formControl formControlCheckbox">
-         <label for="age_certification">
+        <label for="age_certification">
             <div><input type="checkbox" name="age_certification" id="age_certification" required tabindex="8"></div>
             <div>I certify that I am age 18 or over. If I am between the ages of 13-17, I am using this website with parental or guardian permission.</div>
         </label>
     </div>
+
 
     <div class="submitButton">
         <button type="submit" class="btn btn-primary btn-small" data-submit>Submit</button>

@@ -1,6 +1,7 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const yargs = require('yargs');
 
@@ -81,9 +82,10 @@ module.exports = {
     })
   ],
   optimization: {
-    minimize: false,
+    minimize: true,
     minimizer: [
-      new TerserPlugin()
+      new TerserPlugin(),
+      new CssMinimizerPlugin()
     ]
   }
 };

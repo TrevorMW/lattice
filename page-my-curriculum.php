@@ -10,9 +10,13 @@
 get_header(); the_post(); 
 
 $curr        = new Curriculum();
+// need to make sure we have modules saved to a user first
+$moduleList  = Curriculum::parseModulesData();
 $firstLesson = $curr->getInitialLesson();?>
 
 <div class="container flexed alignTop">
+
+  <?php if($moduleList){?> 
   <div class="primary curriculumPlayer" data-curriculum>
     <header>
       <h2><span class="introBlurp">Now Playing...</span><span data-lesson-title><?php echo $firstLesson->post->post_title; ?></span></h2>
@@ -42,6 +46,13 @@ $firstLesson = $curr->getInitialLesson();?>
       <?php echo $curr->getCurriculumModulesHTML(); ?>
     </div>
   </div>
+  <?php } else { ?> 
+    <div class="primary alignCenter">
+      <h5>Looks like you havent taken our quiz to generate a curriculum!</h5>
+      <br />
+      <a href="/quiz" class="btn btn-primary">TAKE QUIZ</a>
+    </div>
+  <?php } ?>
 </div>
 
 <?php 

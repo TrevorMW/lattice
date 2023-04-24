@@ -1,7 +1,7 @@
 <?php 
 
 // increment with every push to github to bust CSS and JS cache
-define('THEME_VERSION', '1.0.0.3');
+define('THEME_VERSION', '1.0.0.6');
 
 /**
  * @package WordPress
@@ -412,6 +412,7 @@ function getSignInForm() {
 }
 add_action( 'wp_ajax_nopriv_signin_form', 'getSignInForm' );
 add_action( 'wp_ajax_signin_form',        'getSignInForm' );
+
  
 /**
  * Log Out User
@@ -425,7 +426,7 @@ function signUserOut() {
   //wp_redirect( home_url() );
 
   $resp->redirectURL = home_url();
-  $resp->success     = true;
+  $resp->status      = true;
   $resp->pageRefresh = true;
 
   echo $resp->encodeResponse();
@@ -444,7 +445,7 @@ function logUserIn() {
   $continueLogin = true;
   $username      = $post['username'];
   $password      = $post['password'];
-  $resp          = new Ajax_Response($postData['action']);
+  $resp          = new Ajax_Response($post['action']);
 
   // Check email
   // $email = test_input($username);
@@ -489,6 +490,15 @@ function logUserIn() {
 }
 add_action( 'wp_ajax_nopriv_user_login', 'logUserIn' );
 add_action( 'wp_ajax_user_login',        'logUserIn' );
+
+
+function homepageQuizSignup(){
+  echo Template_Helper::loadView('quiz-register', '/assets/views/pages/quiz/');
+
+  die(0);
+}
+add_action( 'wp_ajax_nopriv_homepage_quiz_signup', 'homepageQuizSignup' );
+add_action( 'wp_ajax_homepage_quiz_signup',        'homepageQuizSignup' );
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

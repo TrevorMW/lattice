@@ -180,6 +180,21 @@ select{
         }
     }
 
+    &.hasError{
+        color:darkred;
+
+        & label span{
+            color:darkred;
+        }
+
+        & input,
+        & select,
+        & textarea{
+            border-color:red;
+            background-color:pink;
+        }
+    }
+
     @media only screen and (min-width:768px){
         display: inline-block;
         width:100%;
@@ -272,6 +287,23 @@ select{
 
 .vfb-item-submit{
     text-align:right;
+}
+
+.formInputCouponCode{
+    position: relative;
+
+    & i{
+        position: absolute;
+        right:14px;
+        top:50%;
+        transform: translateY(-50%);
+        color:green;
+    }
+}
+
+[data-validation-msg]{
+    color:#444;
+    font-size:.878rem;
 }
 
 [data-progress]{
