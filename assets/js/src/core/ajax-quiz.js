@@ -65,7 +65,6 @@ export default class AjaxQuiz {
 			})
 			.then((resp) => {
 				$(document).trigger('core:progress:hide');
-				debugger;
 
 				// replace question HTML
 				self.quiz.container.html(resp.html);

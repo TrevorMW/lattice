@@ -22,14 +22,19 @@
   & .popupBody{
     max-width:700px;
     width:100vw;
-    max-height:85vh;
-    overflow-y:scroll;
+    
+    
     margin: 0 auto;
     background-color:$cream;
     -webkit-box-shadow: 0px 0px 41px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 41px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 41px 0px rgba(0,0,0,0.25);
     opacity:0;
+  }
+
+  & [data-content]{
+    overflow-y:scroll;
+    max-height:72vh;
   }
 
   &.visible .popupBody{

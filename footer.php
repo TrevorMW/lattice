@@ -75,7 +75,7 @@
 		<div class="popupBody">
 			<header class="popupHeader">
 				<div class="popupTitle" data-title></div>
-				<div><a data-destroy>&times;</a></div>
+				<div><a data-destroy><i class="fa fa-times"></i></a></div>
 			</header>
 			<div class="popupContent" data-content>
 			</div>
