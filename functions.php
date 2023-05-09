@@ -1,7 +1,7 @@
 <?php 
 
 // increment with every push to github to bust CSS and JS cache
-define('THEME_VERSION', '1.0.1.0');
+define('THEME_VERSION', '1.0.1.2');
 
 /**
  * @package WordPress
