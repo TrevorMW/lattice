@@ -363,9 +363,9 @@ class Curriculum
                 }
             }
 
-            if( is_array($completionData) ){
-                $aeneaUser->saveCompletionData($completionData); 
-            }
+            // if(is_array($completionData) ){
+            //     $aeneaUser->saveCompletionData($completionData); 
+            // }
         }
 
         return $moduleList;
