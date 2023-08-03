@@ -47,6 +47,26 @@ class Curriculum
         add_action( 'wp_ajax_nopriv_load_modules', array($this, 'loadModules'));
         add_action( 'wp_ajax_load_modules',        array($this, 'loadModules'));
 
+        add_action( 'learndash_topic_completed', array($this, 'handleCompleteLibraryLessonCompletion'), 10, 1);
+    }
+
+    public function handleCompleteLibraryLessonCompletion($data){
+        $userID = $data['user']->ID;
+
+        if(is_int($userID)){
+            $topic   = $data['topic']->ID;
+            $user    = new Aenea_User($userID);
+
+            $completion = $user->getCompletionData();
+
+            if($topic){
+                $completion[$topic] = true;
+
+                $user->saveCompletionData($completion);
+            }
+        }
+        
+        
     }
 
     public function getCurriculumModulesHTML(){
@@ -362,10 +382,6 @@ class Curriculum
                     }
                 }
             }
-
-            // if(is_array($completionData) ){
-            //     $aeneaUser->saveCompletionData($completionData); 
-            // }
         }
 
         return $moduleList;
