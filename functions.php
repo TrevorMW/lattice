@@ -402,6 +402,13 @@ add_action( 'init', 'create_posttype' );
 
 //////////////////////////////////// THEME AJAX /////////////////////////////////////////
 
+function add_query_vars_filter( $vars ) {
+  $vars[] = "library_search_term";
+  return $vars;
+}
+add_filter( 'query_vars', 'add_query_vars_filter' );
+
+
 /**
  * load Sign Up Form
  */

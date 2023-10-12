@@ -41,8 +41,22 @@ class Library extends WP_ACF_CPT
     public function getAllLessons(){
         $html = '';
         $query = '';
-
+        $errors = [];
+        
         $paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+        $query = get_query_var( 'library_search_term' ) ? get_query_var( 'library_search_term' ) : false;
+
+        
+        // validate query input to prevent injection
+        if($query){
+            $query = trim(strip_tags($query));
+
+            if(!ctype_alnum($query)){
+                $errors[] = 'Your query could not be processed. Please try again.';
+            }
+        } else {
+            $errors[] = 'Please enter a search query.';
+        }
 
         $postsperpage = get_field('lesson_pagination_count', $this->post->ID);
         
@@ -53,6 +67,10 @@ class Library extends WP_ACF_CPT
             'paged'          => $paged
         );
 
+        if($query){
+            $args['s'] = $query;
+        }
+        
         $loop = new WP_Query($args);
 
         if($loop->have_posts()){

@@ -1,98 +1,135 @@
-.courseList{
-
-    & .entry-content{
-        text-align:center;
+.courseList {
+    & .entry-content {
+        text-align: center;
     }
 }
 
-.lessonCardGrid{
-    display:block;
+.lessonCardGrid {
+    display: block;
 
-    & .lessonCard{
+    & .lessonCard {
         display: block;
     }
 
     & .lessonCardImage,
-    & .lessonCardNoImage{
-        height:270px;
-        overflow:hidden;
-        background-image:linear-gradient($darkBlue, $aqua);
-        color:$cream;
-        max-width:none;
+    & .lessonCardNoImage {
+        height: 270px;
+        overflow: hidden;
+        background-image: linear-gradient($darkBlue, $aqua);
+        color: $cream;
+        max-width: none;
     }
 
-    & .lessonCardImage{
-        
-        & img{
-            height:100%;
+    & .lessonCardImage {
+        & img {
+            height: 100%;
             display: block;
-            min-width:100%;
+            min-width: 100%;
         }
     }
 
-    & .lessonCardNoImage{
-        
+    & .lessonCardNoImage {
         display: flex;
         align-items: center;
-        text-align:center;
+        text-align: center;
 
-        & img{
-            width:50%;
+        & img {
+            width: 50%;
             margin: 0 auto;
         }
     }
 
-    & .lessonCardContent{
-        background-color:$white;
-        padding:21px;
+    & .lessonCardContent {
+        background-color: $white;
+        padding: 21px;
 
-        & h2{
+        & h2 {
             font-size: 1.7rem;
             letter-spacing: 1px;
-            min-height:100px;
+            min-height: 100px;
         }
     }
 
-    & .btn{
+    & .btn {
         display: block;
-        width:100%;
-        padding:20px;
+        width: 100%;
+        padding: 20px;
         margin: 0;
     }
 
-    & .lessonCardContent{
-
-        & h2{
+    & .lessonCardContent {
+        & h2 {
             margin: 0;
         }
     }
 
-    @media only screen and (min-width:768px){
-        display:flex;
-        gap:28px 28px;
-        flex-wrap:wrap;
+    @media only screen and (min-width: 768px) {
+        display: flex;
+        gap: 28px 28px;
+        flex-wrap: wrap;
         justify-content: center;
 
-        [data-lesson-library] &{
+        [data-lesson-library] & {
             justify-content: space-between;
         }
 
-        & .lessonCard{
+        & .lessonCard {
             flex: 1 1 33%;
-            max-width:31%;
+            max-width: 31%;
         }
 
-        & .lessonCardNoImage{
-
-            & img{
-                height:auto;
-                min-width:0;
+        & .lessonCardNoImage {
+            & img {
+                height: auto;
+                min-width: 0;
             }
         }
 
-        & .lessonCardContent{
-            background-color:$white;
-            padding:21px;
+        & .lessonCardContent {
+            background-color: $white;
+            padding: 21px;
         }
+    }
+}
+
+.libraryToolbar {
+    display: block;
+
+    & .toolbarCourseSearch {
+        margin-bottom:40px;
+    }
+
+    @media only screen and (min-width: 768px) {
+        display: flex;
+        justify-content: space-between;
+        gap: 70px;
+        align-items: center;
+
+        & div {
+            flex: 1;
+        }
+
+        & .toolbarCourseSearch {
+            flex: 0 0 350px;
+            order:2;
+            margin:0;
+        }
+    }
+}
+
+
+.toolbarCourseSearch form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:14px;
+    margin-bottom:14px;
+
+    & .courseSearchInput{
+        flex: 1;
+    }
+
+    & .courseSearchSubmit{
+        flex: 0;
     }
 }
