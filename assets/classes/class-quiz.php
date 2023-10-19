@@ -351,6 +351,8 @@ class Quiz extends WP_ACF_CPT
                         }
                     }
 
+                    delete_post_meta($newUserID, 'quiz_answers');
+
                     $resp->status  = true;
                     $resp->message = 'User Created!';
                     $resp->redirectURL = '/quiz';
@@ -366,7 +368,8 @@ class Quiz extends WP_ACF_CPT
             $qid          = $post['current_id'];
             $questionResp = $post['question_' . $qid];
             
-            //returns either true for success or WP_Error for a problem.
+            // returns either true for success or WP_Error for a problem.
+            $this->saveQuizAnswerData($post);
             $result = $this->saveQuizQuestionData($qid, $post['question_' . $qid]);
 
             if($result instanceof WP_Error){
@@ -505,4 +508,40 @@ class Quiz extends WP_ACF_CPT
         return $result;
     }
 
+
+    public function saveQuizAnswerData($data){
+        $aeneaUser = new Aenea_User(wp_get_current_user());
+        $id = 'user_' . (int) $aeneaUser->user->ID;
+        $result = false;
+
+        if($aeneaUser !== null && !empty($data)){
+            $currentData = get_field('quiz_answers', $id);
+            
+            if(!$currentData){
+                $currentData = array();
+            }            
+
+            if($data){
+                $answers = explode('|', $data['question_answers']);
+                $newData = array(
+                    'quiz_question' => $data['question_text'],
+                    'quiz_question_answers' => array(),
+                );
+
+                if(count($answers) > 0 ){
+                    foreach($answers as $k => $answer){
+                        $newData['quiz_question_answers'][] = array(
+                            'quiz_answer' => $answer
+                        );
+                    }
+                }
+            }
+
+            $currentData[] = $newData;
+
+            $result = update_field('quiz_answers', $currentData, $id);
+        } 
+        
+        return $result;
+    }
 }

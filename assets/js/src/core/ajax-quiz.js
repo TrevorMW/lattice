@@ -8,7 +8,7 @@ import AjaxForm from './ajax-form';
 export default class AjaxQuiz {
 	constructor() {
 		this.quiz = {
-			container: null		
+			container: null	
 		};
 
 		this.init();
@@ -50,7 +50,35 @@ export default class AjaxQuiz {
 			$(document).trigger('core:progress:show');
 
 			self.loadNewQuestion(id, 'back');
-		});
+		});	
+
+		self.handleAnswerInput();
+	}
+
+	handleAnswerInput(){
+		const self = this;
+		const answerEl = $('[data-question-answers]');
+
+		if(answerEl.length > 0){
+			const inputs = $(self.quiz.container).find(':input:not([type=hidden]):not(button)');
+
+			if(inputs.length > 0){
+				inputs.on('click', function(e){
+					let answers = [];
+
+					inputs.each(function(){
+						const isChecked = $(this).is(':checked');
+
+						if(isChecked){
+							const el = $(this).closest('label').find('div:nth-child(2)');
+							const val = el.text().trim();
+							answers.push(val);
+							answerEl.val(answers.join("|"));
+						}
+					})
+				});
+			}
+		}
 	}
 
 	loadNewQuestion(id, direction){
@@ -79,6 +107,7 @@ export default class AjaxQuiz {
 				// Rebind AjaxForm
 				const ajaxForm = new AjaxForm();
 				ajaxForm.setObservers();
+				self.handleAnswerInput();
 
 				if (resp.status) {
 					if(resp.pageRefresh || resp.redirectURL){
@@ -96,4 +125,5 @@ export default class AjaxQuiz {
 			})
 		}
 	}
+
 }

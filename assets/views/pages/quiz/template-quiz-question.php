@@ -12,10 +12,12 @@ if(is_array($question)){ ?>
     <br />
     <form data-ajax-form data-action="aenea_quiz">
         <input type="hidden" name="subaction" value="question_response" />
+        <input type="hidden" name="question_text"     value="<?php echo $question['q_title'] ?>" />
         <input type="hidden" name="next_question_id"  value="<?php echo $question['q_next'] ?>" />
         <input type="hidden" name="prev_question_id"  value="<?php echo $question['q_prev'] ?>" />
         <input type="hidden" name="current_id"        value="<?php echo (int)$question['q_idx'] ?>" />
         <input type="hidden" name="question_type"     value="<?php echo $question['q_type'] ?>" />
+        <input type="hidden" name="question_answers"  data-question-answers />
 
         <div data-form-msg></div>
 

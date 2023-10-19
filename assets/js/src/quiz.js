@@ -13,7 +13,7 @@ import Accordion from './core/accordion';
       new AjaxFormWatcher();
       new Quiz();
       new PopupWatcher();
-      new FieldWatcher();  
+      new FieldWatcher();
       
       $(document).on('core:quiz:results', () => {
         new Accordion();
