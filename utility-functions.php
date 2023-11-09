@@ -170,9 +170,10 @@ add_filter('template_include', 'var_template_include', 1000);
  */
 function add_style_sheets()
 {
+  wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen');
+
   if (!is_admin()) {
     wp_enqueue_style('reset', get_template_directory_uri() . '/style.css', 'screen');
-    wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen');
     wp_enqueue_style(
       'googleFonts',
       '//fonts.googleapis.com/css?family=Open Sans:400,600,700|Noto Sans:400,600|Maven Pro:400,700&ver=1.0.0',
@@ -182,6 +183,8 @@ function add_style_sheets()
     // On login page only
     wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), THEME_VERSION, 'screen');
   }
+
+
 }
 add_action('wp_enqueue_scripts', 'add_style_sheets');
 
@@ -249,6 +252,30 @@ function add_javascript()
   }
 }
 add_action('wp_enqueue_scripts', 'add_javascript');
+
+
+function add_admin_javascript()
+{
+  global $post;
+  $app_base = get_template_directory_uri() . '/assets/js/build';
+  $depURL   = '/bundle.core.min.js';
+
+  if(is_admin()){
+    wp_enqueue_script(
+      'adminJS',
+      $app_base . '/bundle.admin.min.js',
+      array('jquery'),
+      THEME_VERSION,
+      null
+    );
+
+    wp_localize_script('adminJS', 'core', array(
+      'ajaxUrl' => 'admin-ajax.php'
+    ));
+  }
+}
+add_action('admin_enqueue_scripts', 'add_admin_javascript');
+
 
 /**
  *

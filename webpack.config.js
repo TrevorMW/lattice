@@ -15,7 +15,8 @@ module.exports = {
   entry: {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
     quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss'],
-    curriculum : ['/assets/js/src/curriculum.js', '/assets/css/src/style.scss']
+    curriculum : ['/assets/js/src/curriculum.js', '/assets/css/src/style.scss'],
+    admin: ['/assets/js/src/admin.js']
   },
   output: {
     filename: './assets/js/build/bundle.[name].min.js',
@@ -81,11 +82,11 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: ['./assets/js/build/*','./assets/css/build/*']
     })
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ]
-  }
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [
+  //     new TerserPlugin(),
+  //     new CssMinimizerPlugin()
+  //   ]
+  // }
 };

@@ -1,7 +1,7 @@
 <?php 
 
 // increment with every push to github to bust CSS and JS cache
-define('THEME_VERSION', '1.0.1.5');
+define('THEME_VERSION', '1.0.1.7');
 
 /**
  * @package WordPress
@@ -25,6 +25,7 @@ new Aenea_User();
 new Quiz();
 new Curriculum();
 new Homepage();
+new Dashboard_Widgets();
 
 /**
  * Load any needed body classes

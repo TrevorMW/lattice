@@ -46,11 +46,11 @@ export default class FormMsg{
         if ('message' in resp && resp.message !== null) {
             this.el.text(resp.message)
                     .addClass('active')
-                    .addClass(resp.status ? 'success' : 'error');
+                    .addClass(resp.status ? 'success notice-success' : 'error notice-error');
         }
     }
 
     hide(){
-        this.el.removeClass('active success error info').text('');
+        this.el.removeClass('active success error info notice-success notice-error').text('');
     }
 }

@@ -9,6 +9,7 @@ class Ajax_Response
   public $pageRefresh;
   public $html;
   public $redirectURL;
+  public $callback;
 
   /**
    * __construct function.
@@ -29,6 +30,7 @@ class Ajax_Response
     $this->pageRefresh = false;
     $this->html        = null;
     $this->redirectURL = null;
+    $this->callback    = null;
 
     if( $action != null )
       $this->action = $action;
@@ -50,7 +52,8 @@ class Ajax_Response
                                'action'      => $this->action,
                                'html'        => $this->html,
                                'pageRefresh' => $this->pageRefresh,
-                               'redirectURL' => $this->redirectURL ) );
+                               'redirectURL' => $this->redirectURL,
+                               'callback'    => $this->callback ) );
   }
 
   /**
