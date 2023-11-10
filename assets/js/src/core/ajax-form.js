@@ -140,8 +140,8 @@ export default class AjaxForm {
 				
 				this.formSuccess(resp);
 
-				if('callback' in resp.data && resp.data.callback){
-					$(document).trigger(resp.data.callback);
+				if('callback' in resp && resp.callback){
+					$(document).trigger(resp.callback);
 				}
 			},
 		});

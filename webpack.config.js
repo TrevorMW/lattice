@@ -82,11 +82,11 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: ['./assets/js/build/*','./assets/css/build/*']
     })
   ],
-  // optimization: {
-  //   minimize: true,
-  //   minimizer: [
-  //     new TerserPlugin(),
-  //     new CssMinimizerPlugin()
-  //   ]
-  // }
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin()
+    ]
+  }
 };

@@ -198,7 +198,7 @@ class Aenea_User extends WP_ACF_CPT
 
         $folderPath   = wp_upload_dir()['basedir'];
         $exportFolder = trailingslashit(  $folderPath . '/lattice-user-data-exports' );
-        $files     = array_slice(scandir($exportFolder), 2);
+        $files        = array_slice(scandir($exportFolder), 2);
 
         if(count($files) < 0){
             // do stuff
@@ -208,7 +208,7 @@ class Aenea_User extends WP_ACF_CPT
         } else {
             $fileHTML = '<ul>';
             foreach($files as $file){ 
-                $fullPath = get_site_url() . $exportFolder . $file;
+                $fullPath = trailingslashit(  wp_upload_dir()['baseurl'] . '/lattice-user-data-exports' ) . $file;
                 $fileHTML .= '<li><i class="fa fa-fw fa-download"></i>';
                 $fileHTML .= '<a href="' . $fullPath . '" download>' . $file . '</a>';
                 $fileHTML .= '</li>';
