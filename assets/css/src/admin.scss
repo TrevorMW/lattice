@@ -1,0 +1,43 @@
+@import './basics/variables';
+
+[data-form-msg]{
+    box-sizing: border-box;
+    border:0;
+}
+
+[data-ajax-form]{
+    position: relative;
+}
+
+[data-progress]{
+    display: block;
+    width:100%;
+    bottom:0;
+    position: absolute;
+    top:0;
+    left:0;
+    background-color:rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+table{
+    width:100%;
+
+    border-collapse: collapse;
+    border:1px solid #eee;
+
+    thead{
+        background-color:#ddd;
+    }
+
+    td,th{
+        padding:5px;  
+        text-align: left;
+    }
+}
+
+@import 'components/_loader';
+@import 'components/_progress';
+@import 'components/_form-msg';

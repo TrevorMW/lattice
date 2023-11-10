@@ -32,8 +32,8 @@ class Dashboard_Widgets{
 
         $html .= '<p>This widget will allow you to request a copy of all the user data in .xls or .csv format.</p>';
         $html .= '<br />';
-        $html .= '<form data-ajax-form data-action="generate_user_quiz_data">
-                    <div data-form-msg></div>
+        $html .= '<form data-ajax-form data-action="generate_user_quiz_data" data-no-progress>
+                    <div data-form-msg ></div>
                     <select name="file_type" style="line-height: 2.15;">
                         <option value="">Select a File Type</option>
                         <option value="CSV">CSV (Most versatile)</option>

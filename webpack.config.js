@@ -16,7 +16,7 @@ module.exports = {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
     quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss'],
     curriculum : ['/assets/js/src/curriculum.js', '/assets/css/src/style.scss'],
-    admin: ['/assets/js/src/admin.js']
+    admin: ['/assets/js/src/admin.js','/assets/css/src/admin.scss' ]
   },
   output: {
     filename: './assets/js/build/bundle.[name].min.js',

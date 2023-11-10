@@ -203,18 +203,26 @@ class Aenea_User extends WP_ACF_CPT
         if(count($files) < 0){
             // do stuff
             $resp->status = false;
-            $resp->message = 'No Generated Files present!';
-            
+            $resp->data = array('html' => '<p>No Generated Files present!<p>');
         } else {
-            $fileHTML = '<ul>';
+            $fileHTML = '<table>';
+            $fileHTML .= '<thead>';
+            $fileHTML .= '<th>File Name</th>';
+            $fileHTML .= '<th>Last Updated:</th>';
+            $fileHTML .= '<th></th>';
+            $fileHTML .= '</thead>';
             foreach($files as $file){ 
                 $fullPath = trailingslashit(  wp_upload_dir()['baseurl'] . '/lattice-user-data-exports' ) . $file;
-                $fileHTML .= '<li><i class="fa fa-fw fa-download"></i>';
-                $fileHTML .= '<a href="' . $fullPath . '" download>' . $file . '</a>';
-                $fileHTML .= '</li>';
+                $fileHTML .= '<tr>';
+                $fileHTML .= '<td>' . $file . '</td>';
+
+                $fileHTML .= '<td>' . date ("m/d/y g:i a", filemtime($exportFolder . $file)) . '</td>';
+                
+                $fileHTML .= '<td><a href="' . $fullPath . '" download><i class="fa fa-fw fa-cloud-download"></i></a></td>';
+                $fileHTML .= '</tr>';
             }
 
-            $fileHTML .= '</ul>';
+            $fileHTML .= '</table>';
 
             $resp->data = array('html' => $fileHTML);
             $resp->status = true;

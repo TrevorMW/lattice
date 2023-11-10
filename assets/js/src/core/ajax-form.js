@@ -36,15 +36,15 @@ export default class AjaxForm {
 		this.collectData();
 
 		if (this.confirmFormRequest()) {
-			if(!this.flags.showProgress){
+			if(this.flags.showProgress){
 				$(document).trigger('core:progress:show', { form: this.form.el, msg: 'Saving Data...' });
+			} else {
+				$(document).trigger('core:progress:hide');
 			}
 
 			this.makeRequest(this);
 		} else {
-			if(!this.flags.showProgress){
-				$(document).trigger('core:progress:hide');
-			}
+			$(document).trigger('core:progress:hide');
 		}
 	}
 
@@ -71,7 +71,11 @@ export default class AjaxForm {
 
 			ajaxForm.each((idx, el) => {
 				const form = $(el);
-				new Progress(form);
+				const showProgress = form.data('noProgress');
+
+				if(!showProgress){
+					new Progress(this.form);
+				}				
 			});
 		}
 
@@ -132,15 +136,16 @@ export default class AjaxForm {
 			action: this.form.action,
 			url: this.form.url,
 			data: this.data.formData + '&action=' + this.form.action,
-			success: (resp) => {
+			success: (response) => {
+				const resp = JSON.parse(response);
 
-				if(!this.flags.showProgress){
+				if(!self.flags.showProgress){
 					$(document).trigger('core:progress:hide');
 				}
 				
-				this.formSuccess(resp);
+				this.formSuccess(response);
 
-				if('callback' in resp && resp.callback){
+				if(resp?.callback){
 					$(document).trigger(resp.callback);
 				}
 			},
