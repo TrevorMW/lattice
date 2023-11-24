@@ -174,7 +174,7 @@ class Homepage
             'status'        => 'pending',
             'merge_fields'   => array(
               'TYPE' => 0,
-              'SOURCE' => 'Homepage Newsletter'
+              'SOURCE' => 'Homepage Newsletter',
             )
           ];
 

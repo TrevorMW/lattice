@@ -182,7 +182,7 @@ function add_style_sheets()
     wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), THEME_VERSION, 'screen');
   }
 
-
+  wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen');
 }
 add_action('wp_enqueue_scripts', 'add_style_sheets');
 

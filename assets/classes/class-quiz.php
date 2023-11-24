@@ -328,15 +328,16 @@ class Quiz extends WP_ACF_CPT
                             $listId = $settings->getGlobalSetting('mailchimp_signup_list_id');
 
                             if($listId != null){
-                                $email = $post['newsletter_email'];
+                                $email = $post['email'];
                                 $data = [
                                     'email_address' => $email,
                                     'status'        => 'pending',
                                     'merge_fields'  => array(
-                                        'FNAME'  => $post['first_name'],
-                                        'LNAME'  => $post['last_name'],
-                                        'TYPE'   => 1,
-                                        'SOURCE' => 'Quiz'
+                                        'FNAME'      => $post['first_name'],
+                                        'LNAME'      => $post['last_name'],
+                                        'TYPE'       => 1,
+                                        'SOURCE'     => 'Quiz',
+                                        'QUIZSTATUS' => 1 // Indicate that the user has started the quiz, but not finished it.
                                     )
                                 ];
 
@@ -400,6 +401,37 @@ class Quiz extends WP_ACF_CPT
                     // lets check for whether the user saved a coupon code when they first signed up
                     $aeneaUser = new Aenea_User(wp_get_current_user());
                     $hasCoupon = (bool) get_field( "user_signed_up_with_coupon", 'user_'. $aeneaUser->user->ID);
+
+                    // First, lets update the mailchimp data to indicate the user has finished the quiz.
+
+                    $settings = new Global_Settings();
+                    $apiKey  = $settings->getGlobalSetting('mailchimp_api_secret');
+                    $result  = null;
+
+                    if($apiKey != null){
+                        $mchmp  = new MailChimp($apiKey);
+                        $listId = $settings->getGlobalSetting('mailchimp_signup_list_id');
+
+                        if($listId != null){
+                            $email = $aeneaUser->user->user_email;
+                            $userHash = md5(strtolower($email));                            
+                            $data = [
+                                'email_address' => $email,
+                                'merge_fields'  => array(
+                                    'QUIZSTATUS' => 0 // Indicate that the user has started the quiz, but not finished it.
+                                )
+                            ];
+
+                            $endpoint = 'lists/' . $listId . '/members/' . $userHash;
+
+                            $result = $mchmp->put($endpoint, $data);
+                        }
+
+                    } else {
+                        $error = new WP_Error( 'apiKey', 'Could not authenticate with email provider. Please check site settings.');
+                        $resp->message = $error->get_error_message();
+                    }
+
 
                     // If they have one and it's valid, we will use that and assume it will make the signup free.
                     if($hasCoupon){
