@@ -49,3 +49,40 @@
         }
     }
 }
+
+
+
+/* HTML: <div class="ribbon">Your text content</div> */
+.ribbon {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+
+    @media only screen and (min-width:1024px){
+        font-size:28px;
+    }
+}
+
+.ribbon {
+    --s: 1.8em; /* the ribbon size */
+    --d: .8em;  /* the depth */
+    --c: .8em;  /* the cutout part */
+
+    line-height: 1.2;
+    padding:21px;
+    text-align: center;
+    background-color: $aqua; /* the main color */
+
+    @media only screen and (min-width:1024px){
+        padding: 14px calc(var(--s) + 2.2em) var(--d);
+        background:
+            conic-gradient(at left  var(--s) bottom var(--d),
+            #0000 25%,#0008 0 37.5%,#0004 0) 0   /50% 100% no-repeat,
+            conic-gradient(at right var(--s) bottom var(--d),
+            #0004 62.5%,#0008 0 75%,#0000 0) 100%/50% 100% no-repeat;
+        clip-path: polygon(0 var(--d), var(--s) var(--d),var(--s) 0,calc(100% - var(--s)) 0,calc(100% - var(--s)) var(--d),100% var(--d),calc(100% - var(--c)) calc(50% + var(--d)/2),100% 100%,calc(100% - var(--s) - var(--d)) 100%,calc(100% - var(--s) - var(--d)) calc(100% - var(--d)),calc(var(--s) + var(--d)) calc(100% - var(--d)),calc(var(--s) + var(--d)) 100%,0 100%,var(--c) calc(50% + var(--d)/2));
+        background-color: $aqua; /* the main color */
+        width: fit-content;
+        text-align: left;
+    }
+}

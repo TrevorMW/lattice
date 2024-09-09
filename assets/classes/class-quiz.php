@@ -301,12 +301,20 @@ class Quiz extends WP_ACF_CPT
                     
                     $hasCoupon = $post['coupon'] && $post['coupon'] !== '' ? true : false ;
 
-                    update_user_meta( $newUserID, "first_name", $post['first_name'] );
-                    update_user_meta( $newUserID, "last_name",  $post['last_name']  );
-                    update_user_meta( $newUserID, "user_signed_up_with_coupon", $hasCoupon);
+                    $acfUserID = 'user_' . $newUserID;
+
+                    update_user_meta( $newUserID, "first_name",  $post['first_name']);
+                    update_user_meta( $newUserID, "last_name",   $post['last_name']);
+
+                    update_field( "city", $post['city'],                    $acfUserID);
+                    update_field( "state", $post['state'],                  $acfUserID);
+                    update_field( "high_school", $post['high_school'],      $acfUserID);
+                    update_field( "user_signed_up_with_coupon", $hasCoupon, $acfUserID);
+
+                    update_field("user_signed_up_with_coupon", $hasCoupon, $acfUserID);
                     
                     if($hasCoupon){
-                        update_user_meta( $newUserID, "user_course_coupon", $post['coupon']);
+                        update_field("user_course_coupon", $post['coupon'], $acfUserID);
                     }
 
                     $loginResult = wp_signon(

@@ -143,6 +143,10 @@ body{
   &.flexed{
     display: block;
   }
+
+  &.centered{
+    text-align: center;
+  }
   
   @media only screen and (min-width:768px){
 
@@ -167,6 +171,11 @@ body{
 
     &.x-small{
       max-width:768px;
+    }
+
+    .certificatePage &{
+      max-width:1200px;
+      margin-bottom:21px;
     }
   }
 }

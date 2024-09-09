@@ -1,0 +1,57 @@
+.certificatePage{
+    margin-top:21px;
+
+    & canvas{
+        width:100%;
+    }
+
+    @media only screen and (min-width:768px){
+       
+        & canvas{
+            min-width:none;
+        }
+    }
+}
+
+
+.finishedBanner{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+
+    & h1{
+        text-transform:capitalize;
+        position: relative;
+        margin:0;
+
+    }
+
+    & .btn{
+        min-width:300px;
+        margin-top:-10px;
+    }
+
+    @media only screen and (min-width:1024px){
+        align-items:center;
+        flex-direction: row;
+        justify-content: space-between;
+        gap:21px;
+        margin-bottom:40px;
+
+        & h1{
+            padding-left:50px;
+
+            &:before{
+                font-size:60px;
+                content: '🎉';
+                position: absolute;
+                left:-30px;
+                top:50%;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    
+}

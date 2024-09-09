@@ -21,6 +21,7 @@ class Curriculum
     public $postID; 
     public $modulesList;
     public $completionData; 
+    public $isFinished;
 
     public function __construct(){
         $user = new Aenea_User(wp_get_current_user());
@@ -29,6 +30,7 @@ class Curriculum
             $this->user = $user;
             $this->modulesList = $this->hydrateModulesList($user->quizModulesList);
             $this->completionData = $user->completionData;
+            $this->isFinished = $this->isCurriculumFinished();
         }
 
         $this->registerAjax();
@@ -48,6 +50,44 @@ class Curriculum
         add_action( 'wp_ajax_load_modules',        array($this, 'loadModules'));
 
         add_action( 'learndash_topic_completed', array($this, 'handleCompleteLibraryLessonCompletion'), 10, 1);
+
+        add_action('init',  array($this, 'addOAuthRewrites'), 10, 1);
+        add_filter('template_include', array($this, 'addOauthTemplates'), 10, 1);
+    }
+
+	public function addOAuthRewrites()
+	{	
+		add_rewrite_rule('^curriculum-certificate?$', 'index.php?pagename=curriculum-certificate', 'bottom');
+	}
+
+	public function addOauthTemplates($template){
+		global $wp;
+        if ( stripos( $wp->request, 'curriculum-certificate' ) !== false ) {
+            $custom_template = locate_template('page-curriculum-certificate.php');
+    
+			if ( locate_template( 'page-curriculum-certificate.php' ) ) {
+				$template = locate_template( 'page-curriculum-certificate.php' );
+			} else {
+				// Template not found in theme's folder, use plugin's template as a fallback
+				$template = dirname( __FILE__ ) . '/templates/' . 'page-curriculum-certificate.php';
+			}
+        }
+
+        return $template;
+	}
+
+    public function isCurriculumFinished(){
+        $finished = true;
+
+        if($this->completionData){
+            foreach($this->completionData as $lessonFinished){
+                if(!$lessonFinished){
+                    break;
+                }
+            }
+        }
+
+        return $finished;
     }
 
     public function handleCompleteLibraryLessonCompletion($data){
