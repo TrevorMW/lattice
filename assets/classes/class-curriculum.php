@@ -77,11 +77,14 @@ class Curriculum
 	}
 
     public function isCurriculumFinished(){
-        $finished = true;
+        $finished = false;
 
         if($this->completionData){
             foreach($this->completionData as $lessonFinished){
-                if(!$lessonFinished){
+                if($lessonFinished){
+                    $finished = true;
+                } else {
+                    $finished = false;
                     break;
                 }
             }
