@@ -55,7 +55,7 @@
 			<div class="container">
 				<header class="page-header">
 					<h1 class="page-title" role="heading">
-						<?php echo $title ?>
+						<?php echo $title; ?>
 					</h1>
 				</header>
 			</div>	

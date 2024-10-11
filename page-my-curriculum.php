@@ -20,11 +20,11 @@ $isFinished = $curr->isFinished; ?>
   <div class="container">
     <div class="ribbon finishedBanner">
       <h1>You have Finished Your Curriculum!</h1>
-      <a href="/curriculum-certificate" class="btn btn-primary">View Your Certificate</a>
+      <a href="/exit-quiz" class="btn btn-primary">Get your Certificate</a>
     </div>
   </div>
 <?php } ?>
-<div class="container flexed alignTop">
+<div class="container flexed alignTop" data-exit-quiz-container>
 
   <?php if ($moduleList) { ?>
     <div class="primary curriculumPlayer" data-curriculum>

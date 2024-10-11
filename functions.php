@@ -26,6 +26,7 @@ new Quiz();
 new Curriculum();
 new Homepage();
 new Dashboard_Widgets();
+new Exit_Quiz();
 
 /**
  * Load any needed body classes

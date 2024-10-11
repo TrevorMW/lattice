@@ -71,6 +71,21 @@
     cursor:not-allowed;
   }
 
+  &.hasLoader{
+   
+    & i{
+      display:none;
+    }
+  }
+
+  &.loading{
+
+    & i{
+      display: inline-block;
+      margin-right:12px;
+    }
+  }
+
   .inlineForm &{
     border-radius:0;
     padding:11px 14px 10px;
@@ -152,7 +167,8 @@
   }
 }
 
-[data-quiz-container]{
+[data-quiz-container],
+[data-exit-quiz-container]{
   position: relative;
     
   & [data-quiz-back]{

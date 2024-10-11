@@ -1,18 +1,14 @@
 .certificatePage{
-    margin-top:21px;
 
     & canvas{
         width:100%;
     }
-
-    @media only screen and (min-width:768px){
-       
-        & canvas{
-            min-width:none;
-        }
-    }
 }
 
+.certificateImage{
+    margin-top:40px;
+    max-width:1000px;
+}
 
 .finishedBanner{
     position: relative;
@@ -24,7 +20,6 @@
         text-transform:capitalize;
         position: relative;
         margin:0;
-
     }
 
     & .btn{
@@ -52,7 +47,5 @@
                 transform: translateY(-50%);
             }
         }
-    }
-
-    
+    }  
 }

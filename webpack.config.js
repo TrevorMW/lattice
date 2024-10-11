@@ -3,6 +3,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
+
 const yargs = require('yargs');
 
 const webpack = require('webpack');
@@ -16,7 +18,8 @@ module.exports = {
     core : ['./assets/js/src/main.js', '/assets/css/src/style.scss'], 
     quiz : ['./assets/js/src/quiz.js', '/assets/css/src/style.scss'],
     curriculum : ['/assets/js/src/curriculum.js', '/assets/css/src/style.scss'],
-    admin: ['/assets/js/src/admin.js','/assets/css/src/admin.scss' ]
+    admin: ['/assets/js/src/admin.js','/assets/css/src/admin.scss' ],
+    exit: ['./assets/js/src/exitQuiz.js'],
   },
   output: {
     filename: './assets/js/build/bundle.[name].min.js',
@@ -24,16 +27,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      },
       {
         test: /\.(sass|scss)$/,
         use: [ 
@@ -64,7 +57,11 @@ module.exports = {
         generator: {
           filename: 'static/img/[name][ext]'
         }
-      }
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
     ]
   },
   plugins: [
@@ -80,13 +77,15 @@ module.exports = {
 
     new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['./assets/js/build/*','./assets/css/build/*']
-    })
+    }),
+
+    new VueLoaderPlugin(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin(),
-      new CssMinimizerPlugin()
-    ]
-  }
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [
+  //     new TerserPlugin(),
+  //     new CssMinimizerPlugin()
+  //   ]
+  // }
 };

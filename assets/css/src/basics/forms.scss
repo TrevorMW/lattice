@@ -18,6 +18,11 @@ fieldset{
         display: flex;
     }
 
+    [data-quiz-container] &{
+        max-width:85%;
+        margin: 0 auto;
+    }
+
     @media only screen and (min-width:768px){
 
         [data-quiz-container] &{
@@ -132,7 +137,8 @@ select{
         margin-bottom:7px;
         
         & label{
-            display: flex;
+            display: inline-flex;
+            min-width:300px;
         }
 
         & label div{
@@ -148,7 +154,7 @@ select{
     .formControlInlineInputs &.formControlRadio{
         
         & label{
-            display: inline-flex;
+            display:flex;
         }
 
         & label div{

@@ -69,7 +69,8 @@ p{
     line-height:22px;
   }
   
-  [data-quiz-container] &{
+  [data-quiz-container] &,
+  [data-exit-quiz-container] & {
     text-align: center;
   }
 
@@ -235,7 +236,8 @@ h4{
     font-size:1.4rem;
   }
 
-  [data-quiz-container] &{
+  [data-quiz-container] &
+  [data-exit-quiz-container] &{
     text-align: center;
   }
 
@@ -247,6 +249,10 @@ h4{
       margin-top:0;
       
     }
+  }
+
+  .exitQuizQuestion &{
+    text-transform: none;
   }
 
   @media only screen and (min-width:768px){

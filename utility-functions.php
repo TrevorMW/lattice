@@ -203,6 +203,7 @@ function load_custom_wp_admin_style()
  */
 function add_javascript()
 {
+  global $wp;
   global $post;
   $app_base = get_template_directory_uri() . '/assets/js/build';
   $depURL   = '/bundle.core.min.js';
@@ -246,6 +247,17 @@ function add_javascript()
       'deps'    => array($app_base . $depURL)
     ));
 
+    if(stripos( $wp->request, 'exit-quiz' ) !== false){
+      $depURL = '/bundle.exit.min.js';
+
+      wp_enqueue_script(
+        'exitQuiz',
+        get_template_directory_uri() . '/assets/js/build' . $depURL,
+        array('jquery'),
+        THEME_VERSION,
+        null
+      );
+    }
     
   }
 }

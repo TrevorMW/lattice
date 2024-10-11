@@ -400,7 +400,8 @@ main{
   }
 }
 
-[data-quiz-container]{
+[data-quiz-container],
+[data-exit-quiz-container]{
 
   & .courseUnlockCTA{
     text-align:center;
@@ -409,7 +410,6 @@ main{
       line-height: 1.5;
     }
   }
-  
  
   @media only screen and (min-width:768px){
     &.resultsPage{
@@ -435,3 +435,18 @@ main{
   }
 }
 
+[data-exit-quiz-container]{
+  max-width:85%;
+  margin: 0 auto;
+}
+
+.exitQuizQuestion{
+  border-bottom:1px solid darken($cream, 5%);
+  margin: 0 auto 21px;
+
+}
+
+.exitQuizAnswers{
+  max-width:70%;
+  margin: 0 auto 0;
+}
