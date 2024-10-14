@@ -13,7 +13,8 @@ export const exitQuizStore = defineStore('exitQuizStore', {
             questions: [],
             quizData: [],
             currentQuestion: null,
-            currentQuestionIndex: 0
+            currentQuestionIndex: 0,
+            isLoading: false
         }
     },
     actions: {
@@ -26,7 +27,10 @@ export const exitQuizStore = defineStore('exitQuizStore', {
             return axios.post(core.ajaxUrl, data).then((resp) => {
                 if (resp.status === 200 && resp.data) {
                     Object.assign(this, {...resp.data.data});
-                    this.loaded = true;
+                    
+                    setTimeout(() => {
+                        this.loaded = true;
+                    }, 1000)
                 }
 
                 return resp;
@@ -46,11 +50,11 @@ export const exitQuizStore = defineStore('exitQuizStore', {
             })
         },
         async submitAnswer(data) {
-            this.loaded = false;
+            this.isLoading = true;
             data.append('action', 'submit_exit_quiz_answer');
 
             return axios.post(core.ajaxUrl, data).then((resp) => {
-                this.loaded = true;
+                this.isLoading = false;
                 return resp;
             })
         },

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, defineProps, ref, onUpdated } from 'vue';
+import { computed, defineProps, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { exitQuizStore } from '../stores/exitQuiz';
 
@@ -8,6 +8,8 @@ const emits = defineEmits(['answerSubmitted'])
 
 const {
     loaded,
+    isLoading,
+    userPassed,
     currentQuestion
 } = storeToRefs(eqStore);
 
@@ -18,10 +20,7 @@ const props = defineProps({
         type: Object, 
         required: true
     },
-    isLoading: {
-        type: Boolean, 
-        required: true
-    }
+
 });
 
 const questionID = computed(() => {
@@ -32,16 +31,6 @@ const questionID = computed(() => {
 const submitAnswer = () => {
     emits('answerSubmitted', { form: questionForm.value, id:  props.question.questionPost.ID })
 }
-
-// onUpdated(() => {
-//     const radios = questionForm.value.querySelector('input[type="radio"]');
-
-//     if(radios){
-//         radios.forEach((val) => {
-//             console.log(val)
-//         })
-//     }
-// })
 </script>
 
 <template>
@@ -63,7 +52,7 @@ const submitAnswer = () => {
         <fieldset class="questionSubmit">
             <hr />
             <div class="submitButton">
-                <button type="submit" class="btn btn-primary btn-small"><span v-if="isLoading"><i class="fa fa-fw fa-spinner fa-spin"></i></span>Submit</button>
+                <button type="submit" class="btn btn-primary btn-small"><span v-if="isLoading"><i class="fa fa-fw fa-spinner fa-spin"></i>&nbsp;&nbsp;</span>Submit</button>
             </div>
         </fieldset>
     </form>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted, watch, nextTick, onUpdated } from 'vue';
 import { storeToRefs } from 'pinia';
 import { exitQuizStore } from '../stores/exitQuiz';
 import Cert from '../../core/cert.js';
@@ -52,14 +52,11 @@ onMounted(() => {
     eqStore.loadData()
 });
 
-watch(userPassed, (val) => {
-    nextTick(() => {
-        if(val){
-            const canv = document.querySelector('[data-certificate-canvas]')
-            new Cert();
-        }
-    });
-})
+onUpdated(() => {
+    if(loaded && userPassed){
+        new Cert();
+    }
+});
 </script>
 
 <template>
@@ -76,7 +73,6 @@ watch(userPassed, (val) => {
     <!-- If we've started and the quiz isnt finished, assume were rendering a question -->
     <div v-if="loaded && isStarted && !isFinished" class="">
         <QuestionForm :question="currentQuestion" 
-                      :isLoading="transition.value"
                       @answerSubmitted="submitAnswer"/>
     </div>
 
