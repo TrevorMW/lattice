@@ -228,8 +228,12 @@ select{
     }
 }
 
-.exitQuizQuestion .formControl .formControlRadioRange label{
-    min-width:300px;
+.exitQuizAnswers .formControl.formControlRadio label{
+    min-width:450px;
+}
+
+.formControlInlineRangeInputs .formControlRadioRange{
+    text-align:center;
 }
 
 .inlineInputs{
