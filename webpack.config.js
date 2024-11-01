@@ -81,11 +81,11 @@ module.exports = {
 
     new VueLoaderPlugin(),
   ],
-  // optimization: {
-  //   minimize: true,
-  //   minimizer: [
-  //     new TerserPlugin(),
-  //     new CssMinimizerPlugin()
-  //   ]
-  // }
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin(),
+      new CssMinimizerPlugin()
+    ]
+  }
 };
