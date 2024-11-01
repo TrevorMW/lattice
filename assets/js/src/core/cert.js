@@ -60,12 +60,6 @@ export default class Certificate {
             const txtWidth = ctx.measureText(self.name);
             ctx.fillText(self.name, ((width/2) - (txtWidth.width/2)), (height/2));
 
-            ctx.font = '8px Helvetica Neue Light';
-            const certifiedTxt = 'Certified for 3 Volunteer Hours';
-            const certifiedTxtWidth = ctx.measureText(certifiedTxt);
-            ctx.fillText(certifiedTxt, ((width/2) - (certifiedTxtWidth.width/2)), (height - 30));
-
-
             self.setDownloadUrl();
         });
     }
