@@ -138,7 +138,6 @@ select{
         
         & label{
             display: inline-flex;
-            min-width:300px;
         }
 
         & label div{
@@ -148,6 +147,14 @@ select{
                 flex:0 0 35px;
                 text-align:left;
             }
+        }
+    }
+
+    &.formControlCheckbox{
+        
+        & label{
+            display: inline-flex;
+            min-width:300px;
         }
     }
 
@@ -219,6 +226,10 @@ select{
             float:right;      
         }
     }
+}
+
+.exitQuizQuestion .formControl .formControlRadioRange label{
+    min-width:300px;
 }
 
 .inlineInputs{
