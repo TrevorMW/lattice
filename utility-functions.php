@@ -179,7 +179,7 @@ function add_style_sheets()
     );
 
     // On login page only
-    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css?v=' . time(), array(), THEME_VERSION, 'screen');
+    wp_enqueue_style('main', get_template_directory_uri() . '/assets/css/build/core.min.css', array(), THEME_VERSION, 'screen');
   }
 
   wp_enqueue_style('fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', 'screen');
@@ -248,7 +248,7 @@ function add_javascript()
     ));
 
     if(stripos( $wp->request, 'exit-quiz' ) !== false){
-      $depURL = '/bundle.exit.min.js?v=' . time();
+      $depURL = '/bundle.exit.min.js';
 
       wp_enqueue_script(
         'exitQuiz',
